@@ -1,0 +1,44 @@
+*,
+*::before,
+*::after{
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html{
+  font-size: 62.5%;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body{
+  font-weight: 300;
+  line-height: 1.6; 
+  /*$gray-4*/
+  color: rgb(100, 100, 100);
+  background: rgb(240, 240, 240);
+  /*background: rgb(230, 230, 230);*/
+}
+
+::selection {
+    background: #08546c;
+    color: #fff;
+}
+
+/*022534*/
+a:link,
+a:visited{
+  text-decoration: none;
+}
+
+li{
+  list-style: none;
+}
+
+.container{
+  max-width: 114rem;
+  margin: 0 auto;
+}
+
+
