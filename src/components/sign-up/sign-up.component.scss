@@ -1,0 +1,49 @@
+@import '../../scss/main.scss';
+.signup-form{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	background: $light;
+	box-shadow: 0 3px 10px rgba($dark, .2);
+	padding: 1.5rem 2rem;
+	border-radius: 5px;
+
+	& >:last-child{
+		margin-top: 1rem;
+	}
+
+	.header-4,
+	.header-3{
+		text-align: center;
+		flex: 0 1 100%;
+	}
+	.header-4{
+		font-weight: 600;
+		font-family: 'Architects Daughter', cursive;
+		color: $secondary;
+	}
+
+	.header-3{
+		text-align: center;
+		color: $gray;
+	}
+	.form{
+		&__group{
+			height: 5.7rem;
+			min-width: 15rem;
+			flex: 0 1 49%;
+
+			&.large{
+				min-width: unset;
+				flex: 0 1 100%;
+			}
+		}
+		&__feedback{
+			margin-left: 1rem;
+			display: none;
+			&.has-feedback{
+				display: unset;
+			}
+		}
+	}
+}

@@ -1,0 +1,59 @@
+@import '../../scss/main.scss';
+.form-input{
+	position: relative;
+	&__field{
+		width: 100%;
+		padding: .9rem 1rem;
+		border-radius: 3.5px;
+		background: transparent;
+		border: 1px solid $light-10;
+		font-family: inherit;
+		color: inherit;
+		outline: 0;
+		transition: border .5s;
+		position: relative;
+		z-index: 20;
+		&:focus{
+			border-color: rgba($secondary, .8);
+		}
+		&:focus ~ .form-input__label{
+			opacity: 1;
+			visibility: visible;
+		}
+		&:focus ~ .form-input__label--2{
+			opacity: 0;
+			visibility: hidden;
+		}
+		&.active{
+			border-color: $danger;
+		}
+	}
+	&__label{
+		@include position(absolute, -.7rem, unset, unset, .5rem);
+		background: $light;
+		color: rgba($secondary, .8);
+		font-weight: 600;
+		padding: 0 .5rem;
+		z-index: 100;
+		transition: all .5s;
+		opacity: 0;
+		visibility: hidden;
+		font-size: 9px;
+		&.has-value{
+			opacity: 1;
+			visibility: visible;
+		}
+	
+	}
+	&__label--2{
+		@include position(absolute, 25%, unset, unset, 1rem);
+		transition: all .5s;
+		z-index: 10;
+		font-weight: 500;
+		font-size: 1.3rem;
+		&.has-value{
+			opacity: 0;
+			visibility: hidden;
+		}
+	}
+}

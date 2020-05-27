@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import Header from './components/header/header.component'
 import Homepage from './pages/homepage/homepage.component'
-import Signup from './pages/auth/signup/signup.component'
+import SignInAndUp from './pages/auth/sign-in-and-up.component'
 
 import './App.css';
 
@@ -13,7 +13,7 @@ function App() {
     	<Header />
     	<Switch>
 	    	<Route exact path='/' component={ Homepage } />
-	    	<Route path='/signup' component={ Signup } />
+	    	<Route path='/signin' component={ SignInAndUp } />
     	</Switch>
     </div>
   );
