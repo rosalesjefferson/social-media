@@ -1,48 +1,71 @@
 import { auth, firestore}  from './firebase.utils.js'
 
-export const createUserProfileDocument = async (userAuth, additionalData) =>{
+export const createUserProfile = async (userAuth, additionalData) =>{
   if(!userAuth) return
 
-  // reference of fetch data
-  // long version
-  // const userReference = firestore.collection('users').doc(userAuth.uid)
-
-  //reference
-  // const userReference = firestore.collection('users')
-  // get collection ref using .data userReference.get(). This returns a object of .empty, size and docs(which is our all of the unique with object each id)
-  // we can check if a documents inside a collectionRef is empty by using .empty..
-
-  // short version
-  // docReference is use to get, set, update or delete data. We use this as a reference
-
   const userDocReference = firestore.doc(`users/${userAuth.uid}`)
-  
-  // wait for the userDocReference to get the userAuth.uid
-  // snapshoptObject was get from userDocReference and use get() method request
+
   const snapShot = await userDocReference.get()
-  // userReference.get().data() is use to get the data object
 
-  // we can also add collections using collectionRef and add() method request
+  // await userProfileDocReference.collection('friends').doc('BNJru1HWFVjgTjN0TAQ8').update({
+  //   id: 'UGH',
+  //   test: 'FUCKKKKKKKKKKKKKKKK'
+  // })
 
-  // snapshot is a collection of data
-  // check if the user is exist in users collection database
+  // const now = new Date
+  //  await userProfileDocReference.collection('friends').add({
+  //   id: userAuth.uid,
+  //   test: 'test add friends',
+  //   created_at: now
+  //  })
+
+
+  // const ref = userProfileDocReference.collection('friends')
+  // get object
+  // .get() will get an object in our collection that has different properties. One of the property is called docs.
+  // docs has an array of objects. Each of the object has data of our database. In order to get the data, we will use data(). but we need to iterate first in our docs in order for us to use the data().
+  // collection.get()
+  // const userSnap = await ref.get()
+  // const postSnap = await = refPost.get()
+  // userSnap.docs.map(doc => {console.log(doc, 'friends')})
+
+  // Create profile if user not exists
   if(!snapShot.exists){
-    // get the displayName and email of currentUser and also the date that the data is created
-    const { displayName, email } = userAuth 
-    const created_at = new Date();
-
-    // if the user is not exist, the code below will run and create a new user information to users collection database
+    const created_at = new Date().toLocaleString("en-US", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
     try{
       await userDocReference.set({
-        displayName,
-        email,
         created_at,
+        userId: userAuth.uid,
         ...additionalData
       })
     } catch(error){
       console.log('Error Creating user', error.message)
     }
   }
-  // return user reference so we can use user Reference in some parts of our code, component or use to do other things
-  return userDocReference
-} 
+
+  return userDocReference 
+}
+
+export const getFriendLists = async (userDocReference) =>{
+  const userFriendsDocReference = userDocReference.collection('friends')
+  const snapShot = await userFriendsDocReference.get()
+  const friendLists = await snapShot.docs.map(doc => doc.data())
+  return friendLists
+}
+
+export const getCurrentUser = () =>{
+  return new Promise((resolve, reject) =>{
+    const unsubscribe = auth.onAuthStateChanged(userAuth =>{
+      unsubscribe();
+      resolve(userAuth)
+    }, reject)
+  })
+}
+
+
+// https://medium.com/@aaron_lu1/firebase-cloud-firestore-add-set-update-delete-get-data-6da566513b1b

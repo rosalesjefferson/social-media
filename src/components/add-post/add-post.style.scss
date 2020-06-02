@@ -1,0 +1,55 @@
+@import '../../scss/main.scss';
+
+.add-post__container{
+	background: $light;
+	margin-bottom: 2rem;
+	border-radius: 5px;
+	border: 1px solid $light-4;
+	overflow: hidden;
+	.header-5{
+		background: $light-2;
+		padding: .8rem 1rem;
+		border-bottom: 1px solid $light-4;
+	}
+	.add-post{
+		&__form{
+		}
+
+		&__form-group{
+			display: grid;
+		}
+
+		&__form-input{
+			border: none;
+			padding: 1rem;
+			color: inherit;
+			resize: none;
+			&:focus{
+				outline: none;
+			}
+		}
+		&__button-container{
+			display: grid;
+			grid-template-columns: repeat(2, max-content);
+			justify-content: space-between;
+			padding:  1rem;
+		}
+		&__button{
+			padding: .7rem 1.5rem;
+			border-radius: 5px;
+			cursor: pointer;
+			background: $secondary;
+			opacity: .9;
+			border: none;
+			color: $light;
+			font-weight: 600;
+			transition: all .5s;
+			&:hover{
+				opacity: 1;
+			}
+			&:focus{
+			 outline: none;
+			}
+		}
+	}
+}

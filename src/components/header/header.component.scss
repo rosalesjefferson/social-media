@@ -2,9 +2,10 @@
 
 .header{
 	background: $light;
-	box-shadow: 0 2px 0 rgba($primary, .3);
+	box-shadow: 0 2px 0 rgba($secondary, .5);
 	position: relative;
-	z-index: 100;
+	z-index: 9999;
+	padding: 0 3rem;
 
 	.container{
 		position: relative;
@@ -15,11 +16,11 @@
 		grid-template-columns: repeat(2, max-content);
 		justify-content: space-between;
 		align-items: center;
-		padding: 2rem 0;
+		padding: 1rem 0;
 	}
 
 	&__logo{
-		font-size: 3.5rem;
+		font-size: 2.5rem;
 	    font-family: 'Architects Daughter', cursive;
 	    font-weight: 600;
 		color: $secondary;
@@ -29,42 +30,36 @@
 		postiion: relative;
 		display: grid;
 		grid-template-columns: repeat(3, max-content);
-		grid-gap: 2rem;
+		align-items: center;
+		grid-gap: 1rem;
 		transition: all .5s;
 	}
 
 	&__nav-item{
-		transition: border-bottom .5s;
-		border-bottom: 1px solid transparent;
 		&:hover{
-			border-color: $secondary;
 			.header__nav-link{
 				color: $secondary;
+				text-shadow: 0 3px 5px rgba($secondary, .2);
 			}
 		}
 	}
 
 	&__nav-link{
-		font-size: 2rem;
+		font-size: 1.3rem;
+	    font-family: 'Architects Daughter', cursive;
+		letter-spacing: .1rem;
 		color: inherit;
-		transition: color .5s;
+		transition: all .5s;
 		font-weight: 600;
-    	font-family: 'Architects Daughter', cursive;
-		text-shadow: 5px 5px 10px rgba($dark, .15);
+		.fa-home{
+			font-size: 2.5rem;
+		}
 	}
 
 	&__nav-button-container{
-		border-bottom: 1px solid transparent;
 		transition: border .5s;
 		display: grid;
-		align-content: center;
-
-		&.active{
-			border-color: $secondary;
-		}
-
 		&:hover{
-			border-color: $secondary;
 				.fas{
 					color: $secondary;
 				}
@@ -73,26 +68,46 @@
 
 	&__nav-button{
 		cursor: pointer;
-
 		.fas{
 			transition: color .5s;
-			font-size: 2rem;
+			font-size: 1.6rem;
+			font-weight: 600;
+			&.active{
+				color: $secondary;
+			}
 		}
 	}
 
 	&__dropdown{
-		@include position(absolute, unset, 0, -6rem, unset);
+		@include position(absolute, unset, 0, -5.5rem, unset);
 		display: grid;
 		background: $light;
-		padding: 1rem 2rem;
 		box-shadow: 0 5px 10px rgba($dark, .2);
 		border: 1px solid $light-3;
 		transition: all .5s;
 		opacity: 0;
 		visibility: hidden;
+		z-index: 1000;
+		padding: .5rem 0;
+		grid-gap: .5rem;
 		&.active{
 			opacity: 1;
 			visibility: visible;
+		}
+	}
+
+	&__dropdown-link{
+		font-weight: 600;
+		color: inherit;
+		transition: all .5s;
+		cursor: pointer;
+	    font-family: 'Architects Daughter', cursive;
+	    letter-spacing: .1rem;
+		font-size: 1.1rem;
+		padding: 0 2rem;
+		&:hover{
+			color: $secondary;
+			text-shadow: 0 3px 5px rgba($secondary, .2);
 		}
 	}
 }

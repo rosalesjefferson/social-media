@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+import { selectCurrentUser } from '../../redux/user/user.selectors'
+import { signOutStart } from '../../redux/user/user.actions'
 
 import './header.component.scss'
 
-const Header = () => {
+const Header = ({ currentUser, signOutStart }) => {
 	const [hidden, setHidden] = useState(false)
 
  	useEffect(() => {
@@ -30,22 +34,37 @@ const Header = () => {
 					<Link to='/' className='header__logo-container'>
 						<p className='header__logo'>WeConnect</p>
 					</Link>
+					{  currentUser ? 
 					<ul className='header__nav-lists'>
-						<li className='header__nav-item'><Link to='/' className='header__nav-link'>Home</Link></li>
-						<li className='header__nav-item'><Link to='/' className='header__nav-link'>Jefferson</Link></li>
+						<li className='header__nav-item'><Link to='/' className='header__nav-link'><i className="fas fa-home"></i></Link></li>
+						<li className='header__nav-item'><Link to='/signup' className='header__nav-link'>Jefferson</Link></li>
 						<div className={ `${ hidden ? 'active' : '' } header__nav-button-container` }>
 							<span onClick={ handleClick } className='header__nav-button'>
-								<i className="fas fa-chevron-down header__nav-icon"></i>
+								<i className={ `${ hidden ? 'active' : '' } fas fa-caret-down` }></i>
 							</span>
 							<div className={ `header__dropdown ${ hidden ? 'active' : '' }` }>
-								<li className='header__nav-item'><Link to='/signin' className='header__nav-link'>Sign In</Link></li>
-								<li className='header__nav-item'><Link to='/signin' className='header__nav-link'>Sign Out</Link></li>
+								<Link to='/' className='header__dropdown-link'>Profile</Link>
+								<div onClick={ signOutStart } className='header__dropdown-link'>Sign Out</div>
 							</div>
 						</div>
 					</ul>
+					: null
+				}
 				</nav>
 			</div>
 		</header>
 )}
 
-export default Header
+const mapStateStateToProps = (state) =>({
+	currentUser: selectCurrentUser(state)
+})
+
+const mapToDispatch = (dispatch) => ({
+	signOutStart: () => dispatch(signOutStart())
+})
+
+export default connect(mapStateStateToProps, mapToDispatch)(Header)
+
+ // <li to='/' className='header__nav-item'><div className='header__nav-link'>Timeline</div></li>
+	// 							    <li to='/' className='header__nav-item'><div className='header__nav-link'>Settings</div></li>
+	// 								<li onClick={ signOutStart } className='header__nav-item'><div className='header__nav-link'>Sign Out</div></li>

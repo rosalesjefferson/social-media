@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+import { signInStart } from '../../redux/user/user.actions'
 
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
 
 import './sign-in.component.scss'
 
-const SignIn = () =>{
+const SignIn = ({ signInStart }) =>{
 	const [userCredentials, setCredentials] = useState({ 
 		email: '', 
 		password: ''
@@ -21,6 +24,9 @@ const SignIn = () =>{
 
 	const handleSubmit = (e) =>{
 		e.preventDefault()
+
+		signInStart({ email, password })
+
 		setCredentials({ 
 			email: '', 
 			password: ''
@@ -53,10 +59,14 @@ const SignIn = () =>{
 				<p className='form__feedback'>asdasdasdGgy</p>
 			</div>
 			<div className='form__button-container'>
-				<Link to='/signin' className='form__button-instead'>Sign up instead</Link>
-				<CustomButton>Sign In</CustomButton>
+				<Link to='/signup' className='form__button-instead'>Sign up instead</Link>
+				<CustomButton type='submit'>Sign In</CustomButton>
 			</div>
 		</form>
 )}
 
-export default SignIn
+const mapsDispatchToProps = dispatch => ({
+	signInStart: (userCredentials) => dispatch(signInStart(userCredentials))
+})
+
+export default connect(null, mapsDispatchToProps)(SignIn)

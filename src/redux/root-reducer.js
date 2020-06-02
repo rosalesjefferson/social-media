@@ -44,7 +44,9 @@ import { combineReducers } from 'redux'
 // we need to create our store.js file and store combineReducer so we can use all of our reducer in our component
 
 import userReducer from './user/user.reducer'
+import crudReducer from './crud/crud.reducer'
 
 export default combineReducers({
-	user: userReducer
+	user: userReducer,
+	posts: crudReducer
 })
