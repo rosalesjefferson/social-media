@@ -1,0 +1,33 @@
+@import '../../scss/main.scss';
+.add-comment__form{
+	display: grid;
+	grid-template-columns: 90% 1fr;
+	.add-comment{
+		&__input,
+		&__button{
+			border: none;
+			color: inherit;
+			padding: 1.5rem 1rem;
+			border-radius: 5px;
+			&:focus{
+				outline: none;
+			}
+		}
+
+		&__input{
+			padding-right: 0;
+		}
+
+		&__button{
+			color: $semi-light;
+			cursor: pointer;
+			background: transparent;
+			font-weight: 600;
+			transition: all .5s;
+			padding: 1.5rem 1rem;
+			&.active{
+				color: $secondary;
+			}
+		}
+	}
+}

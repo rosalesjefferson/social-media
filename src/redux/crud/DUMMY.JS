@@ -2,32 +2,26 @@ import { takeLatest, put, all, call } from 'redux-saga/effects';
 
 import { firestore } from '../../firebase/firebase.utils'
 import { getCurrentUser } from '../../firebase/firebase.utils.user'
-import { getPosts, 
-		getImageUrl, 
-		getCurrentUserInfo, 
-		addCommentToPost, 
-		postToDelete,
-		saveEditCaption
-	} from '../../firebase/firebase.crud.utils'
+import { getPosts, getComments, getImageUrl, getCurrentUserInfo, addCommentToPost } from '../../firebase/firebase.crud.utils'
 
 import crudTypes from './crud.types'
 import { 
 			fetchPostsSuccessful, 
 			fetchPostsFailure,
 
-			addPostFailure,
-			editCaptionFailure,
+			addPostSuccess,
+			addPostFailure ,
 
-			addCommentFailure,
-
-			deletePostFailure
+			addCommentSuccess,
+			addCommentFailure
 		} from './crud.actions'
 
 export function* getLatestPosts(){
 	const postsCollectionRef = firestore.collection('posts')
 	try{
+		const currentUser = yield getCurrentUser()
 		const snapShot = yield postsCollectionRef.get()
-		const { posts, friends } = yield call(getPosts, snapShot)
+		const { posts, friends } = yield call(getPosts, snapShot, currentUser)
 		yield put(fetchPostsSuccessful({ posts, friends }))
 	}catch(err){
 		yield put(fetchPostsFailure(err.message))
@@ -37,6 +31,8 @@ export function* getLatestPosts(){
 export function* fetchPosts(){
 	try{
 		 yield getLatestPosts()
+		//  const { posts, friends } = yield getLatestPosts()
+		// yield put(fetchPostsSuccessful({ posts, friends }))
 	}catch(err){
 		yield put(fetchPostsFailure(err.message))
 	}
@@ -73,43 +69,31 @@ export function* addPost({ payload: { post, imageObject } }){
 			firstName,
 			lastName,
 			postUID: userSnapshot.id,
-			comments: [],
-			likes:[]
+			comments: []
 
 		})
 
+		// const { posts, friends } = yield getLatestPosts()
+		// yield put(addPostSuccess({ posts, friends }))
 	}catch(err){
 		yield put(addPostFailure(err.message))
-	}
-}
-
-export function* editCaption({ payload }){
-	const postsCollectionRef = firestore.doc(`posts/${payload.postItemId}`)
-	try{
-		yield saveEditCaption(postsCollectionRef, payload)
-	}catch(err){
-		yield put(editCaptionFailure(err.message))
 	}
 }
 
 export function* addComment({ payload }){
 	try{
 		yield call(addCommentToPost, payload)
+		// const { posts, friends } = yield getLatestPosts()
+		// yield put(addCommentSuccess({ posts, friends }))
 	}catch(err){
 		yield put(addCommentFailure(err.message))
 	}
+
+
+	// FIREBASE TIPS LINK
+	// https://www.freecodecamp.org/news/heres-what-i-wish-i-knew-before-i-started-using-firebase-9110d393e193/
+
 }
-
-export function* deletePost({ payload: { postItemId } }){
-	const postsCollectionRef = firestore.doc(`posts/${postItemId}`)
-	try{
-		yield postToDelete(postsCollectionRef)
-	}catch(err){
-		yield put(deletePostFailure(err.message))
-	}
-}
-
-
 
 export function* onFetchPostsStart(){
 	yield takeLatest(crudTypes.FETCH_POSTS_START, fetchPosts)
@@ -119,24 +103,14 @@ export function* onAddPostsStart(){
 	yield takeLatest(crudTypes.ADD_POST_START, addPost)
 }
 
-export function* onEditCaptionStart(){
-	yield takeLatest(crudTypes.EDIT_CAPTION_START, editCaption)
-}
-
 export function* onAddCommentStart(){
 	yield takeLatest(crudTypes.ADD_COMMENT_START, addComment)
-}
-
-export function* onDeletePostStart(){
-	yield takeLatest(crudTypes.DELETE_POST_START, deletePost)
 }
 
 export function* crudSagas() {
 	yield all([
 				call(onFetchPostsStart),
 				call(onAddPostsStart),
-				call(onAddCommentStart),
-				call(onDeletePostStart),
-				call(onEditCaptionStart)
+				call(onAddCommentStart)
 			])
 }

@@ -1,0 +1,21 @@
+@import '../../scss/main.scss';
+.comment__item{
+	display: grid;
+	grid-template-columns: repeat(2, max-content);
+	align-items: center;
+	grid-gap: .5rem;
+	background: $light-2-medium;
+	border-radius: 20rem;
+	padding: 0 1rem;
+	height: 3.5rem;
+	.comment{
+		&__item-name{
+			font-weight: 500;
+			font-size: 1.3rem;
+		}
+		&__item-comment{
+			font-weight: 400;
+			font-size: 1.2rem;
+		}
+	}
+}

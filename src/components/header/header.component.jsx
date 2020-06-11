@@ -25,8 +25,7 @@ const Header = ({ currentUser, signOutStart }) => {
 			setHidden(false)
 		}
 	}
-
-	console.log('Header rendered!', hidden)
+	console.log('header component')
 	return(
 		<header className='header'>
 			<div className='container'>
@@ -37,7 +36,12 @@ const Header = ({ currentUser, signOutStart }) => {
 					{  currentUser ? 
 					<ul className='header__nav-lists'>
 						<li className='header__nav-item'><Link to='/' className='header__nav-link'><i className="fas fa-home"></i></Link></li>
-						<li className='header__nav-item'><Link to='/signup' className='header__nav-link'>Jefferson</Link></li>
+						<li className='header__nav-item'><Link to='/signup' className='header__nav-link timeline'>
+							<figure className='header__nav-link-image-container'>
+								<img className='header__nav-link-image' src={ currentUser.currentUserAvatarUrl } alt='header' />
+							</figure>
+							<span className='header__nav-link-image-name'>{currentUser.firstName}</span>
+						</Link></li>
 						<div className={ `${ hidden ? 'active' : '' } header__nav-button-container` }>
 							<span onClick={ handleClick } className='header__nav-button'>
 								<i className={ `${ hidden ? 'active' : '' } fas fa-caret-down` }></i>

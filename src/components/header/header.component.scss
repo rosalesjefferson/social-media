@@ -55,7 +55,28 @@
 			font-size: 2.5rem;
 		}
 	}
+	//https://www.google.com/search?q=avatar+placeholder&sxsrf=ALeKk00oMwcNxRQF3WevHW5mJDuf3k8sgA:1591210100633&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjds77Gp-bpAhVWPHAKHUOOAckQ_AUoAXoECA8QAw&biw=1536&bih=754#imgrc=Am_mx_eGSGVaSM
+	//IMAGES IN LINK
+	&__nav-link.timeline{
+		display: flex;
+		align-items: center;
+	}
+	&__nav-link-image-container{
+		width: 3rem;
+		height: 3rem;
+		border-radius: 50%;
+		overflow: hidden;
+		margin-right: .5rem;
+		box-shadow: 0 0 2px rgba($dark, .3);
+	}
 
+	&__nav-link-image{
+		width: 100%;
+		height: 100%;
+		transform: scale(1.25);
+	}
+
+	//BUTTONS
 	&__nav-button-container{
 		transition: border .5s;
 		display: grid;

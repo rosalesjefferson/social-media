@@ -45,8 +45,10 @@ import { combineReducers } from 'redux'
 
 import userReducer from './user/user.reducer'
 import crudReducer from './crud/crud.reducer'
+import toggleReducer from './toggle/toggle.reducer'
 
 export default combineReducers({
 	user: userReducer,
-	posts: crudReducer
+	posts: crudReducer,
+	toggle: toggleReducer
 })

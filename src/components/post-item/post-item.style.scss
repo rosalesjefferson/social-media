@@ -1,5 +1,88 @@
 @import '../../scss/main.scss';
-.posts__container{
+
+.post-item__container{
 	background: $light;	
 	border-radius: 5px;
+	border: 1px solid $light-6;
+	position: relative;
+	.post{
+		&__item-header{
+
+		}
+
+		&__item-header-user-info{
+			display: grid;
+			grid-template-columns: repeat(2, max-content) 1fr;
+			align-items: center;
+			grid-gap: 1.5rem;
+		}
+
+		&__item-header-user-info{
+			padding: 1rem;
+			padding-bottom: .5rem;
+		}
+
+		&__item-header-user-image-container{
+			width: 4rem;
+			height: 4rem;
+			border-radius: 50%;
+			overflow: hidden;
+			box-shadow: 0 0 2px rgba($dark, .4);
+		}
+
+		&__item-header-user-image{
+			width: 100%;
+			height: 100%;
+		}
+
+		&__item-header-user-name-container{
+			display: grid;
+			line-height: 1.3rem;
+		}
+
+		&__item-header-user-name{
+			font-size: 1.3rem;
+			color: $gray;
+			letter-spacing: .1px;
+		}
+
+		&__item-header-user-email{
+			font-size: 1rem;
+			letter-spacing: .5px;
+			font-weight: 500;
+			color: $gray-4;
+		}
+
+
+
+		// post image
+		&__item-image-container{
+			margin-top: 1rem;
+		}
+		&__item-image{
+			width: 100%;
+		}
+		//reaction buttons
+		&__item-reaction-buttons-container{
+
+		}
+		//caption
+		&__item-caption-container{
+			display: flex;
+			padding: 0 1rem 0 1rem;
+		}
+
+		&__item-caption{
+			color: $gray;
+			font-size: 1.3rem;
+			font-weight: 500;
+			margin-left: .4rem
+		}
+		&__item-caption-user-name{
+			font-size: 1.3rem;
+			color: $gray;
+			font-weight: 500;
+			letter-spacing: .1px;
+		}
+	}
 }

@@ -2,10 +2,11 @@ import React from 'react'
 
 import './comment-item.style.scss'
 
-const CommentItem = () =>(
-	<li className='comment__item'>
-		<p>asdasdasd</p>
-	</li>
+const CommentItem = ({ firstName, lastName, comment }) =>(
+		<li className='comment__item'>
+			<p className='comment__item-name'>{ firstName } { lastName }: </p>
+			<p className='comment__item-comment'>{ comment }</p>
+		</li>
 )
 
 export default CommentItem

@@ -4,7 +4,7 @@
 	background: $light;
 	margin-bottom: 2rem;
 	border-radius: 5px;
-	border: 1px solid $light-4;
+	border: 1px solid $light-6;
 	overflow: hidden;
 	.header-5{
 		background: $light-2;
@@ -24,26 +24,52 @@
 			padding: 1rem;
 			color: inherit;
 			resize: none;
+			font-family: inherit;
 			&:focus{
 				outline: none;
 			}
 		}
 		&__button-container{
 			display: grid;
-			grid-template-columns: repeat(2, max-content);
-			justify-content: space-between;
 			padding:  1rem;
+			display: flex;
+			align-items: center;
+		}
+		&__image-file{
+			display: none;
+		}
+		&__label{
+			cursor: pointer;
+			padding: .8rem 1.3rem;
+			background: $light-3;
+			border-radius: 20rem;
+			font-weight: 600;
+			transition: all .5s;
+			&.location{
+				margin-left: 1rem;
+			}
+			&:hover{
+				background: $light-5;
+			}
+		}
+
+		&__icon{
+			margin-right: 5px;
 		}
 		&__button{
 			padding: .7rem 1.5rem;
 			border-radius: 5px;
 			cursor: pointer;
-			background: $secondary;
+			background: $semi-light;
 			opacity: .9;
 			border: none;
 			color: $light;
 			font-weight: 600;
 			transition: all .5s;
+			margin-left: auto;
+			&.active{
+				background: $secondary;
+			}
 			&:hover{
 				opacity: 1;
 			}

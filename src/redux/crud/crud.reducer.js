@@ -1,9 +1,10 @@
 import crudTypes from './crud.types'
 
 const INITIAL_STATE = {
-	posts: [],
+	posts: null,
+	friends: [],
 	isFetching: false,
-	error: null
+	error: null,
 }
 
 const crudReducer = (state=INITIAL_STATE, action) =>{
@@ -15,16 +16,16 @@ const crudReducer = (state=INITIAL_STATE, action) =>{
 		}
 
 		case crudTypes.FETCH_POSTS_SUCCESS:
-		case crudTypes.ADD_POST_SUCCESS:
 		return{
 			...state,
-			posts: [ ...action.payload ],
-			isFetching: true,
-			error: null
+			posts:  {...state.posts, ...action.payload.posts},
+			friends: [ ...state.friends, ...action.payload.friends ],
+			isFetching: true
 		}
 
 		case crudTypes.FETCH_POSTS_FAILURE:
 		case crudTypes.ADD_POST_FAILURE:
+		case crudTypes.EDIT_CAPTION_FAILURE:
 		return{
 			...state,
 			error: action.payload,

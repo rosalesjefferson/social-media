@@ -1,0 +1,43 @@
+@import '../../scss/main.scss';
+.post__dropdown{
+	&-buttons-container{
+		@include position(absolute, 4rem, 1rem, unset, unset);
+		background: $light;
+		display: grid;
+		grid-gap: 1rem;
+		padding: 1rem;
+		box-shadow: 0 0 5px rgba($dark, .3);
+		transition: all .5s;
+		opacity: 0;
+		visibility: hidden;
+		&.active{
+			opacity: 1;
+			visibility: visible;
+		}
+		&:hover{
+			box-shadow: 0 0 20px rgba($dark, .3);
+		}
+	}
+
+	&-button{
+		cursor: pointer;
+		color: $dark-9;
+		font-weight: 500;
+		transition: all .5s;
+		font-size: 1.3rem;
+		.far{
+			font-size: 1.6rem;
+		}
+		&:hover{
+			&.edit{
+				color: $secondary;
+			}
+			&.hide{
+				color: orange;
+			}
+			&.delete{
+				color: $danger;
+			}
+		}
+	}
+}

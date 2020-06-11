@@ -1,0 +1,16 @@
+@import '../../scss/main.scss';
+.post{
+	&__item-header-button-container{
+		justify-self: end;
+	}
+	&__item-header-button{
+		cursor: pointer;
+		.fas{
+			font-size: 2rem;
+			transition: all .5s;
+			&:hover{
+				color: $secondary;
+			}
+		}
+	}
+}

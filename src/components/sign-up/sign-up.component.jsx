@@ -28,8 +28,12 @@ const SignUp = ({ signUpStart }) =>{
 	const handleSubmit = (e) =>{
 		e.preventDefault()
 
-		if(password !== confirmPassword){
+		if(password !== confirmPassword ){
 			alert(`password don't match`)
+			return
+		}
+		if(password.length < 6){
+			alert('Password must be at least 6 characters')
 			return
 		}
 

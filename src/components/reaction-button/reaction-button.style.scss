@@ -1,0 +1,44 @@
+@import '../../scss/main.scss';
+.reaction-button-container{
+	.reaction{
+		&__buttons{
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			justify-items: center;
+			grid-gap: 1rem;
+			border: 1px solid $light-9;
+			border-right: none;
+			border-left: none;
+			padding: 1rem 0;
+		}
+		&__button{
+			cursor: pointer;
+			margin-bottom: 3px;
+			.far{
+				font-size: 2.5rem;
+				transition: all .5s;
+				&:hover{
+					color: $secondary;
+				}
+			}
+		}
+		&__likes-container{
+			display: grid;
+			grid-gap: 1rem;
+			grid-template-columns: 1fr repeat(3, max-content);
+			margin-bottom: 1rem;
+			align-items: center;
+		}
+
+		&__likes{
+			font-size: 1.4rem;
+			font-weight: 600;
+			color: $gray;
+			font-weight: 500;
+			.far{
+			color: $secondary;
+			}
+
+		}
+	}
+}

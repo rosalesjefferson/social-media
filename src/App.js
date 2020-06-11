@@ -22,7 +22,7 @@ function App({ checkUserSessionStart, currentUser }) {
     <div className="App">
     	<Header />
     	<Switch>
-	    	<Route exact path='/' component={ currentUser ? Homepage : SignInAndUp } />
+        <Route exact path='/' component={ currentUser ? Homepage : SignInAndUp } />
         <Route 
                path='/signin' 
                render={ () => currentUser ? (<Redirect to='/' />) : (<SignInAndUp />) } 
@@ -47,3 +47,30 @@ const mapsDispatchToProps = (dispatch) =>({
 
 
 export default connect(mapsStateToProps, mapsDispatchToProps)(App);
+
+
+  
+// <Route exact path='/' component={ currentUser ? Homepage : SignInAndUp } />
+//         <Route 
+//                path='/signin' 
+//                render={ () => currentUser ? (<Redirect to='/' />) : (<SignInAndUp />) } 
+//         />
+//         <Route 
+//                path='/signup' 
+//                render={ () => currentUser ? (<Redirect to='/' />) : (<SignUp />) } 
+//         />
+
+
+
+
+
+
+        //  <Route 
+        //        exact path='/' component={ Homepage } 
+        // />
+        // <Route 
+        //        path='/signin' component={ SignInAndUp } 
+        // />
+        // <Route 
+        //        path='/signup' component={ SignUp } 
+        // />
