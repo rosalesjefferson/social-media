@@ -52,6 +52,19 @@ export const getCurrentUser = () =>{
 }
 
 
+export const getAllUsers = async () =>{
+  const usersCollectionRef = firestore.collection('users')
+  const snapShot = await usersCollectionRef.get()
+
+  const users = await snapShot.docs.map(doc =>{
+    return{
+      id: doc.id,
+      ...doc.data()
+    }
+  })
+  return users
+}
+
 
 
 

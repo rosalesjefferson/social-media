@@ -1,61 +1,30 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { firestore } from '../../firebase/firebase.utils'
+import React from 'react'
 
-import { fetchPostsStart, fetchPostsSuccessful } from '../../redux/crud/crud.actions'
-import { selectPostsWithFriends, selectUID } from '../../redux/crud/crud.selectors'
-
+import Posts from '../../components/posts/posts.component'
 import AddPost from '../../components/add-post/add-post.component'
-import PostItem from '../../components/post-item/post-item.component'
+import Suggestions from '../../components/suggestions/suggestions.component'
+import PreviewProfile from '../../components/preview-profile/preview-profile.component'
 
 import './homepage.component.scss'
 
-const Hompage = ({ fetchPostsStart, fetchPostsSuccessful, posts, currentUID }) =>{
-	useEffect(() =>{
-		const postsLists = async() =>{
-			const postCollectionRef = firestore.collection('posts')
-		    postCollectionRef.onSnapshot(snapShot =>{
-				snapShot.docChanges().forEach(realtimeData =>{
-					if(realtimeData.type ==='added' || realtimeData.type ==='modified' || realtimeData.type === 'removed'){
-						fetchPostsStart()
-						console.log(realtimeData.type, 'type')
-					}
-				})
-			})
-		}
-		postsLists()
-	}, [fetchPostsStart])
-
-	console.log('homepage')
+const Hompage = ({ fetchPostsStart, fetchUsersStart, posts, currentUID, friends }) =>{
+	console.log('HOMEPAGE COMPONENT!!!!!!!!!!')
 	return(
 	<div className='homepage'>
 		<div className='container'>
-			<div className='newsfeed__container'>
+			<div className='newsfeed-container'>
 				<AddPost />
-				{
-					posts.map(post  =>(
-						<PostItem key={ post.id } currentUID={ currentUID } posts={ post } />
-					))
-				}
-			</div>
-			<div className='friends-suggestion-container'>
-				<h1> FRIENDS </h1>
-			</div>
+				<Posts />
+			</div>	
+		<div className='suggestions-preview-profile-container'>
+			<PreviewProfile />
+			<Suggestions />
+		</div>
 		</div>
 	</div>
 )}
 
-const mapsDispatchToProps = dispatch => ({
-	fetchPostsStart: () => dispatch(fetchPostsStart()),
-	fetchPostsSuccessful: (posts) => dispatch(fetchPostsSuccessful(posts))
-})
-
-const mapsStateToProps = (state) => ({
-	posts: selectPostsWithFriends(state),
-	currentUID: selectUID(state)
-})
-
-export default connect(mapsStateToProps, mapsDispatchToProps)(Hompage)
+export default Hompage
 
 
 // rules_version = '2';

@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
-
 
 import PostDropdown from '../post-dropdown/post-dropdown.component'
-import { updatePostDropdownVisibility } from '../../redux/toggle/toggle.actions'
 
 import './post-item-header-buttons.style.scss'
 
-const PostItemHeaderButtons = ({updatePostDropdownVisibility, ...otherProps }) =>{
+const PostItemHeaderButtons = ({ ...otherProps }) =>{
 	const [isHidden, setIsHidden] = useState(false)
 	useEffect(() =>{
-		document.addEventListener('click', (e) =>{
-			if(!e.target.closest('.post__item-header-button')){
-				setIsHidden(false)
-			}
-		})
+		let unsubscribed = false
+		if(!unsubscribed){
+			document.addEventListener('click', (e) =>{
+				if(!e.target.closest('.post__item-header-button')) setIsHidden(false)
+			})
+		}
+
+		// cleanup function or unmount in class
+		return () => { unsubscribed = true }
 	}, [isHidden])
 
 	const handleClick = () =>{
@@ -23,7 +24,7 @@ const PostItemHeaderButtons = ({updatePostDropdownVisibility, ...otherProps }) =
 
 	const setHiddenToFalse = () =>{
 		setIsHidden(false)
-	}
+	}	
 	return(
 			<div className='post__item-header-button-container'>
 				<div className='post__item-header-button'>
@@ -39,8 +40,4 @@ const PostItemHeaderButtons = ({updatePostDropdownVisibility, ...otherProps }) =
 		)
 }
 
-const mapsDispatchToProps = dispatch => ({
-	updatePostDropdownVisibility: () => dispatch(updatePostDropdownVisibility())
-})
-
-export default React.memo(connect(null, mapsDispatchToProps)(PostItemHeaderButtons))
+export default React.memo(PostItemHeaderButtons)

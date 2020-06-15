@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { editCaptionStart } from '../../redux/crud/crud.actions'
@@ -7,8 +7,22 @@ import './edit-post-caption.style.scss'
 
 const EditPostCaption = ({postItemId, post, isModalHidden, passHandleClickEdit, editCaptionStart }) =>{
 	const [caption, setCaption] = useState(post)
-	// const [isHidden, setIsHidden] = useState(false)
 	const [isSpinnerHidden, setSpinner] = useState(false)
+
+	useEffect(() =>{
+		let unsubscribed = false
+		if(!unsubscribed){
+			if(caption === post){
+				setTimeout(() =>{
+					passHandleClickEdit()
+					setTimeout(() =>{
+						setSpinner(false)
+					}, 500)
+				}, 500)
+			}
+		}
+		return () => { unsubscribed = true }
+	}, [post, passHandleClickEdit])
 
 	const handleChange = (e) =>{
 		const value = e.target.value
@@ -21,22 +35,17 @@ const EditPostCaption = ({postItemId, post, isModalHidden, passHandleClickEdit, 
 		setSpinner(true)
 	}
 
-	const match = useMemo(() =>{
-		if(caption === post){
-			setSpinner(false)
-			setTimeout(() =>{
-				passHandleClickEdit()
-			}, 2)
-		}
-	}, [post])
+	const hideSpinner = () =>{
+		passHandleClickEdit()
+	}
 
-	console.log(isModalHidden, 'caption component')
+
 	return(
 		<div className={ `edit-post-caption__outside-background ${isModalHidden ? 'active' : ''}`}>
 			<div className='edit-post-caption__container'>
-				<h5 className='header-5 edit-post-caption__title'>Edit Caption</h5>
-				<div className={ `edit-post-caption__spinner-container ${isSpinnerHidden ? 'active' : '' }` }>
-					<span className='edit-post-caption__spinner'></span>
+				<div className='edit-post-caption__header-container'>
+					<h5 className='header-5 edit-post-caption__title'>Edit Caption</h5>
+					<span className='edit-post-caption__close-button'><i onClick={ hideSpinner } className="fas fa-times"></i></span>
 				</div>
 				<form onSubmit={ handleSubmit } className='edit-post-caption__form'>
 				<div className='edit-post-caption__form-group'>
@@ -47,7 +56,13 @@ const EditPostCaption = ({postItemId, post, isModalHidden, passHandleClickEdit, 
 						type='text' 
 						className='edit-post-caption__input' 
 					></textarea>
-					<button type='submit' className={ `edit-post-caption__button ${caption.length > 0 ? 'active' : ''}` }>Save</button>
+					<button type='submit' className={ `edit-post-caption__button 
+							${caption.length > 0 ? 'active' : ''}
+							${isSpinnerHidden ? 'hidden' : ''} 
+					`}>Save</button>
+					<div className={ `edit-post-caption__spinner-container ${isSpinnerHidden ? 'active' : '' }` }>
+						<span className='edit-post-caption__spinner'></span>
+					</div>
 				</div>
 				</form>
 			</div>

@@ -38,3 +38,20 @@ export const signOutSuccess = () =>({
 export const signOutFailure = () =>({
 	type: userTypes.SIGN_OUT_FAILURE
 })
+
+
+// FETCH USERS ACTION
+
+export const fetchUsersStart = () =>({
+	type: userTypes.FETCH_USERS_START
+})
+
+export const fetchUsersSuccess = (users) =>({
+	type: userTypes.FETCH_USERS_SUCCESS,
+	payload: users
+})
+
+export const fetchUsersFailure = (err) =>({
+	type: userTypes.FETCH_USERS_FAILURE,
+	payload: err
+})

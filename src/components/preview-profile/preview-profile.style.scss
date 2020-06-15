@@ -1,0 +1,40 @@
+@import '../../scss/main.scss';
+.preview-profile-container{
+	display: grid;
+	grid-template-columns: 5rem 1fr;
+	align-items: center;
+	grid-column-gap: 2rem;
+	margin-bottom: 2rem;
+
+	background: $light;
+	padding: 1rem;
+	align-self: start;
+	border-radius: 5px;
+	border: 1px solid $light-6;
+	.preview-profile{
+		&__image-container{
+			width: 6rem;
+			height: 6rem;
+		}
+
+		&__image{
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			border-radius: 50%;
+		}
+
+		&__user-info-container{
+			color: $gray;
+		}
+
+		&__name{
+			font-size: 1.2rem;
+		}
+
+		&__email{
+			font-weight: 600;
+			font-size: 1.3rem;
+		}
+	}
+}

@@ -7,7 +7,8 @@ import { getPosts,
 		getCurrentUserInfo, 
 		addCommentToPost, 
 		postToDelete,
-		saveEditCaption
+		saveEditCaption,
+		addLikeToPost
 	} from '../../firebase/firebase.crud.utils'
 
 import crudTypes from './crud.types'
@@ -16,6 +17,7 @@ import {
 			fetchPostsFailure,
 
 			addPostFailure,
+			addLikeFailure,
 			editCaptionFailure,
 
 			addCommentFailure,
@@ -103,13 +105,19 @@ export function* addComment({ payload }){
 export function* deletePost({ payload: { postItemId } }){
 	const postsCollectionRef = firestore.doc(`posts/${postItemId}`)
 	try{
-		yield postToDelete(postsCollectionRef)
+		yield call(postToDelete, postsCollectionRef)
 	}catch(err){
 		yield put(deletePostFailure(err.message))
 	}
 }
 
-
+export function* addLike({ payload }){
+	try{
+		yield call(addLikeToPost, payload)
+	}catch(err){
+		yield put(addLikeFailure(err.message))
+	}
+}
 
 export function* onFetchPostsStart(){
 	yield takeLatest(crudTypes.FETCH_POSTS_START, fetchPosts)
@@ -131,12 +139,17 @@ export function* onDeletePostStart(){
 	yield takeLatest(crudTypes.DELETE_POST_START, deletePost)
 }
 
+export function* onAddLikeStart(){
+	yield takeLatest(crudTypes.ADD_LIKE_START, addLike)
+}
+
 export function* crudSagas() {
 	yield all([
 				call(onFetchPostsStart),
 				call(onAddPostsStart),
 				call(onAddCommentStart),
 				call(onDeletePostStart),
-				call(onEditCaptionStart)
+				call(onEditCaptionStart),
+				call(onAddLikeStart)
 			])
 }

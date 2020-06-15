@@ -11,7 +11,19 @@ import AddComment from '../add-comment/add-comment.component'
 import './post-item.style.scss'
 
 const PostItem = ({ posts, currentUID }) =>{
-	const { id, post, firstName, lastName, email, postImageUrl, currentUserAvatarUrl, comments, postUID } = posts
+	const { 
+			id, 
+			post, 
+			firstName, 
+			lastName, 
+			email, 
+			postImageUrl, 
+			currentUserAvatarUrl, 
+			comments, 
+			postUID,
+			likes 
+		} = posts
+		console.log('post-item')
 	return(
 	<div className='post-item__container mb-2'>
 		<div className='post__item'>
@@ -42,7 +54,7 @@ const PostItem = ({ posts, currentUID }) =>{
 					</figure>
 				: null
 			}			
-			<Comments comments={comments} />
+			<Comments comments={comments} currentUID={ currentUID } postItemId={ id }likes={ likes }/>
 		 <AddComment postItemId={ id }/>
 		</div>
 	</div>

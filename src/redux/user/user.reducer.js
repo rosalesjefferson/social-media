@@ -1,6 +1,7 @@
 import userTypes from './user.types'
 const INITIAL_STATE = {
 	currentUser: null,
+	friends: [],
 	error: null
 }
 
@@ -12,12 +13,18 @@ const userReducer = (state=INITIAL_STATE, action) =>{
 				currentUser: action.payload
 			}
 
+		case userTypes.FETCH_USERS_SUCCESS:
+		return{
+			...state,
+			friends: [ ...state.friends, ...action.payload ]
+		}
+
 		case userTypes.AUTHENTICATION_FAILURE:
 		case userTypes.SIGN_OUT_FAILURE:
 		case userTypes.SIGN_OUT_SUCCESS:
+		case userTypes.FETCH_USERS_FAILURE:
 			return{
 				...state,
-				currentUser: null,
 				error: action.payload
 			}
 

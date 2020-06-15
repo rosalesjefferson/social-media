@@ -25,19 +25,25 @@
 		display: grid;
 		grid-template-columns: 1fr 10%;
 	}
-
-	&__title{
-		color: $dark-9;
+	&__header-container{
+		display: grid;
+		grid-template-columns: repeat(2, max-content);
+		justify-content: space-between;
+		align-items: center;
 		background: $light-2;
 		padding: .8rem 1rem;
 		border-bottom: 1px solid $light-4;
 	}
 
+	&__title{
+		color: $dark-9;
+	}
+
 	&__spinner-container{
-		@include position(absolute, 1rem, 1rem, unset, unset);
 		display: none;
 		justify-content: center;
 		align-items: center;
+		cursor: unset;
 		&.active{
 			display: flex;
 		}
@@ -52,6 +58,18 @@
 		border-top-color: $secondary;
 		animation: spin 1s ease-in-out infinite;
 
+	}
+	&__close-button{
+		.fa-times{
+			font-size: 1.5rem!important;
+			color: $gray;
+			&:hover{
+				color: $danger!important;
+			}
+		}
+		&.hidden{
+			display: none;
+		}
 	}
 
 	@keyframes spin {
@@ -109,6 +127,10 @@
 		}
 		&:focus{
 			outline: none;
+		}
+
+		&.hidden{
+			display: none;
 		}
 	}
 }

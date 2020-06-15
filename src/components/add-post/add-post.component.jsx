@@ -7,7 +7,7 @@ import { addPostStart } from '../../redux/crud/crud.actions'
 import './add-post.style.scss'
 
 const AddPost = ({ addPostStart, currentUser }) =>{
-	const [posts, setPost] = useState({ post: '', imageObject: null })
+	const [posts, setPost] = useState({ post: '', imageObject: null,  })
 	
 	const { post, imageObject } = posts
 	const handleChange = (e) =>{
@@ -23,9 +23,18 @@ const AddPost = ({ addPostStart, currentUser }) =>{
 
 	const handleSubmit = (e) =>{
 		e.preventDefault()
-		addPostStart({ post, imageObject })
-		setPost({ post: '', imageObject: null })
+		if(post.length > 0 || imageObject){
+			addPostStart({ post, imageObject })
+			setPost({ post: '', imageObject: null })
+		}else{
+			alert('No inputs')
+		}
 	}
+
+	const handleClickClose = () =>{
+		setPost({ ...posts, imageObject: null})
+	}
+	console.log('ADD POST')
 	return(
 	<div className='add-post__container'>
 		<h5 className='header-5'>Create Post</h5>
@@ -38,10 +47,9 @@ const AddPost = ({ addPostStart, currentUser }) =>{
 					type='text' 
 					className='add-post__form-input' 
 					placeholder={ currentUser ? `What's on your mind, ${ currentUser.firstName }?`: `What's on your mind?` }
-					required
 				></textarea>
 			</div>
-			<div className='add-post__button-container'>
+			<div className={ `add-post__button-container ${imageObject ? 'active' : ''  }` }>
 				<label htmlFor='imgFile' className='add-post__label'>
 					<span className='add-post__icon'><i className="far fa-image"></i></span>
 					<span className='add-post__text'>Photo/Video</span>
@@ -50,15 +58,20 @@ const AddPost = ({ addPostStart, currentUser }) =>{
 					<span className='add-post__icon'><i className="fas fa-map-marker-alt"></i></span>
 					<span className='add-post__text'>Location</span>
 				</label>
-				<label htmlFor='location' className='add-post__label location'>
+				<label htmlFor='activity' className='add-post__label activity'>
 					<span className='add-post__icon'><i className="far fa-smile"></i></span>
 					<span className='add-post__text'>Feeling/Activity</span>
 				</label>
+				{imageObject ? 
+					<figure className='add-post__image-container'>
+						<img className='add-post__image' src={URL.createObjectURL(imageObject)} alt='post' />
+						<figcaption className='add-post__image-close'><i onClick={ handleClickClose } className="fas fa-times"></i></figcaption>
+					</figure>
+				: null}
 	 			<input type='file' id='imgFile' onChange={ handleFileChange } className='add-post__image-file'/>
-				<button  className={ `add-post__button ${posts.post.length > 0 ? 'active' : ''}` }>Post</button>
+				<button  className={ `add-post__button ${posts.post.length > 0 || imageObject ? 'active' : ''}` }>Post</button>
 			</div>
 		</form>
-		
 	</div>
 )}
 

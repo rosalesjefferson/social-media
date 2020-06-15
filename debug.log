@@ -378,3 +378,9 @@
 [0611/022538.285:ERROR:process_info.cc(359)] UncheckedAllocate
 [0611/022538.285:ERROR:process_info.cc(359)] UncheckedAllocate
 [0612/031100.044:ERROR:process_info.cc(359)] UncheckedAllocate
+[0612/163412.032:ERROR:process_info.cc(359)] UncheckedAllocate
+[0612/163421.710:ERROR:process_reader_win.cc(151)] SuspendThread: Access is denied. (0x5)
+[0612/163421.710:ERROR:exception_snapshot_win.cc(98)] thread ID 182312 not found in process
+[0612/163421.737:ERROR:process_info.cc(359)] UncheckedAllocate
+[0612/163421.737:ERROR:process_info.cc(359)] UncheckedAllocate
+[0612/163421.741:ERROR:process_info.cc(359)] UncheckedAllocate

@@ -30,14 +30,18 @@
 			}
 		}
 		&__button-container{
-			display: grid;
-			padding:  1rem;
-			display: flex;
+			display: grid ;
+			grid-template-columns: repeat(3, max-content) 1fr;
+			justify-items: start;
 			align-items: center;
+			grid-gap: 1rem;
+			padding:  1rem;
+			align-items: center;
+			&.active{
+				grid-template-columns: repeat(3, max-content) 1fr max-content;
+			}
 		}
-		&__image-file{
-			display: none;
-		}
+
 		&__label{
 			cursor: pointer;
 			padding: .8rem 1.3rem;
@@ -45,17 +49,51 @@
 			border-radius: 20rem;
 			font-weight: 600;
 			transition: all .5s;
-			&.location{
-				margin-left: 1rem;
-			}
+
 			&:hover{
 				background: $light-5;
 			}
 		}
 
 		&__icon{
-			margin-right: 5px;
+			padding-right: 5px;
 		}
+
+
+		&__image-container{
+			width: 4rem;
+			height: 3rem;
+			border-radius: 5px;
+			overflow: hidden;
+			justify-self: end;
+			position: relative;
+			background: $dark;
+		}
+
+		&__image{
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			opacity: .7;
+		}
+
+		&__image-close{
+			@include position(absolute, 50%, unset, unset, 50%);
+			transform: translate(-50%, -50%);
+			color: $light;
+			font-size: 1.5rem;
+			cursor: pointer;
+
+			transition: color .5s;
+			&:hover{
+				color: $danger;
+			}
+		}
+
+		&__image-file{
+			display: none;
+		}
+
 		&__button{
 			padding: .7rem 1.5rem;
 			border-radius: 5px;
@@ -66,7 +104,8 @@
 			color: $light;
 			font-weight: 600;
 			transition: all .5s;
-			margin-left: auto;
+			justify-self: end;
+
 			&.active{
 				background: $secondary;
 			}

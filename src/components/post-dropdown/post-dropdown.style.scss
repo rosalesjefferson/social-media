@@ -23,9 +23,9 @@
 		cursor: pointer;
 		color: $dark-9;
 		font-weight: 500;
-		transition: all .5s;
+		transition: all .5s, transform .2s;
 		font-size: 1.3rem;
-		.far{
+		.icon-dropdown{
 			font-size: 1.6rem;
 		}
 		&:hover{
@@ -38,6 +38,16 @@
 			&.delete{
 				color: $danger;
 			}
+			&.copy{
+				color: $secondary;
+				&:active{
+					transform: scale(.8);
+				}
+			}
 		}
+	}
+	&-copy-value{
+		@include position(absolute, 0, 0, unset, unset);
+		opacity: 0;
 	}
 }

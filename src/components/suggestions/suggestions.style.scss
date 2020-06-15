@@ -1,0 +1,32 @@
+@import '../../scss/main.scss';
+.suggestions{
+	&__container{
+		background: $light;
+		padding: 1rem;
+		align-self: start;
+		border-radius: 5px;
+		border: 1px solid $light-6;
+	}
+
+	&__header-container{
+		display: grid;
+		grid-template-columns: repeat(2, max-content);
+		justify-content: space-between;
+	}
+
+	&__title{
+		font-size: 1.5rem;
+		color: $gray-9;
+	}
+
+	&__see-all{
+		font-size: 1.2rem;
+		font-weight: 600;
+		color: $gray-9;
+		transition: all .5s;
+		&:hover{
+			color: $secondary;
+		}
+	}
+
+}

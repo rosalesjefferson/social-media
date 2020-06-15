@@ -7,10 +7,13 @@ import {
 		authenticationSuccess,
 		signOutSuccess,
 		authenticationFailure,
-		signOutFailure
+		signOutFailure,
+
+		fetchUsersSuccess,
+		fetchUsersFailure
 	} from './user.actions'
 
-import { createUserProfile, getCurrentUser, getUserFriends } from '../../firebase/firebase.utils.user'
+import { createUserProfile, getCurrentUser, getUserFriends, getAllUsers } from '../../firebase/firebase.utils.user'
 
 export function* userProfile(currentUserInfo, otherUserInfo){
 	try{
@@ -65,6 +68,15 @@ export function* signOut(){
 	}
 }
 
+export function* fetchUsers(){
+	try{
+		const users = yield getAllUsers()
+		yield put(fetchUsersSuccess(users))
+	}catch(err){
+		yield put(fetchUsersFailure(err.message))
+	}
+}
+
 export function* onCheckUserSessionStart(){
 	yield takeLatest(userTypes.CHECK_USER_SESSION_START, isAuthenticated)
 }
@@ -80,13 +92,18 @@ export function* onSignUpStart(){
 export function* onSignOutStart(){
 	yield takeLatest(userTypes.SIGN_OUT_START, signOut)
 }
+
+export function* onFetchUsersStart() {
+	yield takeLatest(userTypes.FETCH_USERS_START, fetchUsers)
+}
 // USER ROOT SAGAS
 export function* userSagas() {
 	yield all([
 				call(onCheckUserSessionStart),
 				call(onSignUpStart),
 				call(onSignOutStart),
-				call(onSignInStart)
+				call(onSignInStart),
+				call(onFetchUsersStart)
 			])
 }
 
