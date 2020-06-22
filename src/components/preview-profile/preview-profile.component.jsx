@@ -7,10 +7,9 @@ import { selectCurrentUser } from '../../redux/user/user.selectors'
 import './preview-profile.style.scss'
 
 const PreviewProfile = ({ currentUser }) =>{
-	const { UID, currentUserAvatarUrl, email, firstName, lastName } = currentUser
-	console.log(UID, currentUserAvatarUrl, email, firstName, lastName, 'currentUser')
+	const { currentUserAvatarUrl, email, firstName, lastName, UID } = currentUser
 	return(
-		<Link to='/' className='preview-profile-container'>
+		<Link to={ `/timeline/${UID}` } className='preview-profile-container'>
 			<figure className='preview-profile__image-container'>
 				<img src={ currentUserAvatarUrl } className='preview-profile__image' alt='preview-header'/>
 			</figure>

@@ -2,7 +2,7 @@ import crudTypes from './crud.types'
 
 const INITIAL_STATE = {
 	posts: null,
-	friends: [],
+	// following: [],
 	isFetching: false,
 	error: null,
 }
@@ -20,7 +20,7 @@ const crudReducer = (state=INITIAL_STATE, action) =>{
 		return{
 			...state,
 			posts:  { ...state.posts, ...action.payload.posts },
-			friends: [ ...state.friends, ...action.payload.friends ],
+			// following: [ ...state.following, ...action.payload.following ],
 			isFetching: true
 		}
 

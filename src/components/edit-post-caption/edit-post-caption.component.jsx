@@ -22,7 +22,7 @@ const EditPostCaption = ({postItemId, post, isModalHidden, passHandleClickEdit, 
 			}
 		}
 		return () => { unsubscribed = true }
-	}, [post, passHandleClickEdit])
+	}, [post])
 
 	const handleChange = (e) =>{
 		const value = e.target.value

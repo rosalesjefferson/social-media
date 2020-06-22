@@ -1,5 +1,12 @@
 import { auth, firestore }  from './firebase.utils.js';
 
+const created_at = new Date().toLocaleString("en-US", {
+  weekday: "long",
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+
 export const createUserProfile = async (userAuth, additionalData) =>{
   if(!userAuth) return
 
@@ -9,13 +16,6 @@ export const createUserProfile = async (userAuth, additionalData) =>{
 
   // Create profile if user not exists
   if(!snapShot.exists){
-    const created_at = new Date().toLocaleString("en-US", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
-
     try{
       await userReference.set({
         created_at,
@@ -30,16 +30,16 @@ export const createUserProfile = async (userAuth, additionalData) =>{
   return userReference 
 }
 
-export const getUserFriends = async userReference =>{
-  const userFriendsReference = userReference.collection('friends')
-  const snapShot = await userFriendsReference.get()
-  const friendLists = await snapShot.docs.map(doc => {
+export const getFollowing = async userReference =>{
+  const userFollowingReference = userReference.collection('following')
+  const snapShot = await userFollowingReference.get()
+  const following = await snapShot.docs.map(doc => {
     return{
       id: doc.id,
       ...doc.data()
     }
   })
-  return friendLists
+  return following
 }
 
 export const getCurrentUser = () =>{
@@ -52,19 +52,85 @@ export const getCurrentUser = () =>{
 }
 
 
-export const getAllUsers = async () =>{
-  const usersCollectionRef = firestore.collection('users')
-  const snapShot = await usersCollectionRef.get()
+export const getAllUsersAndFollowing = async () =>{
+  const UID = auth.currentUser.uid
 
-  const users = await snapShot.docs.map(doc =>{
+  const usersCollectionRef = firestore.collection('users')
+  const usersSnapShot = await usersCollectionRef.get()
+
+  const users = await usersSnapShot.docs.map(doc =>{
     return{
       id: doc.id,
       ...doc.data()
     }
   })
-  return users
+
+  const usersFollowingRef = firestore.doc(`users/${UID}`).collection('following')
+  const usersFollowingSnapshot = await usersFollowingRef.get()
+
+  const following = await usersFollowingSnapshot.docs.map(doc => {
+    return{
+      id: doc.id,
+      ...doc.data()
+    }
+  })
+
+  return {
+    users,
+    following
+  }
 }
 
+export const following = async (payload) =>{
+  const UID = await auth.currentUser.uid
+  const { firstName, lastName, id, email, currentUserAvatarUrl } = payload
+
+  const usersCollectionRef = firestore.doc(`users/${UID}`)
+  const userSnapshot = await usersCollectionRef.get()
+
+  const followersCollectionRef = firestore.doc(`users/${id}`).collection('followers')
+  const followersSnapshot = await followersCollectionRef.get()
+  const isFollowersExist = await followersSnapshot.docs.find(doc => doc.data().followersUserID === UID)
+
+  if(!isFollowersExist){
+    try{
+      await followersCollectionRef.add({
+        created_at,
+        followersUserID: UID,
+        ...userSnapshot.data()
+      })
+    console.log('followers not exist')
+    }catch(err){
+      console.log(err.message, 'followers error')
+    }
+  }else{
+    console.log('a followers already')
+  }
+
+  const followingCollectionRef = usersCollectionRef.collection('following')
+  const followingSnapShot = await followingCollectionRef.get()
+  const isFollowingExist = await followingSnapShot.docs.find(doc => doc.data().followingUserId === id)  
+
+  if(!isFollowingExist){
+    try{
+      await followingCollectionRef.add({
+          created_at,
+          followingUserId: id,
+          userAvatarUrl: currentUserAvatarUrl,
+          email: email,
+          firstName, 
+          lastName
+      })  
+    console.log('following not exist')
+    }catch(err){
+      console.log(err.message, 'following error')
+    }
+  }else{
+    console.log('following already')
+  }
+
+  return { created_at, followingUserId: id, email, firstName, lastName, userAvatarUrl: currentUserAvatarUrl }
+}
 
 
 

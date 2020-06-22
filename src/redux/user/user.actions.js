@@ -55,3 +55,21 @@ export const fetchUsersFailure = (err) =>({
 	type: userTypes.FETCH_USERS_FAILURE,
 	payload: err
 })
+
+
+// FOLLOW USER START
+
+export const followUserStart = (data) =>({
+	type: userTypes.FOLLOW_USER_START,
+	payload: data
+})
+
+export const followUserSuccess = (data) =>({
+	type: userTypes.FOLLOW_USER_SUCCESS,
+	payload: data
+})
+
+export const followUserFailure = (err) =>({
+	type: userTypes.FOLLOW_USER_FAILURE,
+	payload: err
+})

@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import { firestore } from '../../firebase/firebase.utils'
+
 import { fetchUsersStart } from '../../redux/user/user.actions'
 import { selectUsers } from '../../redux/user/user.selectors'
 
@@ -11,19 +13,25 @@ import './suggestions.style.scss'
 
 const Suggestions = ({ fetchUsersStart, users }) =>{
 	useEffect(() =>{
-		fetchUsersStart()
+		let unsubscribed = false
+		if(!unsubscribed){
+			fetchUsersStart()
+		}
+		return () => { unsubscribed = true }
 	}, [fetchUsersStart])
-
+// https://www.freecodecamp.org/forum/t/how-to-filter-an-array-with-another-array/139352/3   FILTER ARRAY FROM ANOTHER ARRAY
 	return(
 		<div className='suggestions__container'>
 			<div className='suggestions__header-container'>
 				<h5 className='suggestions__title'>Suggestions For You</h5>
-				<Link to='/' className='suggestions__see-all'>See all</Link>
+				<Link to='/suggested' className='suggestions__see-all'>See all</Link>
 			</div>
 			<ul className='suggestions__lists-container'>
-				{
-					users.map(({ id, ...otherProps }) =>(
-						<UserItem key={ id } { ...otherProps }/>
+				{	
+					users
+					.filter((user, index) => index < 5)
+					.map(user =>(
+						<UserItem key={ user.id } { ...user }/>
 					))
 				}
 			</ul>
@@ -40,3 +48,5 @@ const mapDispatchToProps = dispatch =>({
 })
 
 export default connect(mapsStateToProps, mapDispatchToProps)(Suggestions)
+
+					// .filter((user, index) => index < 4)

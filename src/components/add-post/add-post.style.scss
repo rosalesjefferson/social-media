@@ -1,10 +1,8 @@
 @import '../../scss/main.scss';
 
 .add-post__container{
-	background: $light;
+	@include background;
 	margin-bottom: 2rem;
-	border-radius: 5px;
-	border: 1px solid $light-6;
 	overflow: hidden;
 	.header-5{
 		background: $light-2;

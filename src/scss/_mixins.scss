@@ -5,3 +5,9 @@
 	bottom: $bottom;
 	left: $left;
 }
+
+@mixin background{
+	background: $light;
+	border-radius: 5px;
+	border: 1px solid $light-6;
+}

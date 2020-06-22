@@ -1,0 +1,29 @@
+@import '../../scss/main.scss';
+.suggested{
+	&-container{
+		.container{
+			@include background();
+			margin-top: 4rem;
+			margin-bottom: 4rem;
+			padding: 1rem;
+		}
+	}
+
+	&__users-container{
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-column-gap: 2rem;
+		button{
+			background: $secondary;
+			opacity: .8;
+			color: $light;
+			padding: 7px 10px;
+			border-radius: 5px;
+		}
+	}
+
+	&__title{
+		font-weight: 500;
+		margin-bottom: 5px;
+	}
+}

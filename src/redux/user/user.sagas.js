@@ -10,17 +10,20 @@ import {
 		signOutFailure,
 
 		fetchUsersSuccess,
-		fetchUsersFailure
+		fetchUsersFailure,
+
+		followUserSuccess,
+		followUserFailure
 	} from './user.actions'
 
-import { createUserProfile, getCurrentUser, getUserFriends, getAllUsers } from '../../firebase/firebase.utils.user'
+import { createUserProfile, getCurrentUser, getFollowing, getAllUsersAndFollowing, following } from '../../firebase/firebase.utils.user'
 
 export function* userProfile(currentUserInfo, otherUserInfo){
 	try{
 		const userReference = yield call(createUserProfile, currentUserInfo, { ...otherUserInfo })
-		const friends = yield call(getUserFriends, userReference)
+		const following = yield call(getFollowing, userReference)
 		const userSnapshot = yield userReference.get();
-		yield put(authenticationSuccess({ UID: userSnapshot.id, ...userSnapshot.data(),  friends: [ ...friends ]  }))
+		yield put(authenticationSuccess({ UID: userSnapshot.id, ...userSnapshot.data(),  following: [ ...following ]  }))
 	}catch(err){
 		yield put(authenticationFailure(err.message))
 	}
@@ -50,7 +53,7 @@ export function* signIn({ payload: { email, password } }){
 }
 
 export function* signUp({ payload: { firstName, lastName, email, password } }){
-	const currentUserAvatarUrl = 'https://media.istockphoto.com/vectors/default-profile-picture-avatar-photo-placeholder-vector-illustration-vector-id1214428300?k=6&m=1214428300&s=170667a&w=0&h=hMQs-822xLWFz66z3Xfd8vPog333rNFHU6Q_kc9Sues='
+	const currentUserAvatarUrl = 'https://www.cbns.org.au/wp-content/uploads/2017/05/img_placeholder_avatar.jpg'
  	try{
 		const { user } = yield auth.createUserWithEmailAndPassword(email, password)
 		yield userProfile(user, { firstName, lastName, currentUserAvatarUrl })
@@ -70,10 +73,19 @@ export function* signOut(){
 
 export function* fetchUsers(){
 	try{
-		const users = yield getAllUsers()
-		yield put(fetchUsersSuccess(users))
+		const { users, following } = yield getAllUsersAndFollowing()
+		yield put(fetchUsersSuccess({ users, following }))
 	}catch(err){
 		yield put(fetchUsersFailure(err.message))
+	}
+}
+
+export function* followUser({ payload }){
+	try{
+		const allFollowing = yield call(following, payload)
+		yield put(followUserSuccess(allFollowing))
+	}catch(err){
+		yield put(followUserFailure(err.message))
 	}
 }
 
@@ -96,6 +108,11 @@ export function* onSignOutStart(){
 export function* onFetchUsersStart() {
 	yield takeLatest(userTypes.FETCH_USERS_START, fetchUsers)
 }
+
+export function* onFollowUserStart() {
+	yield takeLatest(userTypes.FOLLOW_USER_START, followUser)
+}
+
 // USER ROOT SAGAS
 export function* userSagas() {
 	yield all([
@@ -103,7 +120,8 @@ export function* userSagas() {
 				call(onSignUpStart),
 				call(onSignOutStart),
 				call(onSignInStart),
-				call(onFetchUsersStart)
+				call(onFetchUsersStart),
+				call(onFollowUserStart)
 			])
 }
 

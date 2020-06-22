@@ -29,8 +29,8 @@ export function* getLatestPosts(){
 	const postsCollectionRef = firestore.collection('posts')
 	try{
 		const snapShot = yield postsCollectionRef.get()
-		const { posts, friends } = yield call(getPosts, snapShot)
-		yield put(fetchPostsSuccessful({ posts, friends }))
+		const { posts, following } = yield call(getPosts, snapShot)
+		yield put(fetchPostsSuccessful({ posts, following }))
 	}catch(err){
 		yield put(fetchPostsFailure(err.message))
 	}

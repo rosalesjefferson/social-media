@@ -6,8 +6,8 @@ export const getPosts = async (snapShot) =>{
 	const UID = await auth.currentUser.uid
 	const usersCollectionRef = firestore.doc(`users/${UID}`)
 
-	const friendsCollectionRef = usersCollectionRef.collection('friends')
-	const friendsSnapshot = await friendsCollectionRef.get()
+	const followingCollectionRef = usersCollectionRef.collection('following')
+	const followingSnapshot = await followingCollectionRef.get()
 
 	const fetchPosts = await snapShot.docs.map(doc =>{
 		return{
@@ -16,7 +16,7 @@ export const getPosts = async (snapShot) =>{
 		}
 	})
 
-	const fetchFriends = await friendsSnapshot.docs.map(doc =>{
+	const fetchFollowing = await followingSnapshot.docs.map(doc =>{
 		return{
 			id: doc.id,
 			...doc.data()
@@ -24,10 +24,10 @@ export const getPosts = async (snapShot) =>{
 	})
 
 
-	const posts = { posts: fetchPosts,  friends: fetchFriends, UID: UID  }
+	const posts = { posts: fetchPosts,  following: fetchFollowing, UID: UID  }
 	return{
 		posts, 
-		friends: fetchFriends
+		following: fetchFollowing
 	}
 }
 

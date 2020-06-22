@@ -32,8 +32,8 @@ const PostItem = ({ posts, currentUID }) =>{
 					<img src={ currentUserAvatarUrl } className='post__item-header-user-image' alt='post header' />
 				</figure>
 				<h5 className='post__item-header-user-name-container'>
-					<Link to='/'className='post__item-header-user-name'>{ `${firstName} ${lastName}` }</Link>
-					<Link to='/'><em className='post__item-header-user-email'>{`@${email}`}</em> </Link>
+					<Link to={ `/timeline/${postUID}` } className='post__item-header-user-name'>{ `${firstName} ${lastName}` }</Link>
+					<Link to={ `/timeline/${postUID}` } className='post__item-header-user-email'>{`@${email}`}</Link>
 				</h5>
 				<PostItemHeaderButtons 
 					post={ post }

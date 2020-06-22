@@ -8,13 +8,14 @@ import PreviewProfile from '../../components/preview-profile/preview-profile.com
 import './homepage.component.scss'
 
 const Hompage = ({ fetchPostsStart, fetchUsersStart, posts, currentUID, friends }) =>{
-	console.log('HOMEPAGE COMPONENT!!!!!!!!!!')
+	const condition = false
+	const timelineUID = 'NO ID'
 	return(
 	<div className='homepage'>
 		<div className='container'>
 			<div className='newsfeed-container'>
 				<AddPost />
-				<Posts />
+				<Posts isTimeline={ condition } timelineUID={ timelineUID } />
 			</div>	
 		<div className='suggestions-preview-profile-container'>
 			<PreviewProfile />

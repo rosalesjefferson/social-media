@@ -36,7 +36,7 @@ const Header = ({ currentUser, signOutStart }) => {
 					{  currentUser ? 
 					<ul className='header__nav-lists'>
 						<li className='header__nav-item'><Link to='/' className='header__nav-link'><i className="fas fa-home"></i></Link></li>
-						<li className='header__nav-item'><Link to='/signup' className='header__nav-link timeline'>
+						<li className='header__nav-item'><Link to={ `/timeline/${currentUser.UID}` } className='header__nav-link timeline'>
 							<figure className='header__nav-link-image-container'>
 								<img className='header__nav-link-image' src={ currentUser.currentUserAvatarUrl } alt='header' />
 							</figure>
@@ -47,7 +47,7 @@ const Header = ({ currentUser, signOutStart }) => {
 								<i className={ `${ hidden ? 'active' : '' } fas fa-caret-down` }></i>
 							</span>
 							<div className={ `header__dropdown ${ hidden ? 'active' : '' }` }>
-								<Link to='/' className='header__dropdown-link'>Profile</Link>
+								<Link to='/suggested' className='header__dropdown-link'>Profile</Link>
 								<div onClick={ signOutStart } className='header__dropdown-link'>Sign Out</div>
 							</div>
 						</div>

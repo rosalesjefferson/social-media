@@ -1,0 +1,100 @@
+@import '../../scss/main.scss';
+.timeline{
+	&__container{
+		max-width: 80rem;
+		margin: 0 auto;
+	}
+
+	&-header-container{
+		margin-bottom: 1.5rem;
+	}
+
+	&__cover-image-container{
+		background: linear-gradient(rgba($dark, .85), rgba($dark, .85));
+		height: 20rem;
+	}
+	&__cover-image{
+
+	}
+	&__user-image-name-container{
+	}
+
+	&__user-image-container{
+		width: 17rem;
+		height: 17rem;
+		margin-top: -15rem;
+		margin-left: 1.5rem;
+		position: relative;
+	}
+
+	&__user-image{
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		border: 5px solid $light;
+	}
+	&__name-container{
+		@include position(absolute, 6rem, -41rem, unset, unset);
+		display: flex;
+		width: 40rem;
+		flex-direction: column;
+	}
+
+	&__nickname,
+	&__name{
+		color: $light;
+	}
+
+	&__nickname{
+		font-size: 1.8rem;
+	}
+
+	&__lists-container{
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		@include background();
+		border-top-right-radius: 0;
+		border-top-left-radius: 0;
+		border-top: none;
+	}
+	&__item{
+		height: 5rem;
+		overflow: hidden;
+		&:last-child .timeline__link{
+			border-bottom-right-radius: 5px;
+		}
+	}
+	&__link{
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.6rem;
+		font-weight: 500;
+		color: $secondary;
+		cursor: pointer;
+
+		transition: all .5s;
+		&:hover{
+			background: $light-5;
+		}
+
+	}
+
+	// POST
+	&-post-container{
+		display: grid;
+		grid-template-columns: 35% 1fr;
+		align-items: start;
+		grid-gap: 2rem;
+	}
+
+	&__post-user-info{
+
+	}
+
+	&__post-container{
+
+	}
+
+}

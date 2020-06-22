@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { firestore } from '../../firebase/firebase.utils'
 
 import { fetchPostsStart } from '../../redux/crud/crud.actions'
-import { selectPostsWithFriends, selectUID } from '../../redux/crud/crud.selectors'
+import { selectPostsWithFollowing, selectUID } from '../../redux/crud/crud.selectors'
 
 import PostItem from '../../components/post-item/post-item.component'
 
@@ -13,7 +13,7 @@ import PostItem from '../../components/post-item/post-item.component'
 import './posts.style.scss'
 
 
-const Posts = ({ fetchPostsStart, currentUID, posts }) =>{
+const Posts = ({ fetchPostsStart, currentUID, posts, isTimeline }) =>{
 	useEffect(() =>{
 		let unsubscribed = false
 		const postsLists = async() =>{
@@ -54,10 +54,13 @@ const mapsDispatchToProps = dispatch => ({
 	fetchPostsStart: () => dispatch(fetchPostsStart()),
 })
 
-const mapsStateToProps = (state) => ({
-	posts: selectPostsWithFriends(state),
-	currentUID: selectUID(state),
-})
+const mapsStateToProps = (state, ownProps) => {
+	const { isTimeline, timelineUID } = ownProps
+	return({
+		posts: selectPostsWithFollowing(isTimeline, timelineUID)(state),
+		currentUID: selectUID(state),
+	})
+}
 
 export default connect(mapsStateToProps, mapsDispatchToProps)(Posts)
 

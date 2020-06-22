@@ -34,7 +34,7 @@ const AddPost = ({ addPostStart, currentUser }) =>{
 	const handleClickClose = () =>{
 		setPost({ ...posts, imageObject: null})
 	}
-	console.log('ADD POST')
+	console.log(imageObject, 'ADD POST')
 	return(
 	<div className='add-post__container'>
 		<h5 className='header-5'>Create Post</h5>

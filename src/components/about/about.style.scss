@@ -1,0 +1,39 @@
+@import '../../scss/main.scss';
+.about{
+	@include background();
+	&__header-container{
+		display: flex;
+		align-items: center;
+		background: $light-2;
+		padding: 1rem;
+		border-bottom: 1px solid $light-6;
+		border-radius: 5px;
+	}
+
+	&__icon-container{
+		margin-right: 1rem;
+		font-size: 2.5rem;
+	}
+
+	&__title{
+		font-weight: 700!important;
+	}
+
+	&__info-container{
+		padding: 1rem;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-row-gap: 5px;
+
+	}
+
+	&__info{
+		font-size: 1.5rem;
+		&:last-child{
+			grid-column: 1/3;
+		}
+		span{
+			font-weight: 500;
+		}
+	}
+}

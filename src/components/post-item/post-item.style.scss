@@ -1,9 +1,7 @@
 @import '../../scss/main.scss';
 
 .post-item__container{
-	background: $light;	
-	border-radius: 5px;
-	border: 1px solid $light-6;
+	@include background;
 	position: relative;
 	.post{
 		&__item-header{
@@ -49,8 +47,9 @@
 		&__item-header-user-email{
 			font-size: 1rem;
 			letter-spacing: .5px;
-			font-weight: 500;
-			color: $gray-4;
+			font-weight: 400;
+			color: $gray;
+			transform: skewX(-15deg);
 		}
 
 

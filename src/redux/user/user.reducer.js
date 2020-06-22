@@ -1,7 +1,10 @@
 import userTypes from './user.types'
+import { uniqueUsers } from './user.utils'
 const INITIAL_STATE = {
 	currentUser: null,
-	friends: [],
+	userLists: [],
+	following: [],
+	followers: [],
 	error: null
 }
 
@@ -16,15 +19,33 @@ const userReducer = (state=INITIAL_STATE, action) =>{
 		case userTypes.FETCH_USERS_SUCCESS:
 		return{
 			...state,
-			friends: [ ...state.friends, ...action.payload ]
+			// userLists: [ ...state.userLists, ...action.payload.users ],
+			userLists: [ ...state.userLists, ...uniqueUsers(state.userLists, action.payload.users) ],
+			following: [ ...state.following, ...action.payload.following ]
+		}
+
+		case userTypes.FOLLOW_USER_SUCCESS:
+		return{
+			...state,
+			following: [ ...state.following, action.payload ]
+		}
+
+		case userTypes.FETCH_USERS_FAILURE:
+		return{
+			...state,
+			userLists: [],
+			error: action.payload
 		}
 
 		case userTypes.AUTHENTICATION_FAILURE:
 		case userTypes.SIGN_OUT_FAILURE:
 		case userTypes.SIGN_OUT_SUCCESS:
-		case userTypes.FETCH_USERS_FAILURE:
 			return{
 				...state,
+				currentUser: null,
+				userLists: [],
+				following: [],
+				followers: [],
 				error: action.payload
 			}
 

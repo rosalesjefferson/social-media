@@ -1,0 +1,48 @@
+@import '../../scss/main.scss';
+.timeline-user-info{
+	&-container{
+		@include background()
+	}
+
+	&__bio-container{
+		padding: 1rem;
+	}
+
+	&__header-container{
+		display: flex;
+		align-items: center;
+	}
+
+	&__header-icon-container{
+		margin-right: 5px;
+		font-size: 2rem;
+		color: $semi-light;
+	}
+
+	&__title{
+		font-size: 1.6rem;
+		color: $gray;
+	}
+	&__content-container{
+		text-align: center;
+	}
+	&__icon-container{
+		font-size: 1.8rem;
+	}
+
+	&__icon{
+
+	}
+	&__bio{
+		padding-bottom: 1rem;
+		font-size: 1.3rem;
+		border-bottom: .2px solid $light-4;
+	}
+
+	&__featured-photo-container{
+	}
+
+	&__featured-photo{
+		width: 100%;
+	}
+}

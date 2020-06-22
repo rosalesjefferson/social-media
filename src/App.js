@@ -9,6 +9,8 @@ import { selectCurrentUser } from './redux/user/user.selectors'
 
 import Header from './components/header/header.component'
 import Homepage from './pages/homepage/homepage.component'
+import Suggested from './pages/suggested/suggested.component'
+import Timeline from './pages/timeline/timeline.component'
 import SignInAndUp from './pages/auth/sign-in-and-up.component'
 import SignUp from './components/sign-up/sign-up.component'
 
@@ -23,6 +25,8 @@ function App({ checkUserSessionStart, currentUser }) {
     	<Header />
     	<Switch>
         <Route exact path='/' component={ currentUser ? Homepage : SignInAndUp } />
+        <Route path='/suggested' component={ currentUser ? Suggested : SignInAndUp } />
+        <Route path='/timeline/:currentUID' component={ currentUser ? Timeline : SignInAndUp } />
         <Route 
                path='/signin' 
                render={ () => currentUser ? (<Redirect to='/' />) : (<SignInAndUp />) } 
