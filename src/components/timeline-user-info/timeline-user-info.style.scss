@@ -2,6 +2,7 @@
 .timeline-user-info{
 	&-container{
 		@include background()
+		position: relative;
 	}
 
 	&__bio-container{
@@ -16,13 +17,150 @@
 	&__header-icon-container{
 		margin-right: 5px;
 		font-size: 2rem;
-		color: $semi-light;
+		color: $secondary;
 	}
 
 	&__title{
 		font-size: 1.6rem;
 		color: $gray;
 	}
+	&__icon-edit-container{
+		font-size: 2rem;
+		margin-left: auto;
+		cursor: pointer;
+		transition: all .5s;
+		&:hover{
+			color: $secondary;
+		}
+	}
+	&__form-overlay{
+		@include position(absolute, 0, 0, unset, unset);
+		padding: 1rem;
+		background: linear-gradient(rgba($dark, .8), rgba($dark, .8));
+		width: 100%;
+		height: 100%;
+	}
+
+	&__form-container{
+		background: $light;
+	}
+
+	&__form-header-container{
+		display: grid;
+		grid-template-columns: repeat(2, max-content);
+		justify-content: space-between;
+		align-items: center;
+		background: $light-2;
+		padding: .8rem 1rem;
+		border-bottom: 1px solid $light-4;
+	}
+
+	&__form-header-title{
+
+	}
+	&__form-header-icon-container{
+
+	}
+	&__input{
+		resize: none;
+		border: none;
+		width: 100%;
+		padding: 1rem;
+		color: inherit;		
+
+		&:focus,
+		&:hover{
+			outline: none;
+		}
+	}
+	&__form-group{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1rem;
+		padding-top: 0;
+		&.active{
+			justify-content: unset;
+			& >:first-child{
+				margin-right: auto;
+			}
+		}
+		
+	}
+
+	&__label{
+		cursor: pointer;
+		padding: 0 1.3rem;
+		background: $light-3;
+		border-radius: 20rem;
+		font-weight: 600;
+		transition: all .5s;
+		display: flex;
+		align-items: center;	
+
+		&:hover{
+			background: $light-5;
+		}
+	}
+
+	&__icon-container{
+		margin-right: 5px;
+	}
+
+	&__text{
+
+	}
+
+	&__image-file{
+		display: none;
+	}
+	&__image-container{
+		width: 4rem;
+		height: 2.7rem;
+		border-radius: 5px;
+		overflow: hidden;
+		justify-self: end;
+		position: relative;
+		background: $dark;
+		margin-right: 5px;
+	}
+	&__image{
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		opacity: .7;
+	}
+	&__image-close{
+		@include position(absolute, 50%, unset, unset, 50%);
+		transform: translate(-50%, -50%);
+		color: $light;
+		font-size: 1.5rem;
+		cursor: pointer;
+
+		transition: color .5s;
+		&:hover{
+			color: $danger;
+		}
+	}
+
+	&__button{
+		padding: 5px 1.3rem;
+		border-radius: 5px;
+		cursor: pointer;
+		background: $semi-light;
+		border: none;
+		color: $light;
+		font-weight: 600;
+		transition: all .5s;
+		&.active{
+			color: $secondary;
+		}
+	}
+
+
+
+
+
 	&__content-container{
 		text-align: center;
 	}
@@ -31,12 +169,16 @@
 	}
 
 	&__icon{
-
 	}
 	&__bio{
 		padding-bottom: 1rem;
 		font-size: 1.3rem;
 		border-bottom: .2px solid $light-4;
+		font-weight: 500;
+		&.active{
+			color: $secondary;
+			cursor: pointer;
+		}
 	}
 
 	&__featured-photo-container{

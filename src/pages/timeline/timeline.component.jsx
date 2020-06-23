@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { selectCurrentUser, selectTimelineUsers } from '../../redux/user/user.selectors'
+import { fetchUsersStart } from '../../redux/user/user.actions'
 
 import Posts from '../../components/posts/posts.component'
 import TimelineUserInfo from '../../components/timeline-user-info/timeline-user-info.component'
@@ -13,8 +14,8 @@ import Photos from '../../components/photos/photos.component'
 
 import './timeline.style.scss';
 
-const Timeline = ({ timelineUser, currentUser }) =>{
-	const [isTimeline, setIsTimeline] = useState(true)
+const Timeline = ({ timelineUser, currentUser, fetchUsersStart }) =>{
+	const [isTimeline] = useState(true)
 	const [isHidden, setIsHidden] = useState({
 		timeline: true,
 		about: false,
@@ -23,7 +24,15 @@ const Timeline = ({ timelineUser, currentUser }) =>{
 		photos: false,
 	})
 	const { timeline, about, following, followers, photos } = isHidden
-	const { email, firstName, lastName, currentUserAvatarUrl, id, created_at } = timelineUser[0]
+	const { firstName, lastName, currentUserAvatarUrl, id, featuredPhoto, bio  } = timelineUser[0]
+// https://www.w3schools.com/html/tryit.asp?filename=tryhtml_input_date
+	useEffect(() =>{
+		let unsubscribed = false
+		if(!unsubscribed){
+			fetchUsersStart()
+		}
+		return () => { unsubscribed = true }
+	}, [fetchUsersStart])
 
 	const onClickHidden = (e) =>{
 		const target = e.target.innerText
@@ -36,7 +45,7 @@ const Timeline = ({ timelineUser, currentUser }) =>{
 			[target.toLowerCase()]: true
 		})
 	}
-	console.log('timeline')
+	console.log('timeline', timelineUser)
 
 	return(
 		<div className='timeline__container'>
@@ -62,7 +71,7 @@ const Timeline = ({ timelineUser, currentUser }) =>{
 			</div>
 			{ timeline ? 
 				<div className='timeline-post-container'>
-					<TimelineUserInfo featuredPhoto={ currentUserAvatarUrl } />
+					<TimelineUserInfo featuredPhoto={ featuredPhoto } bio={ bio } timelineUID={ id }/>
 					<Posts isTimeline={ isTimeline } timelineUID={ id } />
 				</div>
 			: ''}
@@ -82,7 +91,11 @@ const mapsStateToProps = (state, ownProps) =>{
 	})
 }
 
-export default connect(mapsStateToProps)(Timeline)
+
+const mapDispatchToProps = dispatch => ({
+	fetchUsersStart: () => dispatch(fetchUsersStart())
+})
+export default connect(mapsStateToProps, mapDispatchToProps)(Timeline)
 
 
 

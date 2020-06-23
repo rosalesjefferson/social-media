@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import './about.style.scss'
 
@@ -12,6 +12,7 @@ const About = ({ timelineUser }) =>{
 					<i className="fas fa-user"></i>
 				</span>
 				<h3 className='about__title header-3'>About</h3>
+				<span className='about__icon-container'><i className="far fa-edit"></i></span>
 			</div>
 			<div className='about__info-container'>
 				<p className='about__info'><span>Name: </span>{ firstName } { lastName }</p>

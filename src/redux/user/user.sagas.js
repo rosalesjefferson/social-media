@@ -13,10 +13,21 @@ import {
 		fetchUsersFailure,
 
 		followUserSuccess,
-		followUserFailure
+		followUserFailure,
+
+		editBioFeaturedSuccess,
+		editBioFeaturedFailure
 	} from './user.actions'
 
-import { createUserProfile, getCurrentUser, getFollowing, getAllUsersAndFollowing, following } from '../../firebase/firebase.utils.user'
+import { 
+		createUserProfile, 
+		getCurrentUser, 
+		getFollowing, 
+		getAllUsersAndFollowing, 
+		following,
+		getUserImageUrl,
+		bioFeaturedToUpdate 
+	} from '../../firebase/firebase.utils.user'
 
 export function* userProfile(currentUserInfo, otherUserInfo){
 	try{
@@ -89,6 +100,16 @@ export function* followUser({ payload }){
 	}
 }
 
+export function* editBioFeatured({ payload: { bioEdit, timelineUID, featuredPhotoEdit } }){
+	try{
+		const userImageUrl = yield call(getUserImageUrl, featuredPhotoEdit)
+		const users = yield call(bioFeaturedToUpdate, { bioEdit, timelineUID, userImageUrl })
+		yield put(editBioFeaturedSuccess(users))
+	}catch(err){
+		yield put(editBioFeaturedFailure(err.message))
+	}
+}
+
 export function* onCheckUserSessionStart(){
 	yield takeLatest(userTypes.CHECK_USER_SESSION_START, isAuthenticated)
 }
@@ -113,6 +134,10 @@ export function* onFollowUserStart() {
 	yield takeLatest(userTypes.FOLLOW_USER_START, followUser)
 }
 
+export function* onEditBioFeaturedStart(){
+	yield takeLatest(userTypes.EDIT_BIO_FEATURED_START, editBioFeatured)
+}
+
 // USER ROOT SAGAS
 export function* userSagas() {
 	yield all([
@@ -121,7 +146,8 @@ export function* userSagas() {
 				call(onSignOutStart),
 				call(onSignInStart),
 				call(onFetchUsersStart),
-				call(onFollowUserStart)
+				call(onFollowUserStart),
+				call(onEditBioFeaturedStart)
 			])
 }
 

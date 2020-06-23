@@ -8,15 +8,25 @@
 		padding: 1rem;
 		border-bottom: 1px solid $light-6;
 		border-radius: 5px;
+		& >:last-child{
+			margin-left: auto;
+			cursor: pointer;
+			&:hover{
+				color: $secondary;
+			}
+		}
 	}
 
 	&__icon-container{
 		margin-right: 1rem;
 		font-size: 2.5rem;
+		i{
+			transition: all .5s;
+		}
 	}
 
 	&__title{
-		font-weight: 700!important;
+		font-weight: 600!important;
 	}
 
 	&__info-container{
@@ -24,7 +34,6 @@
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		grid-row-gap: 5px;
-
 	}
 
 	&__info{

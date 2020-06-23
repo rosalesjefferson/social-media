@@ -73,3 +73,25 @@ export const followUserFailure = (err) =>({
 	type: userTypes.FOLLOW_USER_FAILURE,
 	payload: err
 })
+
+
+
+
+
+// Edit Bio and Feature photos
+
+export const editBioFeaturedStart = (data) =>({
+	type: userTypes.EDIT_BIO_FEATURED_START,
+	payload: data
+})
+
+export const editBioFeaturedSuccess = (data) =>({
+	type: userTypes.EDIT_BIO_FEATURED_SUCCESS,
+	payload: data
+})
+
+export const editBioFeaturedFailure = (err) =>({
+	type: userTypes.EDIT_BIO_FEATURED_FAILURE,
+	payload: err
+})
+

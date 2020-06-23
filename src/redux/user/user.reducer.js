@@ -24,6 +24,12 @@ const userReducer = (state=INITIAL_STATE, action) =>{
 			following: [ ...state.following, ...action.payload.following ]
 		}
 
+		case userTypes.EDIT_BIO_FEATURED_SUCCESS:
+		return{
+			...state,
+			userLists: [ ...state.userLists, ...action.payload ]
+		}
+
 		case userTypes.FOLLOW_USER_SUCCESS:
 		return{
 			...state,

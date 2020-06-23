@@ -1,4 +1,4 @@
-import { auth, firestore }  from './firebase.utils.js';
+import { auth, firestore, storage }  from './firebase.utils.js';
 
 const created_at = new Date().toLocaleString("en-US", {
   weekday: "long",
@@ -20,6 +20,14 @@ export const createUserProfile = async (userAuth, additionalData) =>{
       await userReference.set({
         created_at,
         email: userAuth.email,
+        address: null,
+        birthday: null,
+        work: null,
+        contactNumber: null,
+        currentUserAvatarUrl: 'https://www.cbns.org.au/wp-content/uploads/2017/05/img_placeholder_avatar.jpg',
+        featuredPhoto: null,
+        education: null,
+        bio: '',
         ...additionalData
       })
     } catch(error){
@@ -132,7 +140,45 @@ export const following = async (payload) =>{
   return { created_at, followingUserId: id, email, firstName, lastName, userAvatarUrl: currentUserAvatarUrl }
 }
 
+export const getUserImageUrl = async userImageObject =>{
+  const storageRef = storage.ref()
+  if(userImageObject){
+    const fileRef = storageRef.child(`userAvatar/${userImageObject.name}`)
+    await fileRef.put(userImageObject)
+    const imageUrl = await fileRef.getDownloadURL()
+    return imageUrl
+  }else{
+    return null
+  }
+}
 
+
+export const bioFeaturedToUpdate = async (payload) =>{
+  const { bioEdit, timelineUID, userImageUrl } = payload
+
+  const usersCollectionRef = firestore.collection('users')
+  const individualUserCollectionRef = firestore.collection('users').doc(timelineUID)
+  try{
+    const snapShot = await individualUserCollectionRef.get()
+      await individualUserCollectionRef.update({
+        ...snapShot.data(),
+        bio: bioEdit,
+        featuredPhoto: userImageUrl
+      })
+  }catch(err){
+    console.log(err.message)
+  }
+
+  const snapShot = await usersCollectionRef.get()
+
+  const users = await snapShot.docs.map(doc =>{
+    return{
+      id: doc.id,
+      ...doc.data()
+    }
+  })
+  return users
+}
 
   // await userProfileDocReference.collection('friends').doc('BNJru1HWFVjgTjN0TAQ8').update({
   //   id: 'UGH',

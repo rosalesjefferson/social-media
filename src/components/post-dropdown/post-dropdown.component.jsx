@@ -51,7 +51,6 @@ const PostDropdown = ({ isHidden, deletePostStart, setHiddenToFalse, match, loca
 		// document.execCommand("copy")
 		console.log('copied to clip board')
 	}
-	console.log(isModalHidden, 'test')
 	return(
 		<div className='post__dropdown-container'>
 			<div className={ `post__dropdown-buttons-container ${isHidden ? 'active' : ''}` }>
