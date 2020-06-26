@@ -13,20 +13,20 @@ const PostDropdown = ({ isHidden, deletePostStart, setHiddenToFalse, match, loca
 	const [isModalHidden, setIsModalHidden] = useState(false)
 	const { postItemId, post } = otherProps
 
-	useEffect(() =>{
-		let unsubscribed = false
-		if(!unsubscribed){
-			document.addEventListener('click', (e) =>{
-				if(e.target.className !== 'post__dropdown-button edit'){
-					if(!e.target.closest('.edit-post-caption__container')){
-						setIsModalHidden(false)
-					}
-				}
-			})
-		}
+	// useEffect(() =>{
+	// 	let unsubscribed = false
+	// 	if(!unsubscribed){
+	// 		document.addEventListener('click', (e) =>{
+	// 			if(e.target.className !== 'post__dropdown-button edit'){
+	// 				if(!e.target.closest('.edit-post-caption__container')){
+	// 					setIsModalHidden(false)
+	// 				}
+	// 			}
+	// 		})
+	// 	}
 
-		return () => { unsubscribed = true }
-	}, [isModalHidden])
+	// 	return () => { unsubscribed = true }
+	// }, [isModalHidden])
 
 	const handleClickEdit = () =>{
 		setIsModalHidden(true)

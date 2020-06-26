@@ -35,7 +35,7 @@ const EditPostCaption = ({postItemId, post, isModalHidden, passHandleClickEdit, 
 		setSpinner(true)
 	}
 
-	const hideSpinner = () =>{
+	const hideModal = () =>{
 		passHandleClickEdit()
 	}
 
@@ -45,25 +45,25 @@ const EditPostCaption = ({postItemId, post, isModalHidden, passHandleClickEdit, 
 			<div className='edit-post-caption__container'>
 				<div className='edit-post-caption__header-container'>
 					<h5 className='header-5 edit-post-caption__title'>Edit Caption</h5>
-					<span className='edit-post-caption__close-button'><i onClick={ hideSpinner } className="fas fa-times"></i></span>
+					<span className='edit-post-caption__close-button'><i onClick={ hideModal } className="fas fa-times"></i></span>
 				</div>
 				<form onSubmit={ handleSubmit } className='edit-post-caption__form'>
-				<div className='edit-post-caption__form-group'>
-					<textarea 
-						value={ caption }
-						onChange={ handleChange }
-						id='caption'
-						type='text' 
-						className='edit-post-caption__input' 
-					></textarea>
-					<button type='submit' className={ `edit-post-caption__button 
-							${caption.length > 0 ? 'active' : ''}
-							${isSpinnerHidden ? 'hidden' : ''} 
-					`}>Save</button>
-					<div className={ `edit-post-caption__spinner-container ${isSpinnerHidden ? 'active' : '' }` }>
-						<span className='edit-post-caption__spinner'></span>
+					<div className='edit-post-caption__form-group'>
+						<textarea 
+							value={ caption }
+							onChange={ handleChange }
+							id='caption'
+							type='text' 
+							className='edit-post-caption__input' 
+						></textarea>
+						<button type='submit' className={ `edit-post-caption__button 
+								${caption.length > 0 ? 'active' : ''}
+								${isSpinnerHidden ? 'hidden' : ''} 
+						`}>Save</button>
+						<div className={ `edit-post-caption__spinner-container ${isSpinnerHidden ? 'active' : '' }` }>
+							<span className='edit-post-caption__spinner'></span>
+						</div>
 					</div>
-				</div>
 				</form>
 			</div>
 		</div>

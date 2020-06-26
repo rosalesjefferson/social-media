@@ -1,5 +1,6 @@
 import userTypes from './user.types'
 import { uniqueUsers } from './user.utils'
+
 const INITIAL_STATE = {
 	currentUser: null,
 	userLists: [],
@@ -25,15 +26,16 @@ const userReducer = (state=INITIAL_STATE, action) =>{
 		}
 
 		case userTypes.EDIT_BIO_FEATURED_SUCCESS:
+		case userTypes.EDIT_PROFILE_SUCCESS:
 		return{
 			...state,
-			userLists: [ ...state.userLists, ...action.payload ]
+			userLists: [ ...action.payload ]
 		}
 
 		case userTypes.FOLLOW_USER_SUCCESS:
 		return{
 			...state,
-			following: [ ...state.following, action.payload ]
+			following: [ ...state.following, ...action.payload ]
 		}
 
 		case userTypes.FETCH_USERS_FAILURE:

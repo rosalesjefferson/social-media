@@ -20,13 +20,14 @@ export const createUserProfile = async (userAuth, additionalData) =>{
       await userReference.set({
         created_at,
         email: userAuth.email,
-        address: null,
-        birthday: null,
-        work: null,
-        contactNumber: null,
+        address: '',
+        birthday: '',
+        work: '',
+        contactNumber: '',
         currentUserAvatarUrl: 'https://www.cbns.org.au/wp-content/uploads/2017/05/img_placeholder_avatar.jpg',
+        currentUserCoverUrl: '',
         featuredPhoto: null,
-        education: null,
+        education: '',
         bio: '',
         ...additionalData
       })
@@ -154,24 +155,72 @@ export const getUserImageUrl = async userImageObject =>{
 
 
 export const bioFeaturedToUpdate = async (payload) =>{
-  const { bioEdit, timelineUID, userImageUrl } = payload
+  const { bioEdit, timelineUID, userImageUrl, existingFeaturedPhoto } = payload
 
   const usersCollectionRef = firestore.collection('users')
   const individualUserCollectionRef = firestore.collection('users').doc(timelineUID)
-  try{
-    const snapShot = await individualUserCollectionRef.get()
-      await individualUserCollectionRef.update({
-        ...snapShot.data(),
-        bio: bioEdit,
-        featuredPhoto: userImageUrl
-      })
-  }catch(err){
-    console.log(err.message)
-  }
 
-  const snapShot = await usersCollectionRef.get()
+  const snapShot = await individualUserCollectionRef.get()
 
-  const users = await snapShot.docs.map(doc =>{
+  let userFeaturedUrl
+
+  if(existingFeaturedPhoto === null && userImageUrl === null) userFeaturedUrl = null
+  if(existingFeaturedPhoto !== null && userImageUrl === null) userFeaturedUrl = existingFeaturedPhoto
+  if(userImageUrl) userFeaturedUrl = userImageUrl
+
+    try{
+        await individualUserCollectionRef.update({
+          ...snapShot.data(),
+          bio: bioEdit,
+          featuredPhoto: userFeaturedUrl
+        })
+      }catch(err){
+        console.log(err.message)
+      }
+
+  // console.log(userImageUrl, existingFeaturedPhoto, 'test')
+  // console.log(typeof(userImageUrl))
+  // console.log(typeof(userImageUrl))
+  // console.log(typeof(userImageUrl))
+  // if(existingFeaturedPhoto === null && userImageUrl === null){
+  //   try{
+  //       await individualUserCollectionRef.update({
+  //         ...snapShot.data(),
+  //         bio: bioEdit,
+  //         featuredPhoto: null
+  //       })
+  //     }catch(err){
+  //       console.log(err.message)
+  //     }
+  //   }
+
+  // if(existingFeaturedPhoto !== null && userImageUrl === null){
+  //   try{
+  //         await individualUserCollectionRef.update({
+  //           ...snapShot.data(),
+  //           bio: bioEdit,
+  //           featuredPhoto: existingFeaturedPhoto
+  //         })
+  //     }catch(err){
+  //       console.log(err.message)
+  //     }
+  //   }
+
+  // if(userImageUrl){
+  //   try{
+  //       await individualUserCollectionRef.update({
+  //         ...snapShot.data(),
+  //         bio: bioEdit,
+  //         featuredPhoto: userImageUrl
+  //       })
+  //     }catch(err){
+  //       console.log(err.message)
+  //     }
+  //   }
+
+  const userSnapshot = await usersCollectionRef.get()
+
+  const users = await userSnapshot.docs.map(doc =>{
     return{
       id: doc.id,
       ...doc.data()
@@ -179,6 +228,51 @@ export const bioFeaturedToUpdate = async (payload) =>{
   })
   return users
 }
+
+export const updateProfileInfo = async payload =>{
+  const { id, uFirstName, uLastName, uAddress, uContactNumber, uBirthday, uEducation, uWork, userProfileUrl, userCoverUrl, currentUserAvatarUrl, currentUserCoverUrl } = payload
+
+  const usersCollectionRef = firestore.collection('users')
+  const individualUserCollectionRef = usersCollectionRef.doc(id)
+
+  const userIndividualSnapshot = await individualUserCollectionRef.get()
+
+  let profileUrl
+  let coverURL
+
+  if(userProfileUrl === null && currentUserAvatarUrl === null) profileUrl = null
+  if(userProfileUrl === null && currentUserAvatarUrl !== null) profileUrl = currentUserAvatarUrl
+  if(userProfileUrl !== null) profileUrl = userProfileUrl
+
+  if(userCoverUrl === null && currentUserCoverUrl === null) coverURL = null
+  if(userCoverUrl === null && currentUserCoverUrl !== null) coverURL = currentUserCoverUrl
+  if(userCoverUrl) coverURL = userCoverUrl
+
+  individualUserCollectionRef.update({
+    ...userIndividualSnapshot.data(),
+    firstName: uFirstName,
+    lastName: uLastName,
+    address: uAddress,
+    contactNumber: uContactNumber,
+    birthday: uBirthday,
+    education: uEducation,
+    work: uWork,
+    currentUserAvatarUrl: profileUrl,
+    currentUserCoverUrl: coverURL
+  })
+
+  const userSnapshot = await usersCollectionRef.get()
+
+  const updatedUsers = await userSnapshot.docs.map(doc =>{
+    return{
+      id: doc.id,
+      ...doc.data()
+    }
+  })
+
+  return updatedUsers
+}
+
 
   // await userProfileDocReference.collection('friends').doc('BNJru1HWFVjgTjN0TAQ8').update({
   //   id: 'UGH',

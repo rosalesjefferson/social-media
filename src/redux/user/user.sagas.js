@@ -16,7 +16,10 @@ import {
 		followUserFailure,
 
 		editBioFeaturedSuccess,
-		editBioFeaturedFailure
+		editBioFeaturedFailure,
+
+		editProfileSuccess,
+		editProfileFailure
 	} from './user.actions'
 
 import { 
@@ -26,7 +29,8 @@ import {
 		getAllUsersAndFollowing, 
 		following,
 		getUserImageUrl,
-		bioFeaturedToUpdate 
+		bioFeaturedToUpdate,
+		updateProfileInfo
 	} from '../../firebase/firebase.utils.user'
 
 export function* userProfile(currentUserInfo, otherUserInfo){
@@ -100,13 +104,24 @@ export function* followUser({ payload }){
 	}
 }
 
-export function* editBioFeatured({ payload: { bioEdit, timelineUID, featuredPhotoEdit } }){
+export function* editBioFeatured({ payload: { bioEdit, timelineUID, featuredPhotoEdit, existingFeaturedPhoto } }){
 	try{
 		const userImageUrl = yield call(getUserImageUrl, featuredPhotoEdit)
-		const users = yield call(bioFeaturedToUpdate, { bioEdit, timelineUID, userImageUrl })
+		const users = yield call(bioFeaturedToUpdate, { bioEdit, timelineUID, userImageUrl, existingFeaturedPhoto })
 		yield put(editBioFeaturedSuccess(users))
 	}catch(err){
 		yield put(editBioFeaturedFailure(err.message))
+	}
+}
+
+export function* editProfile({ payload: { id, uFirstName, uLastName, uAddress, uContactNumber, uBirthday, uEducation, uWork, profilePictureObject, coverPhotoObject, currentUserAvatarUrl, currentUserCoverUrl } }){
+	try{
+		const userProfileUrl = yield call(getUserImageUrl, profilePictureObject)
+		const userCoverUrl = yield call(getUserImageUrl, coverPhotoObject)
+		const users = yield call(updateProfileInfo, { id, uFirstName, uLastName,  uAddress, uContactNumber, uBirthday, uEducation, uWork, userProfileUrl, userCoverUrl, currentUserAvatarUrl, currentUserCoverUrl })
+		yield put(editProfileSuccess(users))
+	}catch(err){
+		yield put(editProfileFailure(err.message))
 	}
 }
 
@@ -138,6 +153,14 @@ export function* onEditBioFeaturedStart(){
 	yield takeLatest(userTypes.EDIT_BIO_FEATURED_START, editBioFeatured)
 }
 
+export function* onEditProfileStart(){
+	yield takeLatest(userTypes.EDIT_PROFILE_START, editProfile)
+}
+
+// export function* onEditProfileStart(){
+// 	yield takeLatest(userTypes.EDIT_PROFLE_START, editProfile)
+// }
+
 // USER ROOT SAGAS
 export function* userSagas() {
 	yield all([
@@ -147,7 +170,8 @@ export function* userSagas() {
 				call(onSignInStart),
 				call(onFetchUsersStart),
 				call(onFollowUserStart),
-				call(onEditBioFeaturedStart)
+				call(onEditBioFeaturedStart),
+				call(onEditProfileStart)
 			])
 }
 

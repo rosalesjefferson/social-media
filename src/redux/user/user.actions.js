@@ -95,3 +95,22 @@ export const editBioFeaturedFailure = (err) =>({
 	payload: err
 })
 
+// Edit profile
+
+export const editProfileStart = (data) =>({
+	type: userTypes.EDIT_PROFILE_START,
+	payload: data
+})
+
+export const editProfileSuccess = (data) =>({
+	type: userTypes.EDIT_PROFILE_SUCCESS,
+	payload: data
+})
+
+export const editProfileFailure = (err) =>({
+	type: userTypes.EDIT_PROFILE_FAILURE,
+	payload: err
+})
+
+
+

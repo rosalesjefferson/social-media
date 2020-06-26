@@ -24,7 +24,7 @@ const Timeline = ({ timelineUser, currentUser, fetchUsersStart }) =>{
 		photos: false,
 	})
 	const { timeline, about, following, followers, photos } = isHidden
-	const { firstName, lastName, currentUserAvatarUrl, id, featuredPhoto, bio  } = timelineUser[0]
+	const { firstName, lastName, currentUserAvatarUrl, currentUserCoverUrl, id, featuredPhoto, bio	, nickname  } = timelineUser[0]
 // https://www.w3schools.com/html/tryit.asp?filename=tryhtml_input_date
 	useEffect(() =>{
 		let unsubscribed = false
@@ -51,14 +51,15 @@ const Timeline = ({ timelineUser, currentUser, fetchUsersStart }) =>{
 		<div className='timeline__container'>
 			<div className='timeline-header-container'>
 				<figure className='timeline__cover-image-container'>
-					<img src='' className='timeline__cover-image' />
+					{ currentUserCoverUrl.length > 0 ? <img src={ currentUserCoverUrl } className='timeline__cover-image' alt='cover'/>
+					: '' }
 				</figure>
 				<ul className='timeline__lists-container'>
 					<figure className='timeline__user-image-container'>
 						<img src={ currentUserAvatarUrl } alt='timeline' className='timeline__user-image'/>
 						<Link to={`/${id}`}className='header-3 timeline__name-container'>
 							<span className='timeline__name'>{ firstName } { lastName }</span>
-							<span className='timeline__nickname'>(Test)</span>
+							<span className='timeline__nickname'>{`${nickname.length > 0 ? `( ${ nickname } )` : '' }`}</span>
 						</Link>
 					</figure>
 

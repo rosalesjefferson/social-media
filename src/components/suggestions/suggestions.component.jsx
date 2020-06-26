@@ -2,8 +2,6 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { firestore } from '../../firebase/firebase.utils'
-
 import { fetchUsersStart } from '../../redux/user/user.actions'
 import { selectUsers } from '../../redux/user/user.selectors'
 
