@@ -88,8 +88,8 @@ export function* signOut(){
 
 export function* fetchUsers(){
 	try{
-		const { users, following } = yield getAllUsersAndFollowing()
-		yield put(fetchUsersSuccess({ users, following }))
+		const users = yield getAllUsersAndFollowing()
+		yield put(fetchUsersSuccess(users))
 	}catch(err){
 		yield put(fetchUsersFailure(err.message))
 	}
@@ -120,6 +120,8 @@ export function* editProfile({ payload: { id, uFirstName, uLastName, uAddress, u
 		const userCoverUrl = yield call(getUserImageUrl, coverPhotoObject)
 		const users = yield call(updateProfileInfo, { id, uFirstName, uLastName,  uAddress, uContactNumber, uBirthday, uEducation, uWork, userProfileUrl, userCoverUrl, currentUserAvatarUrl, currentUserCoverUrl })
 		yield put(editProfileSuccess(users))
+		const currUser = yield getCurrentUser();
+		yield userProfile(currUser)
 	}catch(err){
 		yield put(editProfileFailure(err.message))
 	}

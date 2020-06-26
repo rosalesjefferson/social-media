@@ -10,7 +10,7 @@ export const selectUsers = createSelector([selectorUser], user => {
 
 	const UID = user.currentUser.UID
 	const users = user.userLists
-	const following = user.following
+	const following = user.currentUser.following
 
 	const noCurrentUser = users.filter(user => user.id !== UID)
 

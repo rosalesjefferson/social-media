@@ -47,9 +47,6 @@
 			opacity: 1;
 			visibility: visible;
 		}
-		&.no-featured{
-			height: 17.5rem;
-		}
 	}
 
 	&__form-container{
@@ -62,7 +59,7 @@
 		justify-content: space-between;
 		align-items: center;
 		background: $light-2;
-		padding: .8rem 1rem;
+		padding: 8px 1rem;
 		border-bottom: 1px solid $light-4;
 	}
 
@@ -83,7 +80,10 @@
 		border: none;
 		width: 100%;
 		padding: 1rem;
-		color: inherit;		
+		color: inherit;
+		&.no-featured{
+			height: 3.55rem;	
+		}	
 
 		&:focus,
 		&:hover{

@@ -57,7 +57,6 @@ const TimelineUserInfo = ({ featuredPhoto, bio, timelineUID, editBioFeaturedStar
 
 				<div className={ `timeline-user-info__form-overlay 
 									${isHidden ? 'visible' : ''}
-									${featuredPhoto !== null ? 'no-featured' : ''}
 							  `}>
 					<form onSubmit={ handleSubmit }className='timeline-user-info__form-container'>
 						<h5 className='timeline-user-info__form-header-container header-5'>
@@ -69,8 +68,8 @@ const TimelineUserInfo = ({ featuredPhoto, bio, timelineUID, editBioFeaturedStar
 							onChange={ handleChange }
 							type='text' 
 							id='bioEdit'
-							className='timeline-user-info__input'
-						  	placeholder={ `${bioEdit ? '' : 'Exp. Aspiring Software Engineer'}` }
+							className={ `timeline-user-info__input ${featuredPhoto.length < 1 ? 'no-featured': ''}` }
+						  	placeholder='Exp. Aspiring Software Engineer'
 						></textarea>
 						<div className={ `timeline-user-info__form-group ${featuredPhotoEdit ? 'active' : ''}` }>
 							<label htmlFor='imgFile' className='timeline-user-info__label'>
@@ -112,7 +111,7 @@ const TimelineUserInfo = ({ featuredPhoto, bio, timelineUID, editBioFeaturedStar
 					}
 				</div>
 			</div>
-			{featuredPhoto ? 
+			{featuredPhoto.length > 0 ? 
 				<figure className='timeline-user-info__featured-photo-container'>
 					<img src={ featuredPhoto } className='timeline-user-info__featured-photo' alt='featured photos' />
 				</figure>

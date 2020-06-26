@@ -21,8 +21,8 @@ const userReducer = (state=INITIAL_STATE, action) =>{
 		return{
 			...state,
 			// userLists: [ ...state.userLists, ...action.payload.users ],
-			userLists: [ ...state.userLists, ...uniqueUsers(state.userLists, action.payload.users) ],
-			following: [ ...state.following, ...action.payload.following ]
+			userLists: [ ...state.userLists, ...uniqueUsers(state.userLists, action.payload) ],
+			// following: [ ...state.following, ...action.payload.following ]
 		}
 
 		case userTypes.EDIT_BIO_FEATURED_SUCCESS:
@@ -35,7 +35,9 @@ const userReducer = (state=INITIAL_STATE, action) =>{
 		case userTypes.FOLLOW_USER_SUCCESS:
 		return{
 			...state,
-			following: [ ...state.following, ...action.payload ]
+			// following: [ ...state.following, action.payload ]
+			currentUser: { ...state.currentUser,  following: [...state.currentUser.following, action.payload]}
+
 		}
 
 		case userTypes.FETCH_USERS_FAILURE:

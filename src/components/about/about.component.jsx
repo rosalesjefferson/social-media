@@ -70,11 +70,11 @@ const About = ({ editProfileStart, timelineUser: { email, lastName, firstName, a
 			</div>
 			<div className='about__info-container'>
 				<p className='about__info'><span>Email: </span>{ email }</p>
-				<p className='about__info'><span>Address: </span>{ address }</p>
-				<p className='about__info'><span>Contact Number: </span>{ contactNumber }</p>
-				<p className='about__info'><span>Birthday: </span>{ birthday }</p>
-				<p className='about__info'><span>Education: </span>{ education }</p>
-				<p className='about__info'><span>Work: </span>{ work }</p>
+				<p className='about__info'><span>Address: </span>{ `${ address.length > 0 ? address : 'None'}` }</p>
+				<p className='about__info'><span>Contact Number: </span>{ `${ contactNumber.length > 0 ? address : 'None'}` }</p>
+				<p className='about__info'><span>Birthday: </span>{ `${ birthday.length > 0 ? address : 'None'}` }</p>
+				<p className='about__info'><span>Education: </span>{ `${ education.length > 0 ? address : 'None'}` }</p>
+				<p className='about__info'><span>Work: </span>{ `${ work.length > 0 ? address : 'None'}` }</p>
 				<p className='about__info'><span>Joined: </span>{ created_at }</p>
 			</div>
 			<div className={ `about__form-overlay ${isModalHidden ? 'active' : ''}` }>

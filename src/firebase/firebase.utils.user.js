@@ -26,8 +26,9 @@ export const createUserProfile = async (userAuth, additionalData) =>{
         contactNumber: '',
         currentUserAvatarUrl: 'https://www.cbns.org.au/wp-content/uploads/2017/05/img_placeholder_avatar.jpg',
         currentUserCoverUrl: '',
-        featuredPhoto: null,
+        featuredPhoto: '',
         education: '',
+        nickname: '',
         bio: '',
         ...additionalData
       })
@@ -62,7 +63,7 @@ export const getCurrentUser = () =>{
 
 
 export const getAllUsersAndFollowing = async () =>{
-  const UID = auth.currentUser.uid
+  // const UID = auth.currentUser.uid
 
   const usersCollectionRef = firestore.collection('users')
   const usersSnapShot = await usersCollectionRef.get()
@@ -74,20 +75,21 @@ export const getAllUsersAndFollowing = async () =>{
     }
   })
 
-  const usersFollowingRef = firestore.doc(`users/${UID}`).collection('following')
-  const usersFollowingSnapshot = await usersFollowingRef.get()
+  // const usersFollowingRef = firestore.doc(`users/${UID}`).collection('following')
+  // const usersFollowingSnapshot = await usersFollowingRef.get()
 
-  const following = await usersFollowingSnapshot.docs.map(doc => {
-    return{
-      id: doc.id,
-      ...doc.data()
-    }
-  })
+  // const following = await usersFollowingSnapshot.docs.map(doc => {
+  //   return{
+  //     id: doc.id,
+  //     ...doc.data()
+  //   }
+  // })
 
-  return {
-    users,
-    following
-  }
+  // return {
+  //   users,
+  //   following
+  // }
+  return users
 }
 
 export const following = async (payload) =>{
@@ -248,7 +250,7 @@ export const updateProfileInfo = async payload =>{
   if(userCoverUrl === null && currentUserCoverUrl !== null) coverURL = currentUserCoverUrl
   if(userCoverUrl) coverURL = userCoverUrl
 
-  individualUserCollectionRef.update({
+  await individualUserCollectionRef.update({
     ...userIndividualSnapshot.data(),
     firstName: uFirstName,
     lastName: uLastName,
@@ -260,6 +262,24 @@ export const updateProfileInfo = async payload =>{
     currentUserAvatarUrl: profileUrl,
     currentUserCoverUrl: coverURL
   })
+
+  // userIndividualSnapshot.data().currentUserAvatarUrl
+  // console.log(userIndividualSnapshot.data().currentUserAvatarUrl, 'url')
+
+  const postsCollectionRef = firestore.collection('posts')
+  const currentUserPosts = postsCollectionRef.where('postUID', '==', id)
+  // await currentUserPosts
+  const postsSnapshot = await currentUserPosts.get()
+
+  try{
+    await postsSnapshot.docs.forEach(doc =>{
+      firestore.collection('posts').doc(doc.id).update({
+        currentUserAvatarUrl: profileUrl
+      })
+    })
+  }catch(err){
+    console.log(err.message, 'POST DP')
+  }
 
   const userSnapshot = await usersCollectionRef.get()
 
