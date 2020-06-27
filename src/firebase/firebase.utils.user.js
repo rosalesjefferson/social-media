@@ -20,6 +20,8 @@ export const createUserProfile = async (userAuth, additionalData) =>{
       await userReference.set({
         created_at,
         email: userAuth.email,
+        gender: '',
+        hobbies: '',
         address: '',
         birthday: '',
         work: '',
@@ -52,6 +54,18 @@ export const getFollowing = async userReference =>{
   return following
 }
 
+export const getFollowers = async userReference =>{
+  const userFollowersReference = userReference.collection('followers')
+  const snapShot = await userFollowersReference.get()
+  const followers = await snapShot.docs.map(doc => {
+    return{
+      id: doc.id,
+      ...doc.data()
+    }
+  })
+  return followers
+}
+
 export const getCurrentUser = () =>{
   return new Promise((resolve, reject) =>{
     const unsubscribe = auth.onAuthStateChanged(userAuth =>{
@@ -62,7 +76,7 @@ export const getCurrentUser = () =>{
 }
 
 
-export const getAllUsersAndFollowing = async () =>{
+export const getAllUsers = async () =>{
   // const UID = auth.currentUser.uid
 
   const usersCollectionRef = firestore.collection('users')
@@ -75,20 +89,6 @@ export const getAllUsersAndFollowing = async () =>{
     }
   })
 
-  // const usersFollowingRef = firestore.doc(`users/${UID}`).collection('following')
-  // const usersFollowingSnapshot = await usersFollowingRef.get()
-
-  // const following = await usersFollowingSnapshot.docs.map(doc => {
-  //   return{
-  //     id: doc.id,
-  //     ...doc.data()
-  //   }
-  // })
-
-  // return {
-  //   users,
-  //   following
-  // }
   return users
 }
 
@@ -107,8 +107,11 @@ export const following = async (payload) =>{
     try{
       await followersCollectionRef.add({
         created_at,
-        followersUserID: UID,
-        ...userSnapshot.data()
+        email: userSnapshot.data().email,
+        firstName: userSnapshot.data().firstName,
+        lastName: userSnapshot.data().lastName,
+        currentUserAvatarUrl: userSnapshot.data().currentUserAvatarUrl,
+        followersUserID: UID
       })
     console.log('followers not exist')
     }catch(err){
@@ -180,46 +183,6 @@ export const bioFeaturedToUpdate = async (payload) =>{
         console.log(err.message)
       }
 
-  // console.log(userImageUrl, existingFeaturedPhoto, 'test')
-  // console.log(typeof(userImageUrl))
-  // console.log(typeof(userImageUrl))
-  // console.log(typeof(userImageUrl))
-  // if(existingFeaturedPhoto === null && userImageUrl === null){
-  //   try{
-  //       await individualUserCollectionRef.update({
-  //         ...snapShot.data(),
-  //         bio: bioEdit,
-  //         featuredPhoto: null
-  //       })
-  //     }catch(err){
-  //       console.log(err.message)
-  //     }
-  //   }
-
-  // if(existingFeaturedPhoto !== null && userImageUrl === null){
-  //   try{
-  //         await individualUserCollectionRef.update({
-  //           ...snapShot.data(),
-  //           bio: bioEdit,
-  //           featuredPhoto: existingFeaturedPhoto
-  //         })
-  //     }catch(err){
-  //       console.log(err.message)
-  //     }
-  //   }
-
-  // if(userImageUrl){
-  //   try{
-  //       await individualUserCollectionRef.update({
-  //         ...snapShot.data(),
-  //         bio: bioEdit,
-  //         featuredPhoto: userImageUrl
-  //       })
-  //     }catch(err){
-  //       console.log(err.message)
-  //     }
-  //   }
-
   const userSnapshot = await usersCollectionRef.get()
 
   const users = await userSnapshot.docs.map(doc =>{
@@ -232,8 +195,7 @@ export const bioFeaturedToUpdate = async (payload) =>{
 }
 
 export const updateProfileInfo = async payload =>{
-  const { id, uFirstName, uLastName, uAddress, uContactNumber, uBirthday, uEducation, uWork, userProfileUrl, userCoverUrl, currentUserAvatarUrl, currentUserCoverUrl } = payload
-
+  const { id, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, userProfileUrl, userCoverUrl, currentUserAvatarUrl, currentUserCoverUrl } = payload
   const usersCollectionRef = firestore.collection('users')
   const individualUserCollectionRef = usersCollectionRef.doc(id)
 
@@ -254,9 +216,12 @@ export const updateProfileInfo = async payload =>{
     ...userIndividualSnapshot.data(),
     firstName: uFirstName,
     lastName: uLastName,
+    nickname: uNickname,
+    hobbies: uHobbies,
     address: uAddress,
     contactNumber: uContactNumber,
     birthday: uBirthday,
+    gender: uGender,
     education: uEducation,
     work: uWork,
     currentUserAvatarUrl: profileUrl,

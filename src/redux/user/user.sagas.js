@@ -26,7 +26,8 @@ import {
 		createUserProfile, 
 		getCurrentUser, 
 		getFollowing, 
-		getAllUsersAndFollowing, 
+		getFollowers,
+		getAllUsers, 
 		following,
 		getUserImageUrl,
 		bioFeaturedToUpdate,
@@ -37,8 +38,9 @@ export function* userProfile(currentUserInfo, otherUserInfo){
 	try{
 		const userReference = yield call(createUserProfile, currentUserInfo, { ...otherUserInfo })
 		const following = yield call(getFollowing, userReference)
+		const followers = yield call(getFollowers, userReference)
 		const userSnapshot = yield userReference.get();
-		yield put(authenticationSuccess({ UID: userSnapshot.id, ...userSnapshot.data(),  following: [ ...following ]  }))
+		yield put(authenticationSuccess({ UID: userSnapshot.id, ...userSnapshot.data(),  following: [ ...following ], followers: [ ...followers ]  }))
 	}catch(err){
 		yield put(authenticationFailure(err.message))
 	}
@@ -88,7 +90,7 @@ export function* signOut(){
 
 export function* fetchUsers(){
 	try{
-		const users = yield getAllUsersAndFollowing()
+		const users = yield getAllUsers()
 		yield put(fetchUsersSuccess(users))
 	}catch(err){
 		yield put(fetchUsersFailure(err.message))
@@ -114,11 +116,11 @@ export function* editBioFeatured({ payload: { bioEdit, timelineUID, featuredPhot
 	}
 }
 
-export function* editProfile({ payload: { id, uFirstName, uLastName, uAddress, uContactNumber, uBirthday, uEducation, uWork, profilePictureObject, coverPhotoObject, currentUserAvatarUrl, currentUserCoverUrl } }){
+export function* editProfile({ payload: { id, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, profilePictureObject, coverPhotoObject, currentUserAvatarUrl, currentUserCoverUrl } }){
 	try{
 		const userProfileUrl = yield call(getUserImageUrl, profilePictureObject)
 		const userCoverUrl = yield call(getUserImageUrl, coverPhotoObject)
-		const users = yield call(updateProfileInfo, { id, uFirstName, uLastName,  uAddress, uContactNumber, uBirthday, uEducation, uWork, userProfileUrl, userCoverUrl, currentUserAvatarUrl, currentUserCoverUrl })
+		const users = yield call(updateProfileInfo, { id, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, userProfileUrl, userCoverUrl, currentUserAvatarUrl, currentUserCoverUrl })
 		yield put(editProfileSuccess(users))
 		const currUser = yield getCurrentUser();
 		yield userProfile(currUser)

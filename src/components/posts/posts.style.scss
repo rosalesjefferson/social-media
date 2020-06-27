@@ -1,0 +1,14 @@
+@import '../../scss/main.scss';
+.posts{
+	&__no-post{
+		text-align: center;
+		color: $gray-5;
+		font-weight: 300;
+		font-size: 1.6rem;
+		background: $light-4;
+		padding: 1rem;
+		border-radius: 5px;
+	}
+}
+
+

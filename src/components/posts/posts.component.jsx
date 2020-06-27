@@ -24,7 +24,6 @@ const Posts = ({ fetchPostsStart, currentUID, posts, isTimeline }) =>{
 			  	    unsubscribed = postCollectionRef.onSnapshot(snapShot =>{
 						snapShot.docChanges().forEach(realtimeData =>{
 							if(realtimeData.type ==='added' || realtimeData.type ==='modified' || realtimeData.type === 'removed'){
-								console.log(realtimeData.type)
 								fetchPostsStart()
 							}
 						})
@@ -37,14 +36,15 @@ const Posts = ({ fetchPostsStart, currentUID, posts, isTimeline }) =>{
 		postsLists()
 		return () => { unsubscribed = true }
 
-	}, [fetchPostsStart])
+	}, [])
 
 	return(
 		<div className='posts__container'>
-			{
+			{ posts.length > 0 ?
 				posts.map(post  =>(
 					<PostItem key={ post.id } currentUID={ currentUID } posts={ post } />
 				))
+			  : <h4 className='posts__no-post'>No post. Add your first post.</h4>
 			}
 		</div>
 	)

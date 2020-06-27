@@ -95,12 +95,6 @@
 		align-items: center;
 		padding: 1rem;
 		padding-top: 0;
-		&.active{
-			& >:first-child{
-				margin-right: 5px;
-			}
-		}
-		
 	}
 
 	&__label{
@@ -112,6 +106,7 @@
 		transition: all .5s;
 		display: flex;
 		align-items: center;	
+		margin-right: 5px;
 
 		&:hover{
 			background: $light-5;
@@ -134,7 +129,6 @@
 		height: 2.7rem;
 		border-radius: 5px;
 		overflow: hidden;
-		justify-self: end;
 		position: relative;
 		background: $dark;
 		margin-right: auto;
@@ -221,6 +215,9 @@
 	}
 
 	&__featured-photo-container{
+		border-top: 1px solid $light-4;
+		object-fit: cover;
+		overflow: hidden;
 	}
 
 	&__featured-photo{

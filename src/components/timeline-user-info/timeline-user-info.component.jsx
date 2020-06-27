@@ -15,13 +15,14 @@ const TimelineUserInfo = ({ featuredPhoto, bio, timelineUID, editBioFeaturedStar
 	useEffect(() =>{
 		if(bioEdit !== bio || existingFeaturedPhoto !== featuredPhotoEdit){
 			setHidden(false)
+			setTimelineUserInfo({ ...timelineUserInfo, bioEdit: bio, featuredPhotoEdit: null })
 		}
 	}, [bio, featuredPhoto])
 
 	const onClickEdit = () =>{
 		setHidden(!isHidden)
 		setIsSpinnerHidden(false)
-		setTimelineUserInfo({ ...timelineUserInfo, bioEdit: bio})
+		setTimelineUserInfo({ ...timelineUserInfo, featuredPhotoEdit: null })
 	}
 
 	const handleChange = (e) =>{
@@ -91,7 +92,7 @@ const TimelineUserInfo = ({ featuredPhoto, bio, timelineUID, editBioFeaturedStar
 													${isSpinnerHidden ? 'hide-button' : ''}
 												` }
 							>Save</button>
-							<div className={ `timeline-user-info__spinner-container${isSpinnerHidden ? 'active' : ''}` }>
+							<div className={ `timeline-user-info__spinner-container ${isSpinnerHidden ? 'active' : ''}` }>
 								<span className='timeline-user-info__spinner'></span>
 							</div>
 						</div>

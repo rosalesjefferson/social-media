@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { selectCurrentUser, selectTimelineUsers } from '../../redux/user/user.selectors'
 import { fetchUsersStart } from '../../redux/user/user.actions'
 
+import AddPost from '../../components/add-post/add-post.component'
 import Posts from '../../components/posts/posts.component'
 import TimelineUserInfo from '../../components/timeline-user-info/timeline-user-info.component'
 import About from '../../components/about/about.component'
@@ -71,9 +72,12 @@ const Timeline = ({ timelineUser, currentUser, fetchUsersStart }) =>{
 				</ul>
 			</div>
 			{ timeline ? 
-				<div className='timeline-post-container'>
+				<div className='timeline-feed-container'>
 					<TimelineUserInfo featuredPhoto={ featuredPhoto } bio={ bio } timelineUID={ id }/>
-					<Posts isTimeline={ isTimeline } timelineUID={ id } />
+					<div className='timeline-posts-container'>
+						<AddPost />
+						<Posts isTimeline={ isTimeline } timelineUID={ id } />
+					</div>
 				</div>
 			: ''}
 			{ about ? <About timelineUser={ timelineUser[0] }/> : ''}

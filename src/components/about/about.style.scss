@@ -67,7 +67,7 @@
 		@include background();
 		max-width: 80rem;
 		margin: 25rem auto 0 auto;
-		padding: 1rem;
+		padding: 2rem;
 		grid-gap: 1rem;
 		position: relative;
 	}
@@ -135,6 +135,23 @@
 		.far{
 		}
 	}
+
+	&__radio-button-container{
+		display: grid;
+		grid-template-columns: repeat(6, max-content);
+		grid-gap: 1rem;
+		align-items: center;
+	}
+
+	&__radio-button{
+		cursor: pointer;
+	}
+	&__radio-button-label{
+		color: $gray;
+		font-weight: 500;
+		font-size: 1.3rem;
+	}
+
 
 	//display image
 	&__image-display-container{

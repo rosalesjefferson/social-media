@@ -12,6 +12,7 @@ import { getPosts,
 	} from '../../firebase/firebase.crud.utils'
 
 import crudTypes from './crud.types'
+import userTypes from '../user/user.types'
 import { 
 			fetchPostsSuccessful, 
 			fetchPostsFailure,
@@ -119,6 +120,10 @@ export function* addLike({ payload }){
 	}
 }
 
+export function* updatePostsWhenFollowing(){
+	yield getLatestPosts()
+}
+
 export function* onFetchPostsStart(){
 	yield takeLatest(crudTypes.FETCH_POSTS_START, fetchPosts)
 }
@@ -143,6 +148,10 @@ export function* onAddLikeStart(){
 	yield takeLatest(crudTypes.ADD_LIKE_START, addLike)
 }
 
+export function* onUpdatePostsWhenFollowing(){
+	yield takeLatest(userTypes.FOLLOW_USER_SUCCESS, updatePostsWhenFollowing)
+}
+
 export function* crudSagas() {
 	yield all([
 				call(onFetchPostsStart),
@@ -150,6 +159,7 @@ export function* crudSagas() {
 				call(onAddCommentStart),
 				call(onDeletePostStart),
 				call(onEditCaptionStart),
-				call(onAddLikeStart)
+				call(onAddLikeStart),
+				call(onUpdatePostsWhenFollowing)
 			])
 }
