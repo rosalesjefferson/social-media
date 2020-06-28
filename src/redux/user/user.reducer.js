@@ -4,8 +4,8 @@ import { uniqueUsers } from './user.utils'
 const INITIAL_STATE = {
 	currentUser: null,
 	userLists: [],
-	following: [],
-	followers: [],
+	timelineFollowing: [],
+	timeluneFollowers: [],
 	error: null
 }
 

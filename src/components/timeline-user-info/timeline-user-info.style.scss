@@ -203,6 +203,7 @@
 
 	&__icon{
 	}
+
 	&__bio{
 		padding: 1rem 0 1rem 0;
 		font-size: 1.3rem;
@@ -213,6 +214,16 @@
 			cursor: pointer;
 		}
 	}
+
+	&__joined-container{
+		margin-top: 1rem;
+		font-size: 1.2rem!important;
+		font-weight: 400;
+	}
+	&__joined{
+		font-weight: 600;
+	}
+
 
 	&__featured-photo-container{
 		border-top: 1px solid $light-4;

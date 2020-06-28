@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import { connect } from 'react-redux'
 
 import { editProfileStart } from '../../redux/user/user.actions'
@@ -26,10 +26,10 @@ const About = ({ editProfileStart, timelineUser: { email, lastName, firstName, n
 
 	const { uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, profilePictureObject, coverPhotoObject } = userInfo
 
-	useEffect(() =>{
+	useCallback(() =>{
 		setIsModalHidden(false)
 		setUserInfo({ ...userInfo, profilePictureObject: null, coverPhotoObject: null })
-	}, [lastName, firstName, nickname, hobbies, address, contactNumber, birthday, gender, education, work, currentUserAvatarUrl, currentUserCoverUrl])
+	}, [ firstName, lastName, nickname, hobbies, gender, address, contactNumber, birthday, education, work, currentUserAvatarUrl, currentUserCoverUrl ])
 
 	const handleClickModal = () =>{
 		setIsModalHidden(!isModalHidden)

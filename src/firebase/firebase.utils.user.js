@@ -104,13 +104,14 @@ export const following = async (payload) =>{
   const isFollowersExist = await followersSnapshot.docs.find(doc => doc.data().followersUserID === UID)
 
   if(!isFollowersExist){
+    const { email, firstName, lastName, currentUserAvatarUrl } = userSnapshot.data()
     try{
       await followersCollectionRef.add({
         created_at,
-        email: userSnapshot.data().email,
-        firstName: userSnapshot.data().firstName,
-        lastName: userSnapshot.data().lastName,
-        currentUserAvatarUrl: userSnapshot.data().currentUserAvatarUrl,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        currentUserAvatarUrl: currentUserAvatarUrl,
         followersUserID: UID
       })
     console.log('followers not exist')

@@ -15,7 +15,7 @@ import Photos from '../../components/photos/photos.component'
 
 import './timeline.style.scss';
 
-const Timeline = ({ timelineUser, currentUser, fetchUsersStart }) =>{
+const Timeline = ({ timelineUser, currentUser, match, fetchUsersStart }) =>{
 	const [isTimeline] = useState(true)
 	const [isHidden, setIsHidden] = useState({
 		timeline: true,
@@ -25,8 +25,10 @@ const Timeline = ({ timelineUser, currentUser, fetchUsersStart }) =>{
 		photos: false,
 	})
 	const { timeline, about, following, followers, photos } = isHidden
-	const { firstName, lastName, currentUserAvatarUrl, currentUserCoverUrl, id, featuredPhoto, bio	, nickname  } = timelineUser[0]
+	const { firstName, lastName, currentUserAvatarUrl, currentUserCoverUrl, id, featuredPhoto, bio, nickname, created_at  } = timelineUser[0]
+	const UID = currentUser.UID
 // https://www.w3schools.com/html/tryit.asp?filename=tryhtml_input_date
+
 	useEffect(() =>{
 		let unsubscribed = false
 		if(!unsubscribed){
@@ -46,8 +48,6 @@ const Timeline = ({ timelineUser, currentUser, fetchUsersStart }) =>{
 			[target.toLowerCase()]: true
 		})
 	}
-	console.log('timeline', timelineUser)
-
 	return(
 		<div className='timeline__container'>
 			<div className='timeline-header-container'>
@@ -73,9 +73,9 @@ const Timeline = ({ timelineUser, currentUser, fetchUsersStart }) =>{
 			</div>
 			{ timeline ? 
 				<div className='timeline-feed-container'>
-					<TimelineUserInfo featuredPhoto={ featuredPhoto } bio={ bio } timelineUID={ id }/>
+					<TimelineUserInfo featuredPhoto={ featuredPhoto } bio={ bio } timelineUID={ id } UID={ UID } joined={ created_at }/> 
 					<div className='timeline-posts-container'>
-						<AddPost />
+						{ id === UID ? <AddPost /> : '' }
 						<Posts isTimeline={ isTimeline } timelineUID={ id } />
 					</div>
 				</div>

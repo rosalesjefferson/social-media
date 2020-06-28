@@ -20,6 +20,8 @@
 	}
 
 	&-button{
+		display: grid;
+		grid-template-columns: 2.5rem 1fr;
 		cursor: pointer;
 		color: $dark-9;
 		font-weight: 500;
@@ -27,6 +29,12 @@
 		font-size: 1.3rem;
 		.icon-dropdown{
 			font-size: 1.6rem;
+		}
+		&.not{
+			color: $light-9;
+			&:hover{
+				color: $light-9!important;
+			}
 		}
 		&:hover{
 			&.edit{
@@ -46,6 +54,7 @@
 			}
 		}
 	}
+
 	&-copy-value{
 		@include position(absolute, 0, 0, unset, unset);
 		opacity: 0;

@@ -44,7 +44,7 @@ const Posts = ({ fetchPostsStart, currentUID, posts, isTimeline }) =>{
 				posts.map(post  =>(
 					<PostItem key={ post.id } currentUID={ currentUID } posts={ post } />
 				))
-			  : <h4 className='posts__no-post'>No post. Add your first post.</h4>
+			  : <h4 className='posts__no-post'>No post.</h4>
 			}
 		</div>
 	)

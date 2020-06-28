@@ -5,7 +5,7 @@ import { editBioFeaturedStart } from '../../redux/user/user.actions'
 
 import './timeline-user-info.style.scss'
 
-const TimelineUserInfo = ({ featuredPhoto, bio, timelineUID, editBioFeaturedStart }) =>{
+const TimelineUserInfo = ({ featuredPhoto, bio, timelineUID, UID, joined, editBioFeaturedStart }) =>{
 	const [timelineUserInfo, setTimelineUserInfo] = useState({ bioEdit: bio, featuredPhotoEdit: null, existingFeaturedPhoto: featuredPhoto })
 	const [isHidden, setHidden] = useState(false)
 	const [isSpinnerHidden, setIsSpinnerHidden] = useState(false)
@@ -44,6 +44,7 @@ const TimelineUserInfo = ({ featuredPhoto, bio, timelineUID, editBioFeaturedStar
 		editBioFeaturedStart({ bioEdit, featuredPhotoEdit, timelineUID, existingFeaturedPhoto: existingFeaturedPhoto })
 		setIsSpinnerHidden(true)
 	}
+	console.log(bio, 'bio')
 
 	return(
 		<div className='timeline-user-info-container'>
@@ -53,7 +54,10 @@ const TimelineUserInfo = ({ featuredPhoto, bio, timelineUID, editBioFeaturedStar
 						<i className="fas fa-globe-asia"></i>
 					</span>
 					<p className='timeline-user-info__title'>Intro</p>
-					<span className='timeline-user-info__icon-edit-container'><i onClick={ onClickEdit } className="far fa-edit timeline-user-info__icon-edit"></i></span>
+					{ UID === timelineUID ?
+						<span className='timeline-user-info__icon-edit-container'><i onClick={ onClickEdit } className="far fa-edit timeline-user-info__icon-edit"></i></span>
+						: ''
+					}
 				</div>
 
 				<div className={ `timeline-user-info__form-overlay 
@@ -99,33 +103,44 @@ const TimelineUserInfo = ({ featuredPhoto, bio, timelineUID, editBioFeaturedStar
 					</form>
 				</div>
 
-
-
-				<div className='timeline-user-info__content-container'>
-					{bio ? '' :
-						<span className='timeline-user-info__icon-container'>
-							<i className='far fa-comment-alt timeline-user-info__icon'></i>
-						</span> 
-					}
-					{ bio ? <p className='timeline-user-info__bio'>{ bio }</p> 
-						  : <p onClick={ onClickEdit } className='timeline-user-info__bio active'>Add a bio</p>
-					}
-				</div>
+				{
+					UID === timelineUID ?
+						<div className='timeline-user-info__content-container'>
+							{bio.length > 0 ? '' :
+								<span className='timeline-user-info__icon-container'>
+									<i className='far fa-comment-alt timeline-user-info__icon'></i>
+								</span> 
+							}
+							{ bio.length > 0 ? <p className='timeline-user-info__bio'>{ bio }</p> 
+								  : <p onClick={ onClickEdit } className='timeline-user-info__bio active'>Add a bio</p>
+							}
+						</div>
+					: <div className='timeline-user-info__content-container'>
+						{ bio.length > 0 ? <p className='timeline-user-info__bio'>{ bio }</p> 
+							  : <p className='timeline-user-info__joined-container'><span className='timeline-user-info__joined'>Joined: </span>{ joined }</p> 
+						}
+					 </div>
+				}
 			</div>
 			{featuredPhoto.length > 0 ? 
 				<figure className='timeline-user-info__featured-photo-container'>
 					<img src={ featuredPhoto } className='timeline-user-info__featured-photo' alt='featured photos' />
 				</figure>
-			:  
-				<div className='timeline-user-info__content-container'>
-					{bio ? '' :
-						<span className='timeline-user-info__icon-container'>
-							<i className='far fa-image timeline-user-info__icon'></i>
-						</span> 
-					}
-					<p onClick={ onClickEdit } className='timeline-user-info__bio active'>Add a featured photo</p>
+			:  ''
+		    }
 
-				</div>
+		    {
+		    	UID == timelineUID ? 
+			    	<div className='timeline-user-info__content-container'>
+						{
+						    bio.length > 0 ? '' :
+							<span className='timeline-user-info__icon-container'>
+								<i className='far fa-image timeline-user-info__icon'></i>
+							</span> 
+						}
+						<p onClick={ onClickEdit } className='timeline-user-info__bio active'>Add a featured photo</p>
+					</div>
+				: ''
 		    }
 		</div>
 	)
