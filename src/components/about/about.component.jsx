@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { editProfileStart } from '../../redux/user/user.actions'
@@ -26,7 +26,7 @@ const About = ({ editProfileStart, timelineUser: { email, lastName, firstName, n
 
 	const { uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, profilePictureObject, coverPhotoObject } = userInfo
 
-	useCallback(() =>{
+	useEffect(() =>{
 		setIsModalHidden(false)
 		setUserInfo({ ...userInfo, profilePictureObject: null, coverPhotoObject: null })
 	}, [ firstName, lastName, nickname, hobbies, gender, address, contactNumber, birthday, education, work, currentUserAvatarUrl, currentUserCoverUrl ])
@@ -194,7 +194,7 @@ const About = ({ editProfileStart, timelineUser: { email, lastName, firstName, n
 
 					<div className='about__form-group'>
 						<label htmlFor='uBirthday' className='about__label'>Birthday: </label>
-						<input type="date" id="uBirthday" value={ birthday } onChange={ handleChange } className='about__input' />
+						<input type="date" id="uBirthday" value={ uBirthday } onChange={ handleChange } className='about__input' />
 					</div>
 
 

@@ -97,20 +97,55 @@ export const editBioFeaturedFailure = (err) =>({
 
 // Edit profile
 
-export const editProfileStart = (data) =>({
+export const editProfileStart = data =>({
 	type: userTypes.EDIT_PROFILE_START,
 	payload: data
 })
 
-export const editProfileSuccess = (data) =>({
+export const editProfileSuccess = data =>({
 	type: userTypes.EDIT_PROFILE_SUCCESS,
 	payload: data
 })
 
-export const editProfileFailure = (err) =>({
+export const editProfileFailure = err =>({
 	type: userTypes.EDIT_PROFILE_FAILURE,
 	payload: err
 })
 
 
 
+
+// FETCH FOLLOWING
+
+export const fetchFollowingStart = data =>({
+	type: userTypes.FETCH_FOLLOWING_START,
+	payload: data
+})
+
+export const fetchFollowingSuccess = data =>({
+	type: userTypes.FETCH_FOLLOWING_SUCCESS,
+	payload: data
+})
+
+export const fetchFollowingFailure = err =>({
+	type: userTypes.FETCH_FOLLOWING_FAILURE,
+	payload: err
+})
+
+
+// FETCH FOLLOWERS
+
+export const fetchFollowersStart = data =>({
+	type: userTypes.FETCH_FOLLOWERS_START,
+	payload: data
+})
+
+export const fetchFollowersSuccess = data =>({
+	type: userTypes.FETCH_FOLLOWERS_SUCCESS,
+	payload: data
+})
+
+export const fetchFollowersFailure = err =>({
+	type: userTypes.FETCH_FOLLOWERS_FAILURE,
+	payload: err
+})

@@ -680,3 +680,4 @@
 [0623/153450.413:ERROR:process_memory_win.cc(73)] ReadMemory at 0x7fffc3e183e8 of 512 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
 [0623/153450.413:ERROR:process_memory_win.cc(73)] ReadMemory at 0x7fffc4ca1490 of 512 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
 [0623/153450.447:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
+[0629/025816.836:ERROR:process_info.cc(359)] UncheckedAllocate

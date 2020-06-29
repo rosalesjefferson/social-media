@@ -9,7 +9,7 @@ import EditPostCaption from '../edit-post-caption/edit-post-caption.component'
 
 import './post-dropdown.style.scss'
 
-const PostDropdown = ({ isHidden, deletePostStart, setHiddenToFalse, match, location, ...otherProps }) =>{
+const PostDropdown = ({ handleClick, isHidden, deletePostStart, setHiddenToFalse, match, location, ...otherProps }) =>{
 	const [isModalHidden, setIsModalHidden] = useState(false)
 	const { postItemId, post, currentUID, postUID } = otherProps
 

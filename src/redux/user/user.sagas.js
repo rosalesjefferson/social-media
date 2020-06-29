@@ -15,6 +15,12 @@ import {
 		followUserSuccess,
 		followUserFailure,
 
+		fetchFollowingSuccess,
+		fetchFollowingFailure,
+
+		fetchFollowersSuccess,
+		fetchFollowersFailure,
+
 		editBioFeaturedSuccess,
 		editBioFeaturedFailure,
 
@@ -28,10 +34,12 @@ import {
 		getFollowing, 
 		getFollowers,
 		getAllUsers, 
-		following,
+		userToFollowAndUnfollow,
 		getUserImageUrl,
 		bioFeaturedToUpdate,
-		updateProfileInfo
+		updateProfileInfo,
+		getTimelineFollowing,
+		getTimelineFollowers
 	} from '../../firebase/firebase.utils.user'
 
 export function* userProfile(currentUserInfo, otherUserInfo){
@@ -97,10 +105,20 @@ export function* fetchUsers(){
 	}
 }
 
+export function* followAndUnfollow(payload){
+	try{
+		const toFollowOrUnfollow = yield call(userToFollowAndUnfollow, payload)
+		return toFollowOrUnfollow
+	}catch(err){
+		return err
+	}
+
+}
+
 export function* followUser({ payload }){
 	try{
-		const allFollowing = yield call(following, payload)
-		yield put(followUserSuccess(allFollowing))
+		const toFollowOrUnfollow = yield call(followAndUnfollow, payload)
+		yield put(followUserSuccess(toFollowOrUnfollow))
 	}catch(err){
 		yield put(followUserFailure(err.message))
 	}
@@ -126,6 +144,24 @@ export function* editProfile({ payload: { id, uFirstName, uLastName, uNickname, 
 		yield userProfile(currUser)
 	}catch(err){
 		yield put(editProfileFailure(err.message))
+	}
+}
+
+export function* fetchFollowing({ payload }){
+	try{
+		const following = yield call(getTimelineFollowing, payload)
+		yield put (fetchFollowingSuccess(following))
+	}catch(err){
+		yield put(fetchFollowingFailure(err.message))
+	}
+}
+
+export function* fetchFollowers({ payload }){
+	try{
+		const followers = yield call(getTimelineFollowers, payload)
+		yield put (fetchFollowersSuccess(followers))
+	}catch(err){
+		yield put(fetchFollowersFailure(err.message))
 	}
 }
 
@@ -161,6 +197,14 @@ export function* onEditProfileStart(){
 	yield takeLatest(userTypes.EDIT_PROFILE_START, editProfile)
 }
 
+export function* onFetchFollowingStart(){
+	yield takeLatest(userTypes.FETCH_FOLLOWING_START, fetchFollowing)
+}
+
+export function* onFetchFollowersStart(){
+	yield takeLatest(userTypes.FETCH_FOLLOWERS_START, fetchFollowers)
+}
+
 // export function* onEditProfileStart(){
 // 	yield takeLatest(userTypes.EDIT_PROFLE_START, editProfile)
 // }
@@ -175,7 +219,9 @@ export function* userSagas() {
 				call(onFetchUsersStart),
 				call(onFollowUserStart),
 				call(onEditBioFeaturedStart),
-				call(onEditProfileStart)
+				call(onEditProfileStart),
+				call(onFetchFollowingStart),
+				call(onFetchFollowersStart)
 			])
 }
 

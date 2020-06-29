@@ -81,8 +81,8 @@ const Timeline = ({ timelineUser, currentUser, match, fetchUsersStart }) =>{
 				</div>
 			: ''}
 			{ about ? <About timelineUser={ timelineUser[0] }/> : ''}
-			{ following ? <Following /> : ''}
-			{ followers ? <Followers /> : ''}
+			{ following ? <Following timelineUID={ id } /> : ''}
+			{ followers ? <Followers timelineUID={ id }/> : ''}
 			{ photos ? <Photos /> : ''}
 		</div>
 	)

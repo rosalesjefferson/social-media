@@ -5,7 +5,7 @@ const INITIAL_STATE = {
 	currentUser: null,
 	userLists: [],
 	timelineFollowing: [],
-	timeluneFollowers: [],
+	timelineFollowers: [],
 	error: null
 }
 
@@ -30,6 +30,31 @@ const userReducer = (state=INITIAL_STATE, action) =>{
 		return{
 			...state,
 			userLists: [ ...action.payload ]
+		}
+
+		case userTypes.FETCH_FOLLOWING_SUCCESS:
+		return{
+			...state,
+			timelineFollowing: [ ...state.timelineFollowing, ...action.payload ]
+		}
+
+		case userTypes.FETCH_FOLLOWING_FAILURE:
+		return{
+			...state,
+			error: action.err
+		}
+
+
+		case userTypes.FETCH_FOLLOWERS_SUCCESS:
+		return{
+			...state,
+			timelineFollowers: [ ...state.timelineFollowers, ...action.payload ]
+		}
+
+		case userTypes.FETCH_FOLLOWERS_FAILURE:
+		return{
+			...state,
+			error: action.err
 		}
 
 		case userTypes.FOLLOW_USER_SUCCESS:

@@ -133,12 +133,16 @@ const TimelineUserInfo = ({ featuredPhoto, bio, timelineUID, UID, joined, editBi
 		    	UID == timelineUID ? 
 			    	<div className='timeline-user-info__content-container'>
 						{
-						    bio.length > 0 ? '' :
+						    featuredPhoto.length > 0 ? '' :
 							<span className='timeline-user-info__icon-container'>
 								<i className='far fa-image timeline-user-info__icon'></i>
 							</span> 
 						}
-						<p onClick={ onClickEdit } className='timeline-user-info__bio active'>Add a featured photo</p>
+
+						{ featuredPhoto.length < 1 ?
+							<p onClick={ onClickEdit } className='timeline-user-info__bio active'>Add a featured photo</p>
+							: ''
+						}
 					</div>
 				: ''
 		    }

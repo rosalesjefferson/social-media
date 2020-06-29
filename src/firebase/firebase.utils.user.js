@@ -92,7 +92,7 @@ export const getAllUsers = async () =>{
   return users
 }
 
-export const following = async (payload) =>{
+export const userToFollowAndUnfollow = async (payload) =>{
   const UID = await auth.currentUser.uid
   const { firstName, lastName, id, email, currentUserAvatarUrl } = payload
 
@@ -116,11 +116,20 @@ export const following = async (payload) =>{
       })
     console.log('followers not exist')
     }catch(err){
-      console.log(err.message, 'followers error')
+      console.log(err.message, 'followers not exist error')
     }
-  }else{
-    console.log('a followers already')
   }
+
+  if(isFollowersExist){
+    try{
+      await followersCollectionRef.doc(id).delete()
+      console.log('followers exist')
+    }catch(err){
+      console.log(err.message, 'followers exist error')
+    }
+  }
+
+
 
   const followingCollectionRef = usersCollectionRef.collection('following')
   const followingSnapShot = await followingCollectionRef.get()
@@ -140,8 +149,15 @@ export const following = async (payload) =>{
     }catch(err){
       console.log(err.message, 'following error')
     }
-  }else{
-    console.log('following already')
+  }
+  
+  if(isFollowingExist){
+    try{
+      await followingCollectionRef.doc(id).delete()
+      console.log('following already')
+    }catch(err){
+      console.log(err.message, 'following already error')
+    }
   }
 
   return { created_at, followingUserId: id, email, firstName, lastName, userAvatarUrl: currentUserAvatarUrl }
@@ -259,20 +275,33 @@ export const updateProfileInfo = async payload =>{
   return updatedUsers
 }
 
+export const getTimelineFollowing = async payload =>{
+  const followingCollectionRef = firestore.doc(`users/${payload.timelineUID}`).collection('following')
+  const snapShot = await followingCollectionRef.get()
 
-  // await userProfileDocReference.collection('friends').doc('BNJru1HWFVjgTjN0TAQ8').update({
-  //   id: 'UGH',
-  //   test: 'FUCKKKKKKKKKKKKKKKK'
-  // })
-  // const ref = userProfileDocReference.collection('friends')
-  // get object
-  // .get() will get an object in our collection that has different properties. One of the property is called docs.
-  // docs has an array of objects. Each of the object has data of our database. In order to get the data, we will use data(). but we need to iterate first in our docs in order for us to use the data().
-  // collection.get()
-  // const userSnap = await ref.get()
-  // const postSnap = await = refPost.get()
-  // userSnap.docs.map(doc => {console.log(doc, 'friends')})
+  const following = await snapShot.docs.map(doc =>{
+    return{
+      id: doc.id,
+      ...doc.data()
+    }
+  })
 
+  return following
+}
+
+export const getTimelineFollowers = async payload =>{
+  const followersCollectionRef = firestore.doc(`users/${payload.timelineUID}`).collection('followers')
+  const snapShot = await followersCollectionRef.get()
+
+  const followers = await snapShot.docs.map(doc =>{
+    return{
+      id: doc.id,
+      ...doc.data()
+    }
+  })
+
+  return followers
+}
 
 
 

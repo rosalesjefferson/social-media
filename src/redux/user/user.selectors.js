@@ -32,3 +32,5 @@ export const selectTimelineUsers = userID => createSelector([selectUserLists], u
 	const timelineUser = userLists.filter(user => user.id === userID)
 	return timelineUser
 })
+
+export const selectTimelineFollowers = createSelector([selectorUser], user  => user.timelineFollowers)

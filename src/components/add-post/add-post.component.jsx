@@ -26,9 +26,7 @@ const AddPost = ({ addPostStart, currentUser }) =>{
 		if(post.length > 0 || imageObject){
 			addPostStart({ post, imageObject })
 			setPost({ post: '', imageObject: null })
-		}else{
-			alert('No inputs')
-		}
+		}else return
 	}
 
 	const handleClickClose = () =>{
