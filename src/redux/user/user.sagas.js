@@ -15,6 +15,8 @@ import {
 		followUserSuccess,
 		followUserFailure,
 
+		unfollowUserSuccess,
+
 		fetchFollowingSuccess,
 		fetchFollowingFailure,
 
@@ -78,10 +80,10 @@ export function* signIn({ payload: { email, password } }){
 }
 
 export function* signUp({ payload: { firstName, lastName, email, password } }){
-	const currentUserAvatarUrl = 'https://www.cbns.org.au/wp-content/uploads/2017/05/img_placeholder_avatar.jpg'
+	const userDP = 'https://www.cbns.org.au/wp-content/uploads/2017/05/img_placeholder_avatar.jpg'
  	try{
 		const { user } = yield auth.createUserWithEmailAndPassword(email, password)
-		yield userProfile(user, { firstName, lastName, currentUserAvatarUrl })
+		yield userProfile(user, { firstName, lastName, userDP })
  	}catch(err){
 		 yield put(authenticationFailure(err.message))
  	}
@@ -117,8 +119,12 @@ export function* followAndUnfollow(payload){
 
 export function* followUser({ payload }){
 	try{
-		const toFollowOrUnfollow = yield call(followAndUnfollow, payload)
-		yield put(followUserSuccess(toFollowOrUnfollow))
+		const { toFollowOrUnfollow, follow } = yield call(followAndUnfollow, payload)
+		if(follow){
+			yield put(followUserSuccess(toFollowOrUnfollow))
+		}else{
+			yield put(unfollowUserSuccess(toFollowOrUnfollow))
+		}
 	}catch(err){
 		yield put(followUserFailure(err.message))
 	}
@@ -134,11 +140,11 @@ export function* editBioFeatured({ payload: { bioEdit, timelineUID, featuredPhot
 	}
 }
 
-export function* editProfile({ payload: { id, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, profilePictureObject, coverPhotoObject, currentUserAvatarUrl, currentUserCoverUrl } }){
+export function* editProfile({ payload: { id, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, profilePictureObject, coverPhotoObject, userDP, userCover } }){
 	try{
 		const userProfileUrl = yield call(getUserImageUrl, profilePictureObject)
 		const userCoverUrl = yield call(getUserImageUrl, coverPhotoObject)
-		const users = yield call(updateProfileInfo, { id, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, userProfileUrl, userCoverUrl, currentUserAvatarUrl, currentUserCoverUrl })
+		const users = yield call(updateProfileInfo, { id, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, userProfileUrl, userCoverUrl, userDP, userCover })
 		yield put(editProfileSuccess(users))
 		const currUser = yield getCurrentUser();
 		yield userProfile(currUser)
@@ -205,9 +211,6 @@ export function* onFetchFollowersStart(){
 	yield takeLatest(userTypes.FETCH_FOLLOWERS_START, fetchFollowers)
 }
 
-// export function* onEditProfileStart(){
-// 	yield takeLatest(userTypes.EDIT_PROFLE_START, editProfile)
-// }
 
 // USER ROOT SAGAS
 export function* userSagas() {

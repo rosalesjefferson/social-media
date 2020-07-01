@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { selectCurrentUser, selectTimelineUsers } from '../../redux/user/user.selectors'
 import { fetchUsersStart } from '../../redux/user/user.actions'
 
+import TimelineButton from '../../components/timeline-button/timeline-button.component'
 import AddPost from '../../components/add-post/add-post.component'
 import Posts from '../../components/posts/posts.component'
 import TimelineUserInfo from '../../components/timeline-user-info/timeline-user-info.component'
@@ -25,9 +26,8 @@ const Timeline = ({ timelineUser, currentUser, match, fetchUsersStart }) =>{
 		photos: false,
 	})
 	const { timeline, about, following, followers, photos } = isHidden
-	const { firstName, lastName, currentUserAvatarUrl, currentUserCoverUrl, id, featuredPhoto, bio, nickname, created_at  } = timelineUser[0]
+	const { firstName, lastName, userDP, userCover, id, featuredPhoto, bio, nickname, created_at  } = timelineUser[0]
 	const UID = currentUser.UID
-// https://www.w3schools.com/html/tryit.asp?filename=tryhtml_input_date
 
 	useEffect(() =>{
 		let unsubscribed = false
@@ -52,12 +52,16 @@ const Timeline = ({ timelineUser, currentUser, match, fetchUsersStart }) =>{
 		<div className='timeline__container'>
 			<div className='timeline-header-container'>
 				<figure className='timeline__cover-image-container'>
-					{ currentUserCoverUrl.length > 0 ? <img src={ currentUserCoverUrl } className='timeline__cover-image' alt='cover'/>
+					{ userCover.length > 0 ? <img src={ userCover } className='timeline__cover-image' alt='cover'/>
 					: '' }
+					{ UID !== id ?
+						<TimelineButton currentUser={ currentUser } timelineUserInfo={ timelineUser[0] }/>
+						: ''
+					}
 				</figure>
 				<ul className='timeline__lists-container'>
 					<figure className='timeline__user-image-container'>
-						<img src={ currentUserAvatarUrl } alt='timeline' className='timeline__user-image'/>
+						<img src={ userDP } alt='timeline' className='timeline__user-image'/>
 						<Link to={`/${id}`}className='header-3 timeline__name-container'>
 							<span className='timeline__name'>{ firstName } { lastName }</span>
 							<span className='timeline__nickname'>{`${nickname.length > 0 ? `( ${ nickname } )` : '' }`}</span>
@@ -80,9 +84,9 @@ const Timeline = ({ timelineUser, currentUser, match, fetchUsersStart }) =>{
 					</div>
 				</div>
 			: ''}
-			{ about ? <About timelineUser={ timelineUser[0] }/> : ''}
+			{ about ? <About timelineUser={ timelineUser[0] } UID={ UID }/> : ''}
 			{ following ? <Following timelineUID={ id } /> : ''}
-			{ followers ? <Followers timelineUID={ id }/> : ''}
+			{ followers ? <Followers timelineUID={ id } /> : ''}
 			{ photos ? <Photos /> : ''}
 		</div>
 	)

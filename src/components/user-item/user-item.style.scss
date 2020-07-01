@@ -32,9 +32,15 @@
 		justify-content: center;
 		align-items: center;
 		cursor: unset;
-		margin-right: 5px;
+		margin-right: 8px;
 		&.active{
 			display: flex;
+		}
+		&.margin-right{
+			margin-right: 2rem;
+		}
+		&.margin-right-medium{
+			margin-right: 2rem;
 		}
 	}
 

@@ -4,12 +4,11 @@
 	&__header-container{
 		display: flex;
 		align-items: center;
-		background: $light-2;
+		background: $light-2-medium;
 		padding: 1rem;
 		border-bottom: 1px solid $light-6;
 		border-radius: 5px;
 		& >:last-child{
-			margin-left: auto;
 			cursor: pointer;
 			&:hover{
 				color: $secondary;
@@ -18,8 +17,8 @@
 	}
 
 	&__icon-container{
-		margin-right: 1rem;
-		font-size: 2.5rem;
+		margin-right: 5px;
+		font-size: 2.1rem;
 		i{
 			transition: all .5s;
 		}
@@ -27,6 +26,7 @@
 
 	&__title{
 		font-weight: 600!important;
+		margin-right: auto;
 	}
 
 	&__info-container{

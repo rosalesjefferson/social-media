@@ -62,7 +62,7 @@ export function* addPost({ payload: { post, imageObject } }){
 		// get current user database info
 		const userSnapshot = yield userRef.get()
 		// current user database info
-		const { firstName, lastName, currentUserAvatarUrl, email } = userSnapshot.data()
+		const { firstName, lastName, userDP, email } = userSnapshot.data()
 		// reference to posts database
 		const postsCollectionRef = firestore.collection('posts')
 		
@@ -70,7 +70,7 @@ export function* addPost({ payload: { post, imageObject } }){
 		yield postsCollectionRef.add({
 			created_at,
 			postImageUrl,
-			currentUserAvatarUrl,
+			userDP,
 			post,
 			email,
 			firstName,

@@ -74,7 +74,12 @@ export const followUserFailure = (err) =>({
 	payload: err
 })
 
+// 
 
+export const unfollowUserSuccess = data =>({
+	type: userTypes.UNFOLLOW_USER_SUCCESS,
+	payload: data
+})
 
 
 
@@ -149,3 +154,5 @@ export const fetchFollowersFailure = err =>({
 	type: userTypes.FETCH_FOLLOWERS_FAILURE,
 	payload: err
 })
+
+

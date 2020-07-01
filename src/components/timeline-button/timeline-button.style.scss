@@ -1,0 +1,79 @@
+@import '../../scss/main.scss';
+.timeline{
+	&__button-container{
+		@include position(absolute, unset, 1.5rem, 1.5rem, unset);
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__button-group{
+		background: $light;
+		position: relative;
+		.fa-caret-down{
+			&:hover{
+				color: $secondary;
+			}
+		}
+
+		&.follow{
+			transition: all .1s;
+			&:active{
+				transform: scale(.9);
+			}
+		}
+	}
+
+	&__button{
+		padding: 5px 1.5rem;
+		border: none;
+		color: $gray-3;
+		cursor: pointer;
+		background: $light;
+		display: flex;
+		align-items: center;
+		font-weight: 600;
+		&:focus{
+			outline: none;
+		}
+
+	}
+
+	&__button-text{
+		margin: 0 10px;
+	}
+
+	&__button-icon{
+		font-size: 1.5rem;
+		cursor: pointer;
+		transition: all .5s;
+	}
+
+	&__dropdown{
+		@include position(absolute, unset, unset, -2.7rem, 0);
+		background: $light;
+		padding: 5px 1.5rem;
+		box-shadow: 0 0 10px rgba($dark, .5);
+		width: 100%;
+		text-align: center;
+		cursor: pointer;
+		&:hover{
+			.timeline__dropdown-button{
+				color: $secondary;
+			}
+		}
+	}
+
+	&__dropdown-button{
+		border: none;
+		background: $light;
+		font-size: 1.1rem;
+		color: $gray-3;
+		font-weight: 600;
+		transition: all .5s;
+		cursor: pointer;
+		&:focus{
+			outline: none;
+		}
+	}
+
+}

@@ -18,7 +18,7 @@ const PostItem = ({ posts, currentUID }) =>{
 			lastName, 
 			email, 
 			postImageUrl, 
-			currentUserAvatarUrl, 
+			userDP, 
 			comments, 
 			postUID,
 			likes 
@@ -29,7 +29,7 @@ const PostItem = ({ posts, currentUID }) =>{
 		<div className='post__item'>
 			<header className='post__item-header-user-info'>
 				<figure className='post__item-header-user-image-container'>
-					<img src={ currentUserAvatarUrl } className='post__item-header-user-image' alt='post header' />
+					<img src={ userDP } className='post__item-header-user-image' alt='post header' />
 				</figure>
 				<h5 className='post__item-header-user-name-container'>
 					<Link to={ `/timeline/${postUID}` } className='post__item-header-user-name'>{ `${firstName} ${lastName}` }</Link>

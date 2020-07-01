@@ -38,7 +38,7 @@ const Header = ({ currentUser, signOutStart }) => {
 						<li className='header__nav-item'><Link to='/' className='header__nav-link'><i className="fas fa-home"></i></Link></li>
 						<li className='header__nav-item'><Link to={ `/timeline/${currentUser.UID}` } className='header__nav-link timeline'>
 							<figure className='header__nav-link-image-container'>
-								<img className='header__nav-link-image' src={ currentUser.currentUserAvatarUrl } alt='header' />
+								<img className='header__nav-link-image' src={ currentUser.userDP } alt='header' />
 							</figure>
 							<span className='header__nav-link-image-name'>{currentUser.firstName}</span>
 						</Link></li>

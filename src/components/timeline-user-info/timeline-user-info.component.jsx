@@ -130,7 +130,7 @@ const TimelineUserInfo = ({ featuredPhoto, bio, timelineUID, UID, joined, editBi
 		    }
 
 		    {
-		    	UID == timelineUID ? 
+		    	UID === timelineUID ? 
 			    	<div className='timeline-user-info__content-container'>
 						{
 						    featuredPhoto.length > 0 ? '' :

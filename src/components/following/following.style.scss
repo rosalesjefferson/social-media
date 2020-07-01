@@ -1,0 +1,31 @@
+@import '../../scss/main.scss';
+.following{
+	@include background();
+	&__header{
+		display: flex;
+		align-items: center;
+		background: $light-2-medium;
+		border-bottom: 1px solid $light-6;
+		padding: 1rem;
+		border-radius: 5px;
+	}
+
+	&__icon-container{
+		margin-right: 5px;
+	}
+
+	&__icon{
+		font-size: 2.1rem;
+	}
+
+	&__title{
+		font-weight: 600!important;
+	}
+
+	&__lists{
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+		grid-gap: 1rem;
+		padding: 1rem;
+	}
+}

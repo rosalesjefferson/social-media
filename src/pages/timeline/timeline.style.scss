@@ -12,6 +12,7 @@
 	&__cover-image-container{
 		background: linear-gradient(rgba($dark, .85), rgba($dark, .85));
 		height: 20rem;
+		position: relative;
 	}
 	&__cover-image{
 		width: 100%;
@@ -25,7 +26,7 @@
 	&__user-image-container{
 		width: 17rem;
 		height: 17rem;
-		margin-top: -15rem;
+		margin-top: -13.8rem;
 		margin-left: 1.5rem;
 		position: relative;
 		background: $light;
@@ -41,10 +42,14 @@
 		border: 5px solid $light;
 	}
 	&__name-container{
-		@include position(absolute, 6rem, -41rem, unset, unset);
+		@include position(absolute, 7rem, unset, unset, 18.5rem);
 		display: flex;
 		width: 40rem;
 		flex-direction: column;
+		letter-spacing: .5px;
+	}
+	&__name{
+		font-weight: 700;
 	}
 
 	&__nickname,
@@ -53,7 +58,10 @@
 	}
 
 	&__nickname{
+		display: inline-block;
 		font-size: 1.8rem;
+		line-height: 10px;
+		font-weight: 600;
 	}
 
 	&__lists-container{

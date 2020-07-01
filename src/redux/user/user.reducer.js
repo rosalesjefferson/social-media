@@ -1,5 +1,5 @@
 import userTypes from './user.types'
-import { uniqueUsers } from './user.utils'
+import { uniqueUsers, uniqueFollowing, removeUnfollow } from './user.utils'
 
 const INITIAL_STATE = {
 	currentUser: null,
@@ -20,9 +20,7 @@ const userReducer = (state=INITIAL_STATE, action) =>{
 		case userTypes.FETCH_USERS_SUCCESS:
 		return{
 			...state,
-			// userLists: [ ...state.userLists, ...action.payload.users ],
 			userLists: [ ...state.userLists, ...uniqueUsers(state.userLists, action.payload) ],
-			// following: [ ...state.following, ...action.payload.following ]
 		}
 
 		case userTypes.EDIT_BIO_FEATURED_SUCCESS:
@@ -35,7 +33,27 @@ const userReducer = (state=INITIAL_STATE, action) =>{
 		case userTypes.FETCH_FOLLOWING_SUCCESS:
 		return{
 			...state,
-			timelineFollowing: [ ...state.timelineFollowing, ...action.payload ]
+			timelineFollowing: [ ...action.payload ]
+		}
+
+		case userTypes.FETCH_FOLLOWERS_SUCCESS:
+		return{
+			...state,
+			timelineFollowers: [ ...action.payload ]
+		}
+
+		case userTypes.FOLLOW_USER_SUCCESS:
+		return{
+			...state,
+			timelineFollowing: [ ...uniqueFollowing(state.timelineFollowing, action.payload) ],
+			currentUser: { ...state.currentUser,  following: [ ...state.currentUser.following, action.payload]}
+		}
+
+		case userTypes.UNFOLLOW_USER_SUCCESS:
+		return{
+			...state,
+			timelineFollowing: [ ...uniqueFollowing(state.timelineFollowing, action.payload) ],
+			currentUser: { ...state.currentUser,  following: [ ...removeUnfollow(state.currentUser.following, action.payload) ]}
 		}
 
 		case userTypes.FETCH_FOLLOWING_FAILURE:
@@ -44,25 +62,10 @@ const userReducer = (state=INITIAL_STATE, action) =>{
 			error: action.err
 		}
 
-
-		case userTypes.FETCH_FOLLOWERS_SUCCESS:
-		return{
-			...state,
-			timelineFollowers: [ ...state.timelineFollowers, ...action.payload ]
-		}
-
 		case userTypes.FETCH_FOLLOWERS_FAILURE:
 		return{
 			...state,
 			error: action.err
-		}
-
-		case userTypes.FOLLOW_USER_SUCCESS:
-		return{
-			...state,
-			// following: [ ...state.following, action.payload ]
-			currentUser: { ...state.currentUser,  following: [...state.currentUser.following, action.payload]}
-
 		}
 
 		case userTypes.FETCH_USERS_FAILURE:

@@ -14,7 +14,7 @@ const Suggested = ({ users }) =>(
 			<div className='suggested__users-container'>
 				{
 					users.map(user =>(
-						<UserItem key={ user.id } { ...user } />
+						<UserItem key={ user.id } buttonText='Follow' marginRightMedium='true' { ...user } />
 					))
 				}
 			</div>

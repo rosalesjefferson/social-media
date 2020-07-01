@@ -9,7 +9,7 @@
 
 // const TimelineHeader = ({currentUser }) =>{
 // 	// console.log(timelineUser, 'timelineUser')
-// 	// const { email, firstName, lastName, currentUserAvatarUrl, id } = timelineUser[0]
+// 	// const { email, firstName, lastName, userDP, id } = timelineUser[0]
 // 	return(
 // 		<div className='timeline-header-container'>
 // 			<h1>asdasd</h1>
@@ -38,7 +38,7 @@ import './timeline-header.style.scss'
 
 const TimelineHeader = ({ timelineUser, currentUser }) =>{
 	console.log(timelineUser, 'timelineUser')
-	const { email, firstName, lastName, currentUserAvatarUrl, id } = timelineUser[0]
+	const { email, firstName, lastName, userDP, id } = timelineUser[0]
 	return(
 		<div className='timeline-header-container'>
 			<figure className='timeline__cover-image-container'>
@@ -46,7 +46,7 @@ const TimelineHeader = ({ timelineUser, currentUser }) =>{
 			</figure>
 			<ul className='timeline__lists-container'>
 				<figure className='timeline__user-image-container'>
-					<img src={ currentUserAvatarUrl } alt='timeline' className='timeline__user-image'/>
+					<img src={ userDP } alt='timeline' className='timeline__user-image'/>
 					<Link to={`/${id}`}className='header-3 timeline__name-container'>
 						<span className='timeline__name'>{ firstName } { lastName }</span>
 						<span className='timeline__nickname'>(Test)</span>

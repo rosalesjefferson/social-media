@@ -5,7 +5,7 @@ import { editProfileStart } from '../../redux/user/user.actions'
 
 import './about.style.scss'
 
-const About = ({ editProfileStart, timelineUser: { email, lastName, firstName, nickname, hobbies, address, contactNumber, birthday, gender, education, work, created_at, id, currentUserAvatarUrl, currentUserCoverUrl } }) =>{
+const About = ({ editProfileStart, UID,timelineUser: { id, email, lastName, firstName, nickname, hobbies, address, contactNumber, birthday, gender, education, work, created_at, userDP, currentUserCoverUrl } }) =>{
 	const [userInfo, setUserInfo] = useState({
 		uFirstName: firstName,
 		uLastName: lastName,
@@ -29,7 +29,7 @@ const About = ({ editProfileStart, timelineUser: { email, lastName, firstName, n
 	useEffect(() =>{
 		setIsModalHidden(false)
 		setUserInfo({ ...userInfo, profilePictureObject: null, coverPhotoObject: null })
-	}, [ firstName, lastName, nickname, hobbies, gender, address, contactNumber, birthday, education, work, currentUserAvatarUrl, currentUserCoverUrl ])
+	}, [ firstName, lastName, nickname, hobbies, gender, address, contactNumber, birthday, education, work, userDP, currentUserCoverUrl ])
 
 	const handleClickModal = () =>{
 		setIsModalHidden(!isModalHidden)
@@ -64,10 +64,9 @@ const About = ({ editProfileStart, timelineUser: { email, lastName, firstName, n
 
 	const handleSubmit = e =>{
 		e.preventDefault()
-		editProfileStart({ id, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, profilePictureObject, coverPhotoObject, currentUserAvatarUrl, currentUserCoverUrl })
+		editProfileStart({ id, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, profilePictureObject, coverPhotoObject, userDP, currentUserCoverUrl })
 		setSpinnerHidden(true)
 	}
-
 	return(
 		<div className='about'>
 			<div className='about__header-container'>
@@ -75,9 +74,12 @@ const About = ({ editProfileStart, timelineUser: { email, lastName, firstName, n
 					<i className="fas fa-user"></i>
 				</span>
 				<h3 className='about__title header-3'>About</h3>
-				<span className='about__icon-container'>
-					<i onClick={ handleClickModal } className="far fa-edit"></i>
-				</span>
+				{ id === UID ?
+					<span className='about__icon-container'>
+						<i onClick={ handleClickModal } className="far fa-edit"></i>
+					</span> : ''
+				 }
+
 			</div>
 			<div className='about__info-container'>
 				<p className='about__info'><span>Email: </span>{ email }</p>

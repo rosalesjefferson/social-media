@@ -29,7 +29,7 @@ const Suggestions = ({ fetchUsersStart, users }) =>{
 					users
 					.filter((user, index) => index < 5)
 					.map(user =>(
-						<UserItem key={ user.id } { ...user }/>
+						<UserItem key={ user.id } buttonText='Follow' { ...user } />
 					))
 				}
 			</ul>

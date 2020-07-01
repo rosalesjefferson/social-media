@@ -26,8 +26,8 @@ export const createUserProfile = async (userAuth, additionalData) =>{
         birthday: '',
         work: '',
         contactNumber: '',
-        currentUserAvatarUrl: 'https://www.cbns.org.au/wp-content/uploads/2017/05/img_placeholder_avatar.jpg',
-        currentUserCoverUrl: '',
+        userDP: 'https://www.cbns.org.au/wp-content/uploads/2017/05/img_placeholder_avatar.jpg',
+        userCover: '',
         featuredPhoto: '',
         education: '',
         nickname: '',
@@ -94,7 +94,7 @@ export const getAllUsers = async () =>{
 
 export const userToFollowAndUnfollow = async (payload) =>{
   const UID = await auth.currentUser.uid
-  const { firstName, lastName, id, email, currentUserAvatarUrl } = payload
+  const { firstName, lastName, id, email, userDP } = payload
 
   const usersCollectionRef = firestore.doc(`users/${UID}`)
   const userSnapshot = await usersCollectionRef.get()
@@ -102,19 +102,21 @@ export const userToFollowAndUnfollow = async (payload) =>{
   const followersCollectionRef = firestore.doc(`users/${id}`).collection('followers')
   const followersSnapshot = await followersCollectionRef.get()
   const isFollowersExist = await followersSnapshot.docs.find(doc => doc.data().followersUserID === UID)
-
+  const followersID = await followersSnapshot.docs.filter(doc => {
+    if(doc.data().followersUserID === UID) return doc.id
+  })    
   if(!isFollowersExist){
-    const { email, firstName, lastName, currentUserAvatarUrl } = userSnapshot.data()
+    const { email, firstName, lastName, userDP } = userSnapshot.data()
     try{
       await followersCollectionRef.add({
         created_at,
         email: email,
         firstName: firstName,
         lastName: lastName,
-        currentUserAvatarUrl: currentUserAvatarUrl,
+        userDP: userDP,
         followersUserID: UID
       })
-    console.log('followers not exist')
+    console.log('followers not exist ADD')
     }catch(err){
       console.log(err.message, 'followers not exist error')
     }
@@ -122,45 +124,59 @@ export const userToFollowAndUnfollow = async (payload) =>{
 
   if(isFollowersExist){
     try{
-      await followersCollectionRef.doc(id).delete()
-      console.log('followers exist')
+      await followersCollectionRef.doc(followersID[0].id).delete()
+      console.log('followers exist DELETE')
     }catch(err){
       console.log(err.message, 'followers exist error')
     }
   }
 
-
-
   const followingCollectionRef = usersCollectionRef.collection('following')
   const followingSnapShot = await followingCollectionRef.get()
   const isFollowingExist = await followingSnapShot.docs.find(doc => doc.data().followingUserId === id)  
-
+  const followingID = await followingSnapShot.docs.filter(doc => {
+    if(doc.data().followingUserId === id) return doc.id
+  })  
   if(!isFollowingExist){
     try{
       await followingCollectionRef.add({
           created_at,
           followingUserId: id,
-          userAvatarUrl: currentUserAvatarUrl,
+          userDP,
           email: email,
           firstName, 
           lastName
       })  
-    console.log('following not exist')
+
+      console.log(isFollowingExist, 'following not exist ADD')
+
+      return { 
+        toFollowOrUnfollow: { created_at, followingUserId: id, email, firstName, lastName, userAvatarUrl: userDP },
+        follow: true
+      }
+      
     }catch(err){
-      console.log(err.message, 'following error')
+      console.log(err.message, 'following not exist error')
     }
-  }
+  }  
   
   if(isFollowingExist){
     try{
-      await followingCollectionRef.doc(id).delete()
-      console.log('following already')
+      await followingCollectionRef.doc(followingID[0].id).delete()
+      console.log(isFollowingExist, 'following exist DELETE')
+
+      return { 
+        toFollowOrUnfollow: { created_at, followingUserId: id, email, firstName, lastName, userAvatarUrl: userDP },
+        follow: false
+      }
+
     }catch(err){
-      console.log(err.message, 'following already error')
+      console.log(err.message, 'following exist error')
     }
   }
 
-  return { created_at, followingUserId: id, email, firstName, lastName, userAvatarUrl: currentUserAvatarUrl }
+  return { created_at, followingUserId: id, email, firstName, lastName, userAvatarUrl: userDP }
+
 }
 
 export const getUserImageUrl = async userImageObject =>{
@@ -212,7 +228,7 @@ export const bioFeaturedToUpdate = async (payload) =>{
 }
 
 export const updateProfileInfo = async payload =>{
-  const { id, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, userProfileUrl, userCoverUrl, currentUserAvatarUrl, currentUserCoverUrl } = payload
+  const { id, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, userProfileUrl, userCoverUrl, userDP, userCover } = payload
   const usersCollectionRef = firestore.collection('users')
   const individualUserCollectionRef = usersCollectionRef.doc(id)
 
@@ -221,12 +237,12 @@ export const updateProfileInfo = async payload =>{
   let profileUrl
   let coverURL
 
-  if(userProfileUrl === null && currentUserAvatarUrl === null) profileUrl = null
-  if(userProfileUrl === null && currentUserAvatarUrl !== null) profileUrl = currentUserAvatarUrl
+  if(userProfileUrl === null && userDP === null) profileUrl = null
+  if(userProfileUrl === null && userDP !== null) profileUrl = userDP
   if(userProfileUrl !== null) profileUrl = userProfileUrl
 
-  if(userCoverUrl === null && currentUserCoverUrl === null) coverURL = null
-  if(userCoverUrl === null && currentUserCoverUrl !== null) coverURL = currentUserCoverUrl
+  if(userCoverUrl === null && userCover === null) coverURL = null
+  if(userCoverUrl === null && userCover !== null) coverURL = userCover
   if(userCoverUrl) coverURL = userCoverUrl
 
   await individualUserCollectionRef.update({
@@ -241,12 +257,12 @@ export const updateProfileInfo = async payload =>{
     gender: uGender,
     education: uEducation,
     work: uWork,
-    currentUserAvatarUrl: profileUrl,
-    currentUserCoverUrl: coverURL
+    userDP: profileUrl,
+    userCover: coverURL
   })
 
-  // userIndividualSnapshot.data().currentUserAvatarUrl
-  // console.log(userIndividualSnapshot.data().currentUserAvatarUrl, 'url')
+  // userIndividualSnapshot.data().userDP
+  // console.log(userIndividualSnapshot.data().userDP, 'url')
 
   const postsCollectionRef = firestore.collection('posts')
   const currentUserPosts = postsCollectionRef.where('postUID', '==', id)
@@ -256,7 +272,7 @@ export const updateProfileInfo = async payload =>{
   try{
     await postsSnapshot.docs.forEach(doc =>{
       firestore.collection('posts').doc(doc.id).update({
-        currentUserAvatarUrl: profileUrl
+        userDP: profileUrl
       })
     })
   }catch(err){
@@ -285,7 +301,6 @@ export const getTimelineFollowing = async payload =>{
       ...doc.data()
     }
   })
-
   return following
 }
 
