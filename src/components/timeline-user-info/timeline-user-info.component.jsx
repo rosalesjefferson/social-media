@@ -44,7 +44,7 @@ const TimelineUserInfo = ({ featuredPhoto, bio, timelineUID, UID, joined, editBi
 		editBioFeaturedStart({ bioEdit, featuredPhotoEdit, timelineUID, existingFeaturedPhoto: existingFeaturedPhoto })
 		setIsSpinnerHidden(true)
 	}
-	console.log(bio, 'bio')
+	console.log('timeline-user-info component')
 
 	return(
 		<div className='timeline-user-info-container'>
@@ -77,12 +77,12 @@ const TimelineUserInfo = ({ featuredPhoto, bio, timelineUID, UID, joined, editBi
 						  	placeholder='Exp. Aspiring Software Engineer'
 						></textarea>
 						<div className={ `timeline-user-info__form-group ${featuredPhotoEdit ? 'active' : ''}` }>
-							<label htmlFor='imgFile' className='timeline-user-info__label'>
+							<label htmlFor='imgFileObject' className='timeline-user-info__label'>
 								<span className='timeline-user-info__icon-container'><i className="far fa-image"></i></span>
 								<span className='timeline-user-info__text'>Featured photo</span>
 							</label>
 
-	 						<input type='file' id='imgFile' onChange={ handleFileChange } className='timeline-user-info__image-file'/>
+	 						<input type='file' id='imgFileObject' onChange={ handleFileChange } className='timeline-user-info__image-file'/>
 	 						{featuredPhotoEdit ?
 		 						 <figure className='timeline-user-info__image-container'>
 									<img className='timeline-user-info__image' src={URL.createObjectURL(featuredPhotoEdit)} alt='edit bio' />

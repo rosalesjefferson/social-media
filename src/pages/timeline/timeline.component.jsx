@@ -48,6 +48,17 @@ const Timeline = ({ timelineUser, currentUser, match, fetchUsersStart }) =>{
 			[target.toLowerCase()]: true
 		})
 	}
+
+	const resetToTimelineComponent = () =>{
+		setIsHidden({
+			timeline: true,
+			about: false,
+			following: false,
+			followers: false,
+			photos: false
+		})	
+	}
+
 	return(
 		<div className='timeline__container'>
 			<div className='timeline-header-container'>
@@ -85,9 +96,9 @@ const Timeline = ({ timelineUser, currentUser, match, fetchUsersStart }) =>{
 				</div>
 			: ''}
 			{ about ? <About timelineUser={ timelineUser[0] } UID={ UID }/> : ''}
-			{ following ? <Following timelineUID={ id } /> : ''}
-			{ followers ? <Followers timelineUID={ id } /> : ''}
-			{ photos ? <Photos /> : ''}
+			{ following ? <Following timelineUID={ id } reset={ resetToTimelineComponent } /> : ''}
+			{ followers ? <Followers timelineUID={ id } reset={ resetToTimelineComponent } /> : ''}
+			{ photos ? <Photos timelineUID={ id }/> : ''}
 		</div>
 	)
 }

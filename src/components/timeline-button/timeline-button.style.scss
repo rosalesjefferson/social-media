@@ -6,74 +6,98 @@
 		flex-direction: column;
 	}
 
-	&__button-group{
+	&__button-following{
+		display: grid;
+		grid-template-columns: repeat(3, max-content);
+		grid-gap: 1rem;
+		padding: 5px 1rem;
 		background: $light;
+		border: none;
+		color: $gray;
 		position: relative;
-		.fa-caret-down{
+		&:focus{
+			outline: none;
+		}
+
+		&.follow{
+			display: flex;
+			cursor: pointer;
+			transition: color .5s, transform .05s;
+			padding: 5px 1.5rem;
+			&:hover{
+				color: $secondary;
+				&:active{
+					transform: scale(.9);
+				}
+			}
+		}
+	}
+
+	&__button-text{
+		font-weight: 600;
+	}
+
+	&__button-icon{
+		transition: all .5s;
+		&.down{
+			cursor: pointer;
 			&:hover{
 				color: $secondary;
 			}
 		}
-
-		&.follow{
-			transition: all .1s;
-			&:active{
-				transform: scale(.9);
-			}
-		}
-	}
-
-	&__button{
-		padding: 5px 1.5rem;
-		border: none;
-		color: $gray-3;
-		cursor: pointer;
-		background: $light;
-		display: flex;
-		align-items: center;
-		font-weight: 600;
-		&:focus{
-			outline: none;
-		}
-
-	}
-
-	&__button-text{
-		margin: 0 10px;
-	}
-
-	&__button-icon{
-		font-size: 1.5rem;
-		cursor: pointer;
-		transition: all .5s;
 	}
 
 	&__dropdown{
-		@include position(absolute, unset, unset, -2.7rem, 0);
+		@include position(absolute, unset, 0, -2.8rem, unset);
+		display: flex;
 		background: $light;
-		padding: 5px 1.5rem;
-		box-shadow: 0 0 10px rgba($dark, .5);
 		width: 100%;
-		text-align: center;
-		cursor: pointer;
-		&:hover{
-			.timeline__dropdown-button{
+		opacity: 0;
+		visibility: hidden;
+		transition: all .5s;
+		box-shadow: 0 0 10px rgba($dark, .3);
+		padding: 5px 1rem;
+
+		&.active{
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.timeline__spinner-container{
+			margin-left: -7px;
+			margin-right: 1.2rem;
+		}
+
+		&-button{
+			width: 100%;
+			font-weight: 600;
+			color: inherit;
+			cursor: pointer;
+			transition: all .5s;
+
+			&:hover{
 				color: $secondary;
+				text-shadow: 0 0 10px rgba($secondary, .2);
 			}
 		}
 	}
 
-	&__dropdown-button{
-		border: none;
-		background: $light;
-		font-size: 1.1rem;
-		color: $gray-3;
-		font-weight: 600;
-		transition: all .5s;
-		cursor: pointer;
-		&:focus{
-			outline: none;
-		}
+
+	&__spinner-container{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-left: 8px;
 	}
 
+	&__spinner{
+		display: inline-block;
+	  	width: 1.5rem;
+		height: 1.5rem;
+		border: 3px solid rgba($dark, 0.2);
+		border-radius: 50%;
+		border-top-color: $secondary;
+		animation: spin 1s ease-in-out infinite;
+
+	}
 }

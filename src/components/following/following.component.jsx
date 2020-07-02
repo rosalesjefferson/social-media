@@ -8,7 +8,7 @@ import FollowersItem from '../followers-item/followers-item.component'
 
 import './following.style.scss'
 
-const Following = ({ timelineUID, fetchFollowingStart, following }) =>{
+const Following = ({ timelineUID, fetchFollowingStart, following, reset }) =>{
 	useEffect(() =>{
 		let unsubscribe = false
 		if(!unsubscribe){
@@ -28,7 +28,7 @@ const Following = ({ timelineUID, fetchFollowingStart, following }) =>{
 			<ul className='following__lists'>
 				{
 					following.map(({ id, ...otherProps }) =>(
-						<FollowersItem key={ id } { ...otherProps } />
+						<FollowersItem key={ id } reset={ reset } { ...otherProps } />
 					))
 				}
 			</ul>

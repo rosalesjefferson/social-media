@@ -1,0 +1,117 @@
+@import '../../scss/main.scss';
+.photos{
+	@include background()
+	overflow: hidden;
+	&__header{
+		@include timelineContentHeader()
+	}
+
+	&__icon-container{
+		margin-right: 5px;
+
+	}
+
+	&__icon{
+		font-size: 2.5rem;
+		font-weight: 600!important;
+	}
+
+	&__title{
+		font-weight: 600!important;
+	}
+
+	&__lists{
+		padding: 7px;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+		grid-gap: 7px;
+	}
+
+
+	&__modal-overlay{
+		@include position(absolute, 0, 0, unset, unset);
+		background: linear-gradient(rgba($dark, .7), rgba($dark, .7));
+		width: 100%;
+		height: 100%;
+	}
+
+	&__content{
+		@include position(fixed, 50%, unset, unset, 50%);
+		transform: translate(-50%, -50%);
+		width: 35%;
+		background: $light;
+		border-radius: 5px;
+		overflow: hidden;
+	}
+
+	&__content-header{
+		display: flex;
+		align-items: center;
+		padding: 1rem 1rem 5px 1rem;
+		&.reset-padding{
+			padding: 1rem 1rem 1rem 1rem!important;
+		}
+	}
+
+	&__user-image-container{
+		width: 4rem;
+		height: 4rem;
+		margin-right: 1rem;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+
+	&__user-image{
+		width: 100%;
+		height: 100%;
+	}
+
+	&__name-container{
+		line-height: 1.3rem;
+	}
+
+	&__name{
+		font-size: 1.3rem;
+		color: $gray;
+		font-weight: 600;
+		letter-spacing: .1px;
+	}
+
+	&__email{
+		font-size: 1rem;
+		letter-spacing: .5px;
+		color: $gray-8;
+		font-weight: 500;
+	}
+
+	&__caption{
+		padding: 0 1rem;
+		padding-bottom: 5px;
+		color: $gray;
+		font-size: 1.3rem;
+		font-weight: 500;
+	}
+
+	&__modal-image-container{
+		width: 100%;
+		height: 40rem;
+	}
+
+	&__modal-image{
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	&__close-button{
+		@include position(absolute, 1rem, 1.1rem, unset, unset);
+		.fas{
+			cursor: pointer;
+			transition: all .5s;
+			font-size: 1.5rem;
+			&:hover{
+				color: $danger;
+			}
+		}
+	}
+}

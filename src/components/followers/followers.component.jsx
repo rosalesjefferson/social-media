@@ -10,7 +10,7 @@ import FollowersItem from '../followers-item/followers-item.component'
 
 import './followers.style.scss'
 
-const Followers = ({ timelineUID, fetchFollowersStart, followers }) =>{
+const Followers = ({ timelineUID, fetchFollowersStart, followers, reset }) =>{
 	useEffect(() =>{
 		let unsubscribe = false
 		
@@ -31,7 +31,7 @@ const Followers = ({ timelineUID, fetchFollowersStart, followers }) =>{
 			<ul className='followers__lists'>
 				{
 					followers.map(({ id, ...otherProps }) =>(
-						<FollowersItem key={ id } { ...otherProps } />
+						<FollowersItem key={ id } reset={ reset } { ...otherProps } />
 					))
 				}
 			</ul>

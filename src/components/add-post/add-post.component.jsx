@@ -18,6 +18,7 @@ const AddPost = ({ addPostStart, currentUser }) =>{
 	const handleFileChange = (e) =>{
 		const imageFile = e.target.files[0]
 		setPost({ ...posts, imageObject: imageFile})
+		console.log(e.target)
 	}
 
 
@@ -32,7 +33,7 @@ const AddPost = ({ addPostStart, currentUser }) =>{
 	const handleClickClose = () =>{
 		setPost({ ...posts, imageObject: null})
 	}
-	
+	console.log(post, imageObject, 'add-post test')
 	return(
 	<div className='add-post__container'>
 		<h5 className='header-5'>Create Post</h5>
