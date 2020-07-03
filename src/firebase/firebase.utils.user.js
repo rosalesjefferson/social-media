@@ -243,7 +243,7 @@ export const updateProfileInfo = async payload =>{
 
   if(userCoverUrl === null && userCover === null) coverURL = null
   if(userCoverUrl === null && userCover !== null) coverURL = userCover
-  if(userCoverUrl) coverURL = userCoverUrl
+  if(userCoverUrl !== null) coverURL = userCoverUrl
 
   await individualUserCollectionRef.update({
     ...userIndividualSnapshot.data(),
@@ -261,18 +261,23 @@ export const updateProfileInfo = async payload =>{
     userCover: coverURL
   })
 
-  // userIndividualSnapshot.data().userDP
-  // console.log(userIndividualSnapshot.data().userDP, 'url')
 
   const postsCollectionRef = firestore.collection('posts')
   const currentUserPosts = postsCollectionRef.where('postUID', '==', id)
-  // await currentUserPosts
   const postsSnapshot = await currentUserPosts.get()
 
   try{
+  console.log(uLastName, uFirstName, 'testststststs')
     await postsSnapshot.docs.forEach(doc =>{
       firestore.collection('posts').doc(doc.id).update({
-        userDP: profileUrl
+        userDP: profileUrl,
+        firstName: uFirstName,
+        lastName: uLastName,
+        comments: [
+             ...doc.data().comments.map(comment => {
+                return { ...comment, firstName: uFirstName, lastName: uLastName }
+             })
+          ]
       })
     })
   }catch(err){

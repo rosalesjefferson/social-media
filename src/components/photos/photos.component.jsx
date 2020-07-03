@@ -13,6 +13,12 @@ const Photos = ({ id, posts }) =>{
 
 	const { email, firstName, lastName, post, postImageUrl, userDP } = imageUrl
 
+	// useEffect(() =>{
+	// 	document.addEventListener('click', e =>{
+	// 		if(e.target.className === 'photos__modal-overlay')setHidden(false)
+	// 	})
+	// })
+
 	const showModalImage = (email, firstName, lastName, post, postImageUrl, userDP) =>{
 		setImageUrl({ email: email, firstName: firstName, lastName: lastName, post: post, postImageUrl: postImageUrl, userDP: userDP })
 		setHidden(!isHidden)
@@ -37,6 +43,7 @@ const Photos = ({ id, posts }) =>{
 					))
 				}
 			</div>
+
 			{
 				isHidden ? 
 					<div className='photos__modal-overlay'>

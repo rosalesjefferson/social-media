@@ -6,17 +6,15 @@ import { firestore } from '../../firebase/firebase.utils'
 import { fetchPostsStart } from '../../redux/crud/crud.actions'
 import { selectPostsWithFollowing, selectUID } from '../../redux/crud/crud.selectors'
 
+import LoadingSpinner from '../loading-spinner/loading-spinner.component'
 import PostItem from '../../components/post-item/post-item.component'
 
-
-
 import './posts.style.scss'
-
 
 const Posts = ({ fetchPostsStart, currentUID, posts, isTimeline }) =>{
 	useEffect(() =>{
 		let unsubscribed = false
-		const postsLists = async() =>{
+		const postsLists = async () =>{
 		  const postCollectionRef = firestore.collection('posts')
 
 		    if(!unsubscribed){
@@ -40,11 +38,21 @@ const Posts = ({ fetchPostsStart, currentUID, posts, isTimeline }) =>{
 
 	return(
 		<div className='posts__container'>
-			{ posts.length > 0 ?
-				posts.map(post  =>(
+			{ 
+		  		posts === null 
+				? <LoadingSpinner /> : ''
+			}
+
+			{
+				posts !== null && posts.length > 0 ? posts.map(post  =>(
 					<PostItem key={ post.id } currentUID={ currentUID } posts={ post } />
-				))
-			  : <h4 className='posts__no-post'>No post.</h4>
+				)) 
+				: ''
+			}
+
+			{
+				posts !== null && posts.length < 1 ? <h4 className='posts__no-post'>No post.</h4> 
+				: ''
 			}
 		</div>
 	)

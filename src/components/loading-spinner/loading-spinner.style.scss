@@ -1,0 +1,33 @@
+@import '../../scss/main.scss';
+@keyframes spin {
+    0% {
+      -webkit-transform: rotate(360deg);
+    }
+}
+
+.loading{
+	&__spinner-overlay{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&__spinner{
+		display: inline-block;
+		border: 3px solid rgba($dark, 0.2);
+		border-radius: 50%;
+		border-top-color: $secondary;
+		animation: spin 1s ease-in-out infinite;
+	  	width: 4rem;
+		height: 4rem;
+
+		&.small{
+		  	width: 2rem!important;
+			height: 2rem!important;
+		}
+		&.medium{
+		  	width: 3rem!important;
+			height: 3rem!important;
+		}
+	}
+}

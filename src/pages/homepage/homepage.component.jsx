@@ -1,5 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
+import { selectIsPostsFetching } from '../../redux/crud/crud.selectors'
+
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner.component'
 import Posts from '../../components/posts/posts.component'
 import AddPost from '../../components/add-post/add-post.component'
 import Suggestions from '../../components/suggestions/suggestions.component'
@@ -7,7 +11,7 @@ import PreviewProfile from '../../components/preview-profile/preview-profile.com
 
 import './homepage.component.scss'
 
-const Hompage = ({ fetchPostsStart, fetchUsersStart, posts, currentUID, friends }) =>{
+const Hompage = ({ isFetching }) =>{
 	const condition = false
 	const timelineUID = 'NO ID'
 	return(
@@ -15,7 +19,7 @@ const Hompage = ({ fetchPostsStart, fetchUsersStart, posts, currentUID, friends 
 		<div className='container'>
 			<div className='newsfeed-container'>
 				<AddPost />
-				<Posts isTimeline={ condition } timelineUID={ timelineUID } />
+				<Posts isTimeline={ condition } timelineUID={ timelineUID } />				
 			</div>	
 		<div className='suggestions-preview-profile-container'>
 			<PreviewProfile />
@@ -25,7 +29,11 @@ const Hompage = ({ fetchPostsStart, fetchUsersStart, posts, currentUID, friends 
 	</div>
 )}
 
-export default Hompage
+const mapStateToProps = state =>({
+	isFetching: selectIsPostsFetching(state)
+})
+
+export default connect(mapStateToProps)(Hompage)
 
 
 // rules_version = '2';

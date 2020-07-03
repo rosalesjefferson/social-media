@@ -2,6 +2,8 @@ import { createSelector } from 'reselect'
 
 const selectorPosts = (state) => state.posts
 
+export const selectIsPostsFetching = createSelector([selectorPosts], posts => posts.isFetching) 
+
 export const selectPosts = createSelector([selectorPosts], posts => posts.posts)
 
 export const selectIsButtonDropdownHidden = createSelector([selectorPosts], posts => {
@@ -23,7 +25,7 @@ export const selectTimelinePosts = id  => createSelector([selectPosts], posts =>
 })
 
 export const selectPostsWithFollowing = (isTimeline, timelineUID) => createSelector([selectPosts], posts =>{
-	if(!posts) return []
+	if(!posts) return null
 	const postLists = posts.posts
 	const following = posts.following
 	const UID = posts.UID
