@@ -3,10 +3,15 @@ import { createSelector } from 'reselect'
 const selectorUser = (state) => state.user  
 
 export const selectCurrentUser = createSelector([selectorUser], user => user.currentUser)
+export const selectIsFetching = createSelector([selectorUser], user => user.isFetching)
 export const selectUserLists = createSelector([selectorUser], user => user.userLists)
+export const selectIsFollowersFetching = createSelector([selectorUser], user => user.isFollowersFetching)
+export const selectIsFollowingFetching = createSelector([selectorUser], user => user.isFollowingFetching)
+export const selectTimelineFollowers = createSelector([selectorUser], user => user.timelineFollowers)
+export const selectTimelineFollowing = createSelector([selectorUser], user => user.timelineFollowing)
 
 export const selectUsers = createSelector([selectorUser], user => {
-	if(user.length < 0) return
+	if(user.userLists.length < 1) return null
 
 	const UID = user.currentUser.UID
 	const users = user.userLists
@@ -19,19 +24,14 @@ export const selectUsers = createSelector([selectorUser], user => {
 			return accumulator
 	}, {})
 
-	// const newUsers = noCurrentUser.filter(user =>{
-	// 	return !Object.keys(followingUID).includes(user.id)
-	// })
-	
 	const newUsers = noCurrentUser.filter(user => !Object.keys(followingUID).includes(user.id))
 
 	return newUsers
 })
 
 export const selectTimelineUsers = userID => createSelector([selectUserLists], userLists =>{
+	if(userLists.length < 1) return []
 	const timelineUser = userLists.filter(user => user.id === userID)
-	return timelineUser
+	return timelineUser[0]
 })
 
-export const selectTimelineFollowers = createSelector([selectorUser], user  => user.timelineFollowers)
-export const selectTimelineFollowing = createSelector([selectorUser], user  => user.timelineFollowing)

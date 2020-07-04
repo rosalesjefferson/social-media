@@ -3,9 +3,9 @@
 	&__no-post{
 		text-align: center;
 		color: $gray-5;
-		font-weight: 300;
+		font-weight: 500;
 		font-size: 2rem;
-		background: $light-3;
+		background: linear-gradient(rgba($dark, .05), rgba($dark, .05));
 		border: 1px solid $light-4;
 		padding: 2.45rem 1rem;
 		border-radius: 5px;

@@ -11,14 +11,14 @@ const crudReducer = (state=INITIAL_STATE, action) =>{
 		case crudTypes.FETCH_POSTS_START:
 		return {
 			...state,
-			isFetching: true
+			isFetching: false
 		}
 
 		case crudTypes.FETCH_POSTS_SUCCESS:
 		return{
 			...state,
 			posts:  { ...state.posts, ...action.payload.posts },
-			isFetching: false
+			isFetching: true
 		}
 
 		case crudTypes.FETCH_POSTS_FAILURE:
@@ -29,7 +29,7 @@ const crudReducer = (state=INITIAL_STATE, action) =>{
 		return{
 			...state,
 			error: action.payload,
-			isFetching: true
+			isFetching: false
 		}
 
 		default:

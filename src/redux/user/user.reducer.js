@@ -6,6 +6,9 @@ const INITIAL_STATE = {
 	userLists: [],
 	timelineFollowing: [],
 	timelineFollowers: [],
+	isFollowingFetching: false,
+	isFollowersFetching: false,
+	isUsersFetching: true,
 	error: null
 }
 
@@ -16,11 +19,43 @@ const userReducer = (state=INITIAL_STATE, action) =>{
 				...state,
 				currentUser: action.payload
 			}
+		case userTypes.FETCH_USERS_START:
+		return{
+			...state,
+			isUsersFetching: false
+		}
 
 		case userTypes.FETCH_USERS_SUCCESS:
 		return{
 			...state,
+			isUsersFetching: true,
 			userLists: [ ...state.userLists, ...uniqueUsers(state.userLists, action.payload) ],
+		}
+
+		case userTypes.FETCH_FOLLOWING_START:
+		return{
+			...state,
+			isFollowingFetching: false
+		}
+
+		case userTypes.FETCH_FOLLOWING_SUCCESS:
+		return{
+			...state,
+			timelineFollowing: [ ...action.payload ],
+			isFollowingFetching: true
+		}
+
+		case userTypes.FETCH_FOLLOWERS_START:
+		return{
+			...state,
+			isFollowersFetching: false
+		}
+
+		case userTypes.FETCH_FOLLOWERS_SUCCESS:
+		return{
+			...state,
+			timelineFollowers: [ ...action.payload ],
+			isFollowersFetching: true
 		}
 
 		case userTypes.EDIT_BIO_FEATURED_SUCCESS:
@@ -28,18 +63,6 @@ const userReducer = (state=INITIAL_STATE, action) =>{
 		return{
 			...state,
 			userLists: [ ...action.payload ]
-		}
-
-		case userTypes.FETCH_FOLLOWING_SUCCESS:
-		return{
-			...state,
-			timelineFollowing: [ ...action.payload ]
-		}
-
-		case userTypes.FETCH_FOLLOWERS_SUCCESS:
-		return{
-			...state,
-			timelineFollowers: [ ...action.payload ]
 		}
 
 		case userTypes.FOLLOW_USER_SUCCESS:
@@ -59,6 +82,7 @@ const userReducer = (state=INITIAL_STATE, action) =>{
 		case userTypes.FETCH_FOLLOWING_FAILURE:
 		return{
 			...state,
+			isFollowingFetching: false,
 			error: action.err
 		}
 
@@ -71,6 +95,7 @@ const userReducer = (state=INITIAL_STATE, action) =>{
 		case userTypes.FETCH_USERS_FAILURE:
 		return{
 			...state,
+			isUsersFetching: false,
 			userLists: [],
 			error: action.payload
 		}

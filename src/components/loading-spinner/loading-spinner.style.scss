@@ -10,6 +10,17 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		&.full-size{
+			@include position(absolute, 0, 0, unset, unset);
+			width: 100vw;
+			height: 100vh;
+			background: $light;
+			margin-top: -5rem;
+			z-index: 100;
+		}
+		&.medium-size{
+			padding: 4.1rem 1rem;
+		}
 	}
 
 	&__spinner{
