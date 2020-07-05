@@ -1,4 +1,4 @@
-import React, { useState }  from 'react'
+import React, { useState, useEffect }  from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
@@ -11,24 +11,19 @@ import './post-dropdown.style.scss'
 
 const PostDropdown = ({ handleClick, isHidden, deletePostStart, setHiddenToFalse, match, location, ...otherProps }) =>{
 	const [isModalHidden, setIsModalHidden] = useState(false)
+	const [isDeleteHidden, setDelete] = useState(false)
 	const { postItemId, post, currentUID, postUID } = otherProps
 
-	// useEffect(() =>{
-	// 	let unsubscribed = false
-	// 	if(!unsubscribed){
-	// 		document.addEventListener('click', (e) =>{
-	// 			if(e.target.className !== 'post__dropdown-button edit'){
-	// 				if(!e.target.closest('.edit-post-caption__container')){
-	// 					setIsModalHidden(false)
-	// 				}
-	// 			}
-	// 		})
-	// 	}
+	useEffect(() =>{
+		let unsubscribed = false
+		if(!unsubscribed){
+			if(!isHidden) setDelete(false)
+		}
+		return () => { unsubscribed = true }
+	}, [isHidden])
 
-	// 	return () => { unsubscribed = true }
-	// }, [isModalHidden])
-
-	const handleClickEdit = () =>{
+	const handleClickEdit = (uid, postuid) =>{
+		if(uid !== postuid) return
 		setIsModalHidden(true)
 		setHiddenToFalse()
 	}
@@ -37,42 +32,37 @@ const PostDropdown = ({ handleClick, isHidden, deletePostStart, setHiddenToFalse
 		setIsModalHidden(false)
 	}
 
-	const handleClickHide = (e) =>{
-
+	const handleClickShow = (uid, postuid) =>{
+		if(uid !== postuid) return
+		setDelete(true)
 	}
 
-	const handleClickDelete = (e) =>{
+	const handleClickDelete = (uid, postuid) =>{
+		if(uid !== postuid) return
 		deletePostStart({ postItemId })
 	}
-	const notAllowed = () =>{
-		console.log('not allowed')
-	}
 
-	const handleClickCopyToClipboard = (e) =>{
-		// const copyText = document.getElementById("myInput")
-		// copyText.select();
-		// document.execCommand("copy")
-		console.log('copied to clip board')
-	}
 	console.log('post dropdown')
 	return(
 		<div className='post__dropdown-container'>
 			<div className={ `post__dropdown-buttons-container ${isHidden ? 'active' : ''}` }>
-				<span onClick={ currentUID === postUID ? handleClickEdit : notAllowed } className={ `post__dropdown-button edit ${currentUID !== postUID ? 'not': ''}` }>
-					<i onClick={ currentUID === postUID ? handleClickEdit : notAllowed } className="far fa-edit icon-dropdown">
-					</i> 
-					<span className='post__dropdown-text'>{ currentUID === postUID ? 'Edit Caption' : 'Not Allowed' }</span>
+				<span onClick={ () => handleClickEdit(currentUID, postUID) } className={ `post__dropdown-button edit ${currentUID !== postUID ? 'not': ''}` }>
+					<i className="far fa-edit icon-dropdown"></i> 
+					<span className='post__dropdown-text'>
+						{ currentUID === postUID ? 'Edit Caption' : 'Not Allowed' }
+					</span>
 				</span>
-				<span onClick={ currentUID === postUID ? handleClickDelete: notAllowed } className={ `post__dropdown-button delete ${currentUID !== postUID ? 'not': ''}` }>
-					<i onClick={ currentUID === postUID ? handleClickDelete: notAllowed } className="far fa-trash-alt icon-dropdown">
-					</i>
-					<span className='post__dropdown-text'>{ currentUID === postUID ? 'Delete Post' : 'Not Allowed' }</span>
+
+				<span onClick={ () => handleClickShow(currentUID, postUID) } className={ `post__dropdown-button delete ${currentUID !== postUID ? 'not': ''}` }>
+					<i className="far fa-trash-alt icon-dropdown"></i>
+					<span className='post__dropdown-text'>
+				 		{ currentUID === postUID ? 'Delete Post' : 'Not Allowed' }
+					</span>
 				</span>
-				<span onClick={ currentUID === postUID ? handleClickCopyToClipboard : notAllowed  } className={ `post__dropdown-button copy ${currentUID !== postUID ? 'not': ''}` }>
-					<i onClick={ currentUID === postUID ? handleClickCopyToClipboard : notAllowed  } className="far fa-copy icon-dropdown">
-					</i> 
-					<span className='post__dropdown-text'>{ currentUID === postUID ? 'Copy Link' : 'Not Allowed' }</span>
-				</span>
+			</div>
+			<div className={ `post__dropdown-sure-container ${isDeleteHidden ? 'visible' : ''}` }>
+				<span className='post__dropdown-sure'>Are you sure you want to delete?</span>
+				<button onClick={ () => handleClickDelete(currentUID, postUID) } className='post__dropdown-sure-button'>Yes</button>
 			</div>
 			<EditPostCaption 
 				postItemId={ postItemId }
@@ -90,4 +80,19 @@ const mapsDispatchToProps = dispatch =>({
 
 export default withRouter(connect(null, mapsDispatchToProps)(PostDropdown))
 
-				// <input type="text" id="myInput" defaultValue={`${match.path}${postItemId}`} className='post__dropdown-copy-value'/>
+
+
+	// const handleClickCopyToClipboard = (e) =>{
+	// 	const copyText = document.getElementById("myInput")
+	// 	copyText.select();
+	// 	document.execCommand("copy")
+	// 	console.log('copied to clip board')
+	// }
+
+// <span onClick={ currentUID === postUID ? handleClickCopyToClipboard : notAllowed  } className={ `post__dropdown-button copy ${currentUID !== postUID ? 'not': ''}` }>
+// 	<i onClick={ currentUID === postUID ? handleClickCopyToClipboard : notAllowed  } className="far fa-copy icon-dropdown">
+// 	</i> 
+// 	<input type="text" id="myInput" defaultValue={`${match.path}${postItemId}`} className='post__dropdown-copy-value'/>
+// 	<span className='post__dropdown-text'>{ currentUID === postUID ? 'Copy Link' : 'Not Allowed' }</span>
+// </span>
+// // <input type="text" id="myInput" defaultValue={`${match.path}${postItemId}`} className='post__dropdown-copy-value'/>

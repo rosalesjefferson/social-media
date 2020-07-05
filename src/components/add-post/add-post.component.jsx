@@ -33,7 +33,7 @@ const AddPost = ({ addPostStart, currentUser }) =>{
 	const handleClickClose = () =>{
 		setPost({ ...posts, imageObject: null})
 	}
-	console.log(post, imageObject, 'add-post test')
+	
 	return(
 	<div className='add-post__container'>
 		<h5 className='header-5'>Create Post</h5>
@@ -51,15 +51,7 @@ const AddPost = ({ addPostStart, currentUser }) =>{
 			<div className={ `add-post__button-container ${imageObject ? 'active' : ''  }` }>
 				<label htmlFor='imgFile' className='add-post__label'>
 					<span className='add-post__icon'><i className="far fa-image"></i></span>
-					<span className='add-post__text'>Photo/Video</span>
-				</label>
-				<label htmlFor='location' className='add-post__label location'>
-					<span className='add-post__icon'><i className="fas fa-map-marker-alt"></i></span>
-					<span className='add-post__text'>Location</span>
-				</label>
-				<label htmlFor='activity' className='add-post__label activity'>
-					<span className='add-post__icon'><i className="far fa-smile"></i></span>
-					<span className='add-post__text'>Feeling/Activity</span>
+					<span className='add-post__text'>Photo</span>
 				</label>
 				{imageObject ? 
 					<figure className='add-post__image-container'>
@@ -85,6 +77,21 @@ const mapsStateToProps = state =>({
 export default connect(mapsStateToProps, mapsStateToDispatch)(AddPost)
 
 
+
+/*
+<label htmlFor='imgFile' className='add-post__label'>
+	<span className='add-post__icon'><i className="far fa-image"></i></span>
+	<span className='add-post__text'>Photo/Video</span>
+</label>
+<label htmlFor='location' className='add-post__label location'>
+	<span className='add-post__icon'><i className="fas fa-map-marker-alt"></i></span>
+	<span className='add-post__text'>Location</span>
+</label>
+<label htmlFor='activity' className='add-post__label activity'>
+	<span className='add-post__icon'><i className="far fa-smile"></i></span>
+	<span className='add-post__text'>Feeling/Activity</span>
+</label>
+*/
 
 
 // const { image } = images

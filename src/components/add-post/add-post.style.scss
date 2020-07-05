@@ -28,26 +28,21 @@
 			}
 		}
 		&__button-container{
-			display: grid ;
-			grid-template-columns: repeat(3, max-content) 1fr;
-			justify-items: start;
+			display: flex ;
 			align-items: center;
 			grid-gap: 1rem;
 			padding:  1rem;
 			align-items: center;
-			&.active{
-				grid-template-columns: repeat(3, max-content) 1fr max-content;
-			}
 		}
 
 		&__label{
 			cursor: pointer;
-			padding: .8rem 1.3rem;
+			padding: .8rem 2rem;
 			background: $light-3;
 			border-radius: 20rem;
 			font-weight: 600;
 			transition: all .5s;
-
+			font-size: 1.1rem;
 			&:hover{
 				background: $light-5;
 			}
@@ -59,13 +54,13 @@
 
 
 		&__image-container{
-			width: 4rem;
+			width: 7rem;
 			height: 3rem;
 			border-radius: 5px;
 			overflow: hidden;
-			justify-self: end;
 			position: relative;
 			background: $dark;
+			margin-left: 1rem;
 		}
 
 		&__image{
@@ -102,7 +97,7 @@
 			color: $light;
 			font-weight: 600;
 			transition: all .5s;
-			justify-self: end;
+			margin-left: auto;
 
 			&.active{
 				background: $secondary;
