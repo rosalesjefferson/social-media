@@ -9,9 +9,10 @@ import EditPostCaption from '../edit-post-caption/edit-post-caption.component'
 
 import './post-dropdown.style.scss'
 
-const PostDropdown = ({ handleClick, isHidden, deletePostStart, setHiddenToFalse, match, location, ...otherProps }) =>{
+const PostDropdown = ({ passHandleClickHideDropdown, isHidden, deletePostStart, match, location, ...otherProps }) =>{
 	const [isModalHidden, setIsModalHidden] = useState(false)
 	const [isDeleteHidden, setDelete] = useState(false)
+	const [isSpinnerHidden, setSpinnerHidden] = useState(false)
 	const { postItemId, post, currentUID, postUID } = otherProps
 
 	useEffect(() =>{
@@ -24,8 +25,9 @@ const PostDropdown = ({ handleClick, isHidden, deletePostStart, setHiddenToFalse
 
 	const handleClickEdit = (uid, postuid) =>{
 		if(uid !== postuid) return
+		passHandleClickHideDropdown()
 		setIsModalHidden(true)
-		setHiddenToFalse()
+		setDelete(false)
 	}
 
 	const passHandleClickEdit = () =>{
@@ -34,36 +36,51 @@ const PostDropdown = ({ handleClick, isHidden, deletePostStart, setHiddenToFalse
 
 	const handleClickShow = (uid, postuid) =>{
 		if(uid !== postuid) return
-		setDelete(true)
+		setDelete(!isDeleteHidden)
 	}
 
 	const handleClickDelete = (uid, postuid) =>{
 		if(uid !== postuid) return
+		setSpinnerHidden(true)
 		deletePostStart({ postItemId })
 	}
 
 	console.log('post dropdown')
 	return(
 		<div className='post__dropdown-container'>
-			<div className={ `post__dropdown-buttons-container ${isHidden ? 'active' : ''}` }>
-				<span onClick={ () => handleClickEdit(currentUID, postUID) } className={ `post__dropdown-button edit ${currentUID !== postUID ? 'not': ''}` }>
-					<i className="far fa-edit icon-dropdown"></i> 
-					<span className='post__dropdown-text'>
-						{ currentUID === postUID ? 'Edit Caption' : 'Not Allowed' }
+		{
+			isHidden ? 
+				<div className='post__dropdown-buttons-container'>
+					<span onClick={ () => handleClickEdit(currentUID, postUID) } className={ `post__dropdown-button edit ${currentUID !== postUID ? 'not': ''}` }>
+						<i className="far fa-edit icon-dropdown"></i> 
+						<span className='post__dropdown-text'>
+							{ currentUID === postUID ? 'Edit Caption' : 'Not Allowed' }
+						</span>
 					</span>
-				</span>
 
-				<span onClick={ () => handleClickShow(currentUID, postUID) } className={ `post__dropdown-button delete ${currentUID !== postUID ? 'not': ''}` }>
-					<i className="far fa-trash-alt icon-dropdown"></i>
-					<span className='post__dropdown-text'>
-				 		{ currentUID === postUID ? 'Delete Post' : 'Not Allowed' }
+					<span onClick={ () => handleClickShow(currentUID, postUID) } className={ `post__dropdown-button delete ${currentUID !== postUID ? 'not': ''}` }>
+						<i className="far fa-trash-alt icon-dropdown"></i>
+						<span className='post__dropdown-text'>
+					 		{ currentUID === postUID ? 'Delete Post' : 'Not Allowed' }
+						</span>
 					</span>
-				</span>
-			</div>
-			<div className={ `post__dropdown-sure-container ${isDeleteHidden ? 'visible' : ''}` }>
-				<span className='post__dropdown-sure'>Are you sure you want to delete?</span>
-				<button onClick={ () => handleClickDelete(currentUID, postUID) } className='post__dropdown-sure-button'>Yes</button>
-			</div>
+				</div> : ''
+		}
+
+		{
+			isDeleteHidden ? 
+				<div className='post__dropdown-sure-container'>
+					<span className='post__dropdown-sure'>Are you sure you want to delete?</span>
+
+					<button onClick={ () => handleClickDelete(currentUID, postUID) } className={ `post__dropdown-sure-button ${isSpinnerHidden ? 'remove-background' : ''}` }>
+							{
+								isSpinnerHidden ? <div className='post__dropdown-spinner-container'>
+													<span className={ `post__dropdown-spinner ${isSpinnerHidden ? 'active' : ''}` }></span>
+												</div> : 'Yes'
+							} 
+					</button> 
+				</div> : ''
+		}
 			<EditPostCaption 
 				postItemId={ postItemId }
 				post={ post }
@@ -79,7 +96,13 @@ const mapsDispatchToProps = dispatch =>({
 })
 
 export default withRouter(connect(null, mapsDispatchToProps)(PostDropdown))
-
+					// {
+					// 	isSpinnerHidden ? 
+					// 		<div className='post__dropdown-spinner-container'>
+					// 			<span className='post__dropdown-spinner'></span>
+					// 		</div>
+					// 	: <button onClick={ () => handleClickDelete(currentUID, postUID) } className='post__dropdown-sure-button'>Yes</button>
+					// }
 
 
 	// const handleClickCopyToClipboard = (e) =>{

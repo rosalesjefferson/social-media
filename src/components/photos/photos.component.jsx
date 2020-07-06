@@ -28,7 +28,7 @@ const Photos = ({ isFetching, id, posts }) =>{
 
 		return () => { unsubscribed = true }
 
-	}, [posts])
+	}, [posts, isFetching])
 
 	const showModalImage = (email, firstName, lastName, post, postImageUrl, userDP) =>{
 		setImageUrl({ email: email, firstName: firstName, lastName: lastName, post: post, postImageUrl: postImageUrl, userDP: userDP })
@@ -77,7 +77,7 @@ const Photos = ({ isFetching, id, posts }) =>{
 							</span>
 							<div className={ `photos__content-header ${post.length < 1 ? 'reset-padding' : ''}` }>
 								<figure className='photos__user-image-container'>
-									<img src={ userDP } className='photos__user-image' />
+									<img src={ userDP } className='photos__user-image' alt='user timeline photo modal' />
 								</figure>
 								<div className={ `photos__name-container ${post.length < 1 ? 'reset-padding' : ''}` }>
 									<p className='photos__name'>{ firstName } { lastName }</p>
@@ -86,7 +86,7 @@ const Photos = ({ isFetching, id, posts }) =>{
 							</div>
 							{ post.length > 0 ? <p className='photos__caption'>{ post }</p> : ''}
 							<figure className='photos__modal-image-container'>
-								<img src={ postImageUrl } className='photos__modal-image' />
+								<img src={ postImageUrl } className='photos__modal-image' alt='timeline modal photo'/>
 							</figure>
 						</div>
 					</div> : ''

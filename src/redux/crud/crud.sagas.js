@@ -2,36 +2,50 @@ import { takeLatest, put, all, call } from 'redux-saga/effects';
 
 import { firestore } from '../../firebase/firebase.utils'
 import { getCurrentUser } from '../../firebase/firebase.utils.user'
-import { getPosts, 
+import { 
+		getPosts, 
 		getImageUrl, 
 		getCurrentUserInfo, 
 		addCommentToPost, 
 		postToDelete,
 		saveEditCaption,
-		addLikeToPost
+		addLikeToPost,
+		getPostsOnly
 	} from '../../firebase/firebase.crud.utils'
 
 import crudTypes from './crud.types'
 import userTypes from '../user/user.types'
 import { 
-			fetchPostsSuccessful, 
-			fetchPostsFailure,
+			fetchPostsSuccessful,
+			editLikeCommentSuccess,
 
+			fetchPostsFailure,
 			addPostFailure,
 			addLikeFailure,
+			editLikeCommentFailure,
 			editCaptionFailure,
-
 			addCommentFailure,
-
 			deletePostFailure
 		} from './crud.actions'
+
+export function* fetchPostsOnly (){
+	const postsCollectionRef = firestore.collection('posts')
+	try{
+		const snapShot = yield postsCollectionRef.get()
+		const posts = yield call(getPostsOnly, snapShot)
+		return posts
+	}catch(err){
+		return err
+	}
+
+}
 
 export function* getLatestPosts(){
 	const postsCollectionRef = firestore.collection('posts')
 	try{
 		const snapShot = yield postsCollectionRef.get()
-		const { posts, following } = yield call(getPosts, snapShot)
-		yield put(fetchPostsSuccessful({ posts, following }))
+		const { UID, posts, following } = yield call(getPosts, snapShot)
+		yield put(fetchPostsSuccessful({ UID, posts, following }))
 	}catch(err){
 		yield put(fetchPostsFailure(err.message))
 	}
@@ -120,6 +134,16 @@ export function* addLike({ payload }){
 	}
 }
 
+export function* modifiedSuccess(){
+	console.log('modifiedddddddddddd')
+	try{
+		const posts = yield fetchPostsOnly()
+		yield put(editLikeCommentSuccess(posts))
+	}catch(err){
+		yield put(editLikeCommentFailure(err))
+	}
+}
+
 export function* updatePostsWhenFollowing(){
 	yield getLatestPosts()
 }
@@ -152,6 +176,10 @@ export function* onUpdatePostsWhenFollowing(){
 	yield takeLatest(userTypes.FOLLOW_USER_SUCCESS, updatePostsWhenFollowing)
 }
 
+export function* onModifiedSuccess(){
+	yield takeLatest(crudTypes.MODIFIED_SUCCESS, modifiedSuccess)
+}
+
 export function* crudSagas() {
 	yield all([
 				call(onFetchPostsStart),
@@ -160,6 +188,7 @@ export function* crudSagas() {
 				call(onDeletePostStart),
 				call(onEditCaptionStart),
 				call(onAddLikeStart),
-				call(onUpdatePostsWhenFollowing)
+				call(onUpdatePostsWhenFollowing),
+				call(onModifiedSuccess)
 			])
 }

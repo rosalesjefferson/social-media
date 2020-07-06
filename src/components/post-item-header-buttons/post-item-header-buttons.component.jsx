@@ -10,7 +10,7 @@ const PostItemHeaderButtons = ({ ...otherProps }) =>{
 	useEffect(() =>{
 		
 		const clickOutside = e =>{
-			if(!e.target.closest('.post__item-header-button')) setIsHidden(false)
+			if(!e.target.closest('.post__item-header-button-container')) setIsHidden(false)
 		}
 
 		window.addEventListener('click', clickOutside)
@@ -22,18 +22,17 @@ const PostItemHeaderButtons = ({ ...otherProps }) =>{
 		setIsHidden(!isHidden)
 	}
 
-	const setHiddenToFalse = () =>{
-		setIsHidden(false)
-	}	
+	// const setHiddenToFalse = () =>{
+	// 	setIsHidden(false)
+	// }	
 	return(
 			<div className='post__item-header-button-container'>
 				<div className='post__item-header-button'>
-					<span onClick={ handleClick } className='post__item-headner-button'><i className="fas fa-ellipsis-h"></i></span>
+					<span onClick={ handleClick } className='post__item-header-icon-ontainer'><i className="fas fa-ellipsis-h"></i></span>
 						<PostDropdown 
 							{...otherProps}
 							isHidden={ isHidden }
-							setHiddenToFalse={ setHiddenToFalse }
-							handleClick={ handleClick }
+							passHandleClickHideDropdown={ handleClick }
 						/>
 				</div>
 			</div>

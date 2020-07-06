@@ -17,7 +17,7 @@ const PhotosItem = ({ email, firstName, lastName, post, postImageUrl, userDP, sh
 		<figure onClick={ () => showModalImage(email, firstName, lastName, post, postImageUrl, userDP, showModalImage) } 
 			className={ `photos__image-container ${isDark ? 'has-image' : ''}` }
 		>
-			<img src={ postImageUrl } className='photos__image' />
+			<img src={ postImageUrl } className='photos__image' alt='timeline photo item'/>
 		</figure>
 	)
 }

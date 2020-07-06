@@ -25,40 +25,39 @@ const PostItem = ({ posts, currentUID }) =>{
 		} = posts
 		console.log('post-item')
 	return(
-	<div className='post-item__container mb-2'>
-		<div className='post__item'>
-			<header className='post__item-header-user-info'>
-				<figure className='post__item-header-user-image-container'>
-					<img src={ userDP } className='post__item-header-user-image' alt='post header' />
-				</figure>
-				<h5 className='post__item-header-user-name-container'>
-					<Link to={ `/timeline/${postUID}` } className='post__item-header-user-name'>{ `${firstName} ${lastName}` }</Link>
-					<Link to={ `/timeline/${postUID}` } className='post__item-header-user-email'>{`@${email}`}</Link>
-				</h5>
-				<PostItemHeaderButtons 
-					post={ post }
-					postItemId={ id }
-					postUID={ postUID }
-					currentUID={ currentUID }
-					postImageUrl={ postImageUrl }
-				/>
-
-			</header>
-			<div className='post__item-caption-container'>
-				<p className='post__item-caption'>{ post }</p>
-			</div>
-			{ 
-				postImageUrl ? 
-					<figure className='post__item-image-container'>
-						<img src={ postImageUrl } className='post__item-image' alt='Post'/>
+		<div className='post-item__container mb-2'>
+			<div className='post__item'>
+				<header className='post__item-header-user-info'>
+					<figure className='post__item-header-user-image-container'>
+						<img src={ userDP } className='post__item-header-user-image' alt='post header' />
 					</figure>
-				: null
-			}			
-			<Comments comments={comments} currentUID={ currentUID } postItemId={ id }likes={ likes }/>
-		 <AddComment postItemId={ id }/>
+					<h5 className='post__item-header-user-name-container'>
+						<Link to={ `/timeline/${postUID}` } className='post__item-header-user-name'>{ `${firstName} ${lastName}` }</Link>
+						<Link to={ `/timeline/${postUID}` } className='post__item-header-user-email'>{`@${email}`}</Link>
+					</h5>
+					<PostItemHeaderButtons 
+						post={ post }
+						postItemId={ id }
+						postUID={ postUID }
+						currentUID={ currentUID }
+						postImageUrl={ postImageUrl }
+					/>
+				</header>
+				<div className='post__item-caption-container'>
+					<p className='post__item-caption'>{ post }</p>
+				</div>
+				{ 
+					postImageUrl ? 
+						<figure className='post__item-image-container'>
+							<img src={ postImageUrl } className='post__item-image' alt='Post'/>
+						</figure>
+					: null
+				}			
+				<Comments comments={comments} currentUID={ currentUID } postItemId={ id }likes={ likes }/>
+			 	<AddComment postItemId={ id }/>
+			</div>
 		</div>
-	</div>
-)
+	)
 }
 export default React.memo(PostItem)
 

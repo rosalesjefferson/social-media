@@ -88,24 +88,48 @@ export const addLikeFailure = (err) => ({
 
 
 
-// POST EDIT DELETE COMMENT SUCCESS
 
-export const addPostSuccess = (data) =>({
+// POST EDIT DELETE COMMENT SUCCESS
+export const addPostSuccess = data =>({
 	type: crudTypes.ADD_POST_SUCCESS,
 	payload: data
 })
 
-export const modifiedSuccess = (data) =>({
-	type: crudTypes.MODIFIED_SUCCESS,
+export const editCaptionSuccess = data =>({
+	type: crudTypes.EDIT_CAPTION_SUCCESS,
 	payload: data
 })
 
-export const deletePostSuccess = (data) =>({
+export const addLikeSuccess = data =>({
+	type: crudTypes.ADD_LIKE_SUCCESS,
+	payload: data
+})
+
+export const addCommentSuccess = data =>({
+	type: crudTypes.ADD_COMMENT_SUCCESS,
+	payload: data
+})
+
+export const deletePostSuccess = data =>({
 	type: crudTypes.DELETE_POST_SUCCESS,
 	payload: data
 })
 
-export const addLikeSuccess = (data) =>({
-	type: crudTypes.ADD_LIKE_SUCCESS,
+export const modifiedSuccess = () =>({
+	type: crudTypes.MODIFIED_SUCCESS
+})
+
+
+
+
+
+export const editLikeCommentSuccess = data =>({
+	type: crudTypes.EDIT_LIKE_COMMENT_SUCCESS,
 	payload: data
 })
+
+export const editLikeCommentFailure = data =>({
+	type: crudTypes.EDIT_LIKE_COMMENT_FAILURE,
+	payload: data
+})
+

@@ -10,7 +10,7 @@ const ReactionButton = ({ hideComments, totalComments, currentUID, addStart, pos
 
 	useEffect(() =>{
 		let unsubscribed = false
-		const likesFunc = async () =>{
+		const likeOrUnlike = async () =>{
 			if(!unsubscribed){
 				const matchID = await likes.find(like => like.currentUID === currentUID)	
 					
@@ -22,7 +22,7 @@ const ReactionButton = ({ hideComments, totalComments, currentUID, addStart, pos
 			}
 		}
 
-		likesFunc()
+		likeOrUnlike()
 		
 		return () => { unsubscribed = true }
 	}, [likes, currentUID])
@@ -56,6 +56,6 @@ const mapsDipatchToProps = dispatch =>({
 	addStart: (UID) => dispatch(addLikeStart(UID))
 })
 
-export default connect(null, mapsDipatchToProps)(ReactionButton)
+export default React.memo(connect(null, mapsDipatchToProps)(ReactionButton))
 
 				// <span className='reaction__button'><i className="far fa-share-square"></i></span>

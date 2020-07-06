@@ -1,6 +1,37 @@
 import { firestore, auth, storage }  from './firebase.utils.js'
 
 
+// export const getPosts = async (snapShot) =>{
+// 	const UID = await auth.currentUser.uid
+// 	const usersCollectionRef = firestore.doc(`users/${UID}`)
+
+// 	const followingCollectionRef = usersCollectionRef.collection('following')
+// 	const followingSnapshot = await followingCollectionRef.get()
+
+// 	const fetchPosts = await snapShot.docs.map(doc =>{
+// 		return{
+// 			id: doc.id,
+// 			...doc.data()
+// 		}
+// 	})
+
+// 	const fetchFollowing = await followingSnapshot.docs.map(doc =>{
+// 		return{
+// 			id: doc.id,
+// 			...doc.data()
+// 		}
+// 	})
+
+
+// 	const posts = { posts: fetchPosts,  following: fetchFollowing, UID: UID  }
+// 	return{
+// 		posts, 
+// 		following: fetchFollowing
+// 	}
+// }
+
+
+
 // POST
 export const getPosts = async (snapShot) =>{
 	const UID = await auth.currentUser.uid
@@ -23,12 +54,22 @@ export const getPosts = async (snapShot) =>{
 		}
 	})
 
-
-	const posts = { posts: fetchPosts,  following: fetchFollowing, UID: UID  }
 	return{
-		posts, 
+		UID,
+		posts: fetchPosts,
 		following: fetchFollowing
 	}
+}
+
+export const getPostsOnly = async (snapShot) =>{
+	const fetchPosts = await snapShot.docs.map(doc =>{
+		return{
+			id: doc.id,
+			...doc.data()
+		}
+	})
+
+	return fetchPosts
 }
 
 export const getImageUrl = async imageObject =>{
