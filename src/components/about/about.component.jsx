@@ -64,7 +64,7 @@ const About = ({ editProfileStart, UID, timelineUser: { id, email, lastName, fir
 
 	const handleSubmit = e =>{
 		e.preventDefault()
-		editProfileStart({ id, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, profilePictureObject, coverPhotoObject, userDP, userCover })
+		editProfileStart({ id, email, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, profilePictureObject, coverPhotoObject, userDP, userCover })
 		setSpinnerHidden(true)
 	}
 	return(

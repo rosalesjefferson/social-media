@@ -8,7 +8,7 @@ import './add-comment.style.scss'
 
 const AddComment = ({ addCommentStart, getCurrentUser, postItemId }) =>{
 	const [comment, setComment] = useState('')
-	const { firstName, lastName } = getCurrentUser
+	const { email, firstName, lastName } = getCurrentUser
 
 	const handleChange = (e) =>{
 		const value = e.target.value
@@ -16,7 +16,7 @@ const AddComment = ({ addCommentStart, getCurrentUser, postItemId }) =>{
 	}
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		addCommentStart({ comment, postItemId, firstName, lastName })
+		addCommentStart({ comment, postItemId, firstName, lastName, email })
 		setComment('')
 	}
 	return(

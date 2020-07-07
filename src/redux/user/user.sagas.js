@@ -140,11 +140,11 @@ export function* editBioFeatured({ payload: { bioEdit, timelineUID, featuredPhot
 	}
 }
 
-export function* editProfile({ payload: { id, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, profilePictureObject, coverPhotoObject, userDP, userCover } }){
+export function* editProfile({ payload: { id, email, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, profilePictureObject, coverPhotoObject, userDP, userCover } }){
 	try{
 		const userProfileUrl = yield call(getUserImageUrl, profilePictureObject)
 		const userCoverUrl = yield call(getUserImageUrl, coverPhotoObject)
-		const users = yield call(updateProfileInfo, { id, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, userProfileUrl, userCoverUrl, userDP, userCover })
+		const users = yield call(updateProfileInfo, { id, email, uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, userProfileUrl, userCoverUrl, userDP, userCover })
 		yield put(editProfileSuccess(users))
 		const currUser = yield getCurrentUser();
 		yield userProfile(currUser)
