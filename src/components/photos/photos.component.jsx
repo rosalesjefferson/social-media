@@ -49,22 +49,19 @@ const Photos = ({ isFetching, id, posts }) =>{
 			</div>
 			
 				{
-					checkImageUrl === null ? <LoadingSpinner size='medium' substitutionSmall='true'/> : ''
-				}
+					checkImageUrl === null ? 
+					<LoadingSpinner size='medium' substitutionSmall='true'/> 
 
-				{ 
-					checkImageUrl !== null && checkImageUrl.length > 0 ?
+					: checkImageUrl !== null && checkImageUrl.length > 0 ?
 					<div className='photos__lists'>
 						{
 							posts.map(post => (
 								post.postImageUrl ? <PhotosItem key={ post.id } showModalImage={ showModalImage } { ...post } /> : ''
 							)) 	
 						}
-					</div> : ''
-				}
-
-				{
-					checkImageUrl !== null && checkImageUrl.length < 1  ? <TimelineContentPlaceholder description='No Photos.'/> : ''
+					</div>
+					
+					: <TimelineContentPlaceholder description='No Photos.'/> 
 				}
 
 

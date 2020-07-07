@@ -11,7 +11,7 @@ import PostItem from '../../components/post-item/post-item.component'
 
 import './posts.style.scss'
 
-const Posts = ({ fetchPostsStart, modifiedSuccess, deletePostSuccess, isFetching, currentUID, posts, isTimeline }) =>{
+const Posts = ({ fetchPostsStart, modifiedSuccess, deletePostSuccess, currentUID, posts, isTimeline }) =>{
 	useEffect(() =>{
 		let unsubscribed = false
 
@@ -41,9 +41,14 @@ const Posts = ({ fetchPostsStart, modifiedSuccess, deletePostSuccess, isFetching
 	return(
 		<div className='posts__container'>
 			{
-				posts.length > 0 ? posts.map(post  =>(
+				posts === null ? <LoadingSpinner substitutionSmall='true'/>
+				
+				: posts !== null && posts.length > 0 ? 
+				posts.map(post  =>(
 					<PostItem key={ post.id } currentUID={ currentUID } posts={ post } />
-				)) : <h4 className='posts__no-post'>No post.</h4>
+				)) 
+
+				: <h4 className='posts__no-post'>No post.</h4> 
 			}
 		</div>
 	)
@@ -59,8 +64,7 @@ const mapsStateToProps = (state, ownProps) => {
 	const { isTimeline, timelineUID } = ownProps
 	return({
 		posts: selectPostsWithFollowing(isTimeline, timelineUID)(state),
-		currentUID: selectUID(state),
-		isFetching: selectIsPostsFetching(state)
+		currentUID: selectUID(state)
 	})
 }
 

@@ -265,13 +265,28 @@ export const updateProfileInfo = async payload =>{
   await usersCollectionRef.get().then(snapShot =>{
     // LOOP TO USERS DATABASE
     snapShot.forEach(userDoc =>{
-    // GET EACH USER'S ID TO GET EACH USER'S FOLLOWING DATABASE
+      
+    // UPDATE FOLLOWING NAME
+    // GET EACH USER'S ID TO GET EACH USER'S "FOLLOWING" DATABASE
       usersCollectionRef.doc(userDoc.id).collection('following').get().then(followingSnapShot =>{
-        //THEN LOOP TO FOLLOWING DATABASE
+        //THEN LOOP TO "FOLLOWING" DATABASE
         followingSnapShot.forEach(followDoc =>{
-          // IF THE CONDITION IS TRUE, THE CODE BELOW WILL EXECUTE AND GET THE FOLLOWING DATABASE ID AND UPDATE
+          // IF THE CONDITION IS TRUE, THE CODE BELOW WILL EXECUTE AND GET THE "FOLLOWING" DATABASE ID AND UPDATE
           if(email === followDoc.data().email){
             usersCollectionRef.doc(userDoc.id).collection('following').doc(followDoc.id).update({
+              firstName: uFirstName,
+              lastName: uLastName,
+              userDP: profileUrl
+            })
+          }
+        })
+      })
+
+      // UPDATE FOLLOWERS NAME
+      usersCollectionRef.doc(userDoc.id).collection('followers').get().then(followerSnapshot =>{
+        followerSnapshot.forEach(followDoc =>{
+          if(email === followDoc.data().email){
+            usersCollectionRef.doc(userDoc.id).collection('followers').doc(followDoc.id).update({
               firstName: uFirstName,
               lastName: uLastName,
               userDP: profileUrl
@@ -282,30 +297,9 @@ export const updateProfileInfo = async payload =>{
     })
   })
 
+  
 
-  // await usersCollectionRef.get().docs.forEach(user =>{
-  //   usersCollectionRef.doc(user.id).collection('following').get().docs.forEach(follow =>{
-  //     // if(email === follow.email){
-  //     //   usersCollectionRef.doc(user.id).collection('following').doc(follow.id).update({
-  //     //     firstName: uFirstName,
-  //     //     lastName: uLastName,
-  //     //     userDP: profileUrl
-  //     //   })
-  //     // }
-  //     // console.log(follow, 'following test')
-  //   })
 
-  //     usersCollectionRef.doc(user.id).collection('following').docs.forEach(follow =>{
-  //     // if(email === follow.email){
-  //     //   usersCollectionRef.doc(user.id).collection('following').doc(follow.id).update({
-  //     //     firstName: uFirstName,
-  //     //     lastName: uLastName,
-  //     //     userDP: profileUrl
-  //     //   })
-  //     // }
-  //     console.log(follow, 'following test')
-  //   })
-  // })
 
   const postsCollectionRef = firestore.collection('posts')
   // const currentUserPosts = postsCollectionRef.where('postUID', '==', id)
@@ -341,22 +335,6 @@ export const updateProfileInfo = async payload =>{
   }catch(err){
     console.log(err.message, 'post name update error')
   }
-
-  // const allUserPostsSnapshot = await postsCollectionRef.get()
-  // //Update firstName and lastName in all comments
-  // try{
-  //   await allUserPostsSnapshot.docs.forEach(doc =>{
-  //     firestore.collection('posts').doc(doc.id).update({
-  //       comments: [
-  //            ...doc.data().comments.map(comment => {
-  //               return { ...comment, firstName: uFirstName, lastName: uLastName }
-  //            })
-  //         ]
-  //     })
-  //   })
-  // }catch(err){
-  //   console.log(err.message, 'Comments first and last name in all posts')
-  // }
 
   const userSnapshot = await usersCollectionRef.get()
 

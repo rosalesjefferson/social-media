@@ -22,7 +22,6 @@ const Following = ({ timelineUID, isFollowingFetching, fetchFollowingStart, foll
 	}, [fetchFollowingStart, timelineUID])
 
 	console.log('Following Component')
-
 	return(
 		<div className='following'>
 			<div className='following__header'>
@@ -32,22 +31,18 @@ const Following = ({ timelineUID, isFollowingFetching, fetchFollowingStart, foll
 				<h3 className='following__title header-3'>Following</h3>
 			</div>
 			{
-				!isFollowingFetching ? <LoadingSpinner size='medium' substitutionSmall='true' /> : ''
-			}
+				!isFollowingFetching ? <LoadingSpinner size='medium' substitutionSmall='true' /> 
 
-			{
-				isFollowingFetching && following.length > 0 ?
+				: isFollowingFetching && following.length > 0 ?
 					<ul className='following__lists'>
 						{
 							following.map(({ id, ...otherProps }) =>(
 								<FollowersItem key={ id } reset={ reset } { ...otherProps } />
 							))
 						}
-					</ul> : ''
-			}
-
-			{
-				isFollowingFetching && following.length < 1 ? <TimelineContentPlaceholder description='No following. Follow now!' arrowButton='true' /> : ''
+					</ul>
+					
+				 : <TimelineContentPlaceholder description='No following. Follow now!' arrowButton='true' />
 			}
 		</div>
 	)

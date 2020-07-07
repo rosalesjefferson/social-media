@@ -26,4 +26,15 @@
 		font-weight: 500;
 		margin-bottom: 5px;
 	}
+
+	&__nothing-placeholder-container{
+		padding: 1.5rem 1rem;
+		background: $light-3;
+	}
+
+	&__nothing-placeholder{
+		font-size: 1.3rem;
+		text-align: center;
+		display: block;
+	}
 }

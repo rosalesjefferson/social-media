@@ -18,16 +18,14 @@ const Suggestions = ({ fetchUsersStart, users }) =>{
 		}
 		return () => { unsubscribed = true }
 	}, [fetchUsersStart])
+	console.log(users, 'userssssssss')
 // https://www.freecodecamp.org/forum/t/how-to-filter-an-array-with-another-array/139352/3   FILTER ARRAY FROM ANOTHER ARRAY
 	return(
 			<div className='suggestions__container'>
-			{
-				users !== null && users.length < 1 ? ''
-				: <div className='suggestions__header-container'>
+				<div className='suggestions__header-container'>
 					<h5 className='suggestions__title'>Suggestions For You</h5>
 					<Link to='/suggested' className='suggestions__see-all'>See all</Link>
 				 </div> 
-			}
 
 				{
 					users === null ? <LoadingSpinner size='medium' /> : ''
@@ -43,7 +41,15 @@ const Suggestions = ({ fetchUsersStart, users }) =>{
 								<UserItem key={ user.id } buttonText='Follow' { ...user } />
 							))
 						}
-					  </ul> : ''
+					  </ul> 
+				  	: ''	
+				}
+
+				{
+					users !== null && users.length < 1 
+					? <div className='suggestions__nothing-placeholder-container'>
+				  		<span className='suggestions__nothing-placeholder'>Nothing To follow</span>
+					  </div> : ''
 				}
 			</div>
 	)

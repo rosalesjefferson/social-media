@@ -18,18 +18,18 @@ export const selectTimelinePosts = id  => createSelector([selectorPosts], posts 
 })
 
 export const selectPostsWithFollowing = (isTimeline, timelineUID) => createSelector([selectorPosts], posts =>{
-	if(!posts) return 
+	if(posts.posts.length < 1) return null
 	const allPosts = posts.posts
 	const following = posts.following
 	const UID = posts.UID
 
 	if(!isTimeline){
 		let followingUID = following.reduce((accumulator, follow) =>{
-			accumulator[follow.followingUserId] = follow
+			accumulator.push(follow.followingUserId)
 			return accumulator
-		}, {})
+		}, [])
 
-		const homePosts = allPosts.filter(post => Object.keys(followingUID).includes(post.postUID) || [UID].includes(post.postUID))
+		const homePosts = allPosts.filter(post => followingUID.includes(post.postUID) || UID === post.postUID)
 
 		return homePosts
 	}
