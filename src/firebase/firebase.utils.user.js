@@ -102,9 +102,11 @@ export const userToFollowAndUnfollow = async (payload) =>{
   const followersCollectionRef = firestore.doc(`users/${id}`).collection('followers')
   const followersSnapshot = await followersCollectionRef.get()
   const isFollowersExist = await followersSnapshot.docs.find(doc => doc.data().followersUserID === UID)
-  const followersID = await followersSnapshot.docs.filter(doc => {
-    if(doc.data().followersUserID === UID) return doc.id
-  })    
+  // const followersID = await followersSnapshot.docs.filter(doc => {
+  //   if(doc.data().followersUserID === UID) return doc.id
+  // })   
+  // console.log(followersID[0].id, 'ID', isFollowersExist.id, 'exist')
+  // const test = await followersSnapshot.docs.fi 
   if(!isFollowersExist){
     const { email, firstName, lastName, userDP } = userSnapshot.data()
     try{
@@ -124,7 +126,7 @@ export const userToFollowAndUnfollow = async (payload) =>{
 
   if(isFollowersExist){
     try{
-      await followersCollectionRef.doc(followersID[0].id).delete()
+      await followersCollectionRef.doc(isFollowersExist.id).delete()
       console.log('followers exist DELETE')
     }catch(err){
       console.log(err.message, 'followers exist error')
@@ -134,9 +136,9 @@ export const userToFollowAndUnfollow = async (payload) =>{
   const followingCollectionRef = usersCollectionRef.collection('following')
   const followingSnapShot = await followingCollectionRef.get()
   const isFollowingExist = await followingSnapShot.docs.find(doc => doc.data().followingUserId === id)  
-  const followingID = await followingSnapShot.docs.filter(doc => {
-    if(doc.data().followingUserId === id) return doc.id
-  })  
+  // const followingID = await followingSnapShot.docs.filter(doc => {
+  //   if(doc.data().followingUserId === id) return doc.id
+  // })  
   if(!isFollowingExist){
     try{
       await followingCollectionRef.add({
@@ -162,7 +164,7 @@ export const userToFollowAndUnfollow = async (payload) =>{
   
   if(isFollowingExist){
     try{
-      await followingCollectionRef.doc(followingID[0].id).delete()
+      await followingCollectionRef.doc(isFollowingExist.id).delete()
       console.log(isFollowingExist, 'following exist DELETE')
 
       return { 

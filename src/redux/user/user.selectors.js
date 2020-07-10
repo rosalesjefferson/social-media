@@ -3,7 +3,9 @@ import { createSelector } from 'reselect'
 const selectorUser = (state) => state.user  
 
 export const selectCurrentUser = createSelector([selectorUser], user => user.currentUser)
+export const selectUserError = createSelector([selectorUser], user => user.error)
 export const selectIsFetching = createSelector([selectorUser], user => user.isFetching)
+export const selectIsAuthenticationSuccess = createSelector([selectorUser], user => user.isAuthenticationSuccess)
 export const selectUserLists = createSelector([selectorUser], user => user.userLists)
 export const selectIsFollowersFetching = createSelector([selectorUser], user => user.isFollowersFetching)
 export const selectIsFollowingFetching = createSelector([selectorUser], user => user.isFollowingFetching)

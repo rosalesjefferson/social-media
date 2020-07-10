@@ -5,7 +5,8 @@ import { editProfileStart } from '../../redux/user/user.actions'
 
 import './about.style.scss'
 
-const About = ({ editProfileStart, UID, timelineUser: { id, email, lastName, firstName, nickname, hobbies, address, contactNumber, birthday, gender, education, work, created_at, userDP, userCover } }) =>{
+const About = ({ editProfileStart, UID, timelineUser }) =>{
+	const { id, email, lastName, firstName, nickname, hobbies, address, contactNumber, birthday, gender, education, work, created_at, userDP, userCover } = timelineUser
 	const [userInfo, setUserInfo] = useState({
 		uFirstName: firstName,
 		uLastName: lastName,
@@ -27,9 +28,13 @@ const About = ({ editProfileStart, UID, timelineUser: { id, email, lastName, fir
 	const { uFirstName, uLastName, uNickname, uHobbies, uAddress, uContactNumber, uBirthday, uGender, uEducation, uWork, profilePictureObject, coverPhotoObject } = userInfo
 
 	useEffect(() =>{
-		setIsModalHidden(false)
-		setUserInfo({ ...userInfo, profilePictureObject: null, coverPhotoObject: null })
-	}, [ firstName, lastName, nickname, hobbies, gender, address, contactNumber, birthday, education, work, userDP, userCover ])
+		let unsub = false
+		if(!unsub){
+			setIsModalHidden(false)
+			setUserInfo({ ...userInfo, profilePictureObject: null, coverPhotoObject: null })
+		}
+		return () => { unsub = true }
+	}, [ timelineUser ])
 
 	const handleClickModal = () =>{
 		setIsModalHidden(!isModalHidden)

@@ -18,8 +18,7 @@ const Suggestions = ({ fetchUsersStart, users }) =>{
 		}
 		return () => { unsubscribed = true }
 	}, [fetchUsersStart])
-	console.log(users, 'userssssssss')
-// https://www.freecodecamp.org/forum/t/how-to-filter-an-array-with-another-array/139352/3   FILTER ARRAY FROM ANOTHER ARRAY
+	console.log('suggestions component')
 	return(
 			<div className='suggestions__container'>
 				<div className='suggestions__header-container'>

@@ -7,6 +7,13 @@
 	box-shadow: 0 3px 10px rgba($dark, .2);
 	padding: 1.5rem 2rem;
 	border-radius: 5px;
+	position: relative;
+
+	&.has-error{
+		& >:nth-child(3){
+			margin-bottom: 1rem;
+		}
+	}
 
 	.header-4,
 	.header-3{
@@ -25,21 +32,38 @@
 	}
 	.form{
 		&__group{
-			height: 5.8rem;
 			width: 100%;
+			margin-bottom: 8px;
 		}
+
 		&__feedback{
+			margin-top: 5px;
 			margin-left: 1rem;
-			display: none;
-			&.has-feedback{
-				display: unset;
+			color: $danger;
+			font-weight: 500;
+			font-size: 1.1rem;
+		}
+
+		&__feedback-attempt-container{
+			color: $danger;
+			font-weight: 400;
+			font-size: 1.1rem;
+			text-align: center;
+			&.has-error{
+				margin-bottom: 1rem;
 			}
 		}
+
+		&__feedback-attempt{
+
+		}
+
 		&__button-container{
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
 		}
+
 		&__button-instead{
 			font-size: 1.4rem;
 			color: $secondary;

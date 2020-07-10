@@ -9,16 +9,26 @@ const INITIAL_STATE = {
 	isFollowingFetching: false,
 	isFollowersFetching: false,
 	isUsersFetching: true,
-	error: null
+	error: null,
+	isAuthenticationSuccess: false
 }
 
 const userReducer = (state=INITIAL_STATE, action) =>{
 	switch(action.type){
+		case userTypes.SIGN_UP_START:
+		return{
+			...state,
+			isAuthenticationSuccess: true
+		}
+
 		case userTypes.AUTHENTICATION_SUCCESS:
 			return {
 				...state,
-				currentUser: action.payload
+				error: null,
+				currentUser: action.payload,
+				isAuthenticationSuccess: false
 			}
+
 		case userTypes.FETCH_USERS_START:
 		return{
 			...state,
@@ -105,6 +115,7 @@ const userReducer = (state=INITIAL_STATE, action) =>{
 		case userTypes.SIGN_OUT_SUCCESS:
 			return{
 				...state,
+				isAuthenticationSuccess: false,
 				currentUser: null,
 				userLists: [],
 				following: [],

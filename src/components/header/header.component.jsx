@@ -47,7 +47,7 @@ const Header = ({ currentUser, signOutStart }) => {
 								<i className={ `${ hidden ? 'active' : '' } fas fa-caret-down` }></i>
 							</span>
 							<div className={ `header__dropdown ${ hidden ? 'active' : '' }` }>
-								<Link to='/suggested' className='header__dropdown-link'>Profile</Link>
+								<Link to='/suggested' className='header__dropdown-link'>Suggested</Link>
 								<div onClick={ signOutStart } className='header__dropdown-link'>Sign Out</div>
 							</div>
 						</div>

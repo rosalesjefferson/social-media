@@ -35,6 +35,10 @@ const Timeline = ({ timelineUser, currentUser, match, fetchUsersStart }) =>{
 		return () => { unsubscribed = true }
 	}, [fetchUsersStart])
 
+	useEffect(() =>{
+			resetToTimelineComponent()
+	}, [timelineUser])
+
 	const { timeline, about, following, followers, photos } = isHidden
 	const { firstName, lastName, userDP, userCover, id, featuredPhoto, bio, nickname, created_at  } = timelineUser
 	const UID = currentUser.UID
@@ -60,6 +64,7 @@ const Timeline = ({ timelineUser, currentUser, match, fetchUsersStart }) =>{
 			photos: false
 		})	
 	}
+
 	return(
  			<div className='timeline__container'>
  				{

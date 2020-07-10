@@ -74,7 +74,7 @@ const Photos = ({ isFetching, id, posts }) =>{
 							</span>
 							<div className={ `photos__content-header ${post.length < 1 ? 'reset-padding' : ''}` }>
 								<figure className='photos__user-image-container'>
-									<img src={ userDP } className='photos__user-image' alt='user timeline photo modal' />
+									<img src={ userDP } className='photos__user-image' alt='user modal' />
 								</figure>
 								<div className={ `photos__name-container ${post.length < 1 ? 'reset-padding' : ''}` }>
 									<p className='photos__name'>{ firstName } { lastName }</p>
@@ -83,7 +83,7 @@ const Photos = ({ isFetching, id, posts }) =>{
 							</div>
 							{ post.length > 0 ? <p className='photos__caption'>{ post }</p> : ''}
 							<figure className='photos__modal-image-container'>
-								<img src={ postImageUrl } className='photos__modal-image' alt='timeline modal photo'/>
+								<img src={ postImageUrl } className='photos__modal-image' alt='post modal'/>
 							</figure>
 						</div>
 					</div> : ''

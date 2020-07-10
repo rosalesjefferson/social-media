@@ -10,6 +10,25 @@
 		box-shadow: 0 3px 10px rgba($dark, .2);
 		padding: 1.5rem 2rem;
 		border-radius: 5px;
+		position: relative;
+	}
+
+	&__spinner-container{
+		@include position(absolute, 2rem, 16.8rem, unset, unset);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&__spinner{
+		display: inline-block;
+	  	width: 2rem;
+		height: 2rem;
+		border: 3px solid rgba($dark, 0.2);
+		border-radius: 50%;
+		border-top-color: $secondary;
+		animation: spin 1s ease-in-out infinite;
+
 	}
 
 	.header-4,
@@ -29,9 +48,9 @@
 	}
 	.form{
 		&__group{
-			height: 5.7rem;
 			min-width: 15rem;
 			flex: 0 1 49%;
+			margin-bottom: 1rem;
 
 			&.large{
 				min-width: unset;
@@ -39,11 +58,11 @@
 			}
 		}
 		&__feedback{
-			margin-left: 1rem;
-			display: none;
-			&.has-feedback{
-				display: unset;
-			}
+			margin: 5px 0 0 1rem;
+			opacity: .8;
+			color: $danger;
+			font-size: 1rem;
+			font-weight: 600;
 		}
 		&__button-container{
 			width: 100%;

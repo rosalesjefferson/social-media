@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { firestore } from '../../firebase/firebase.utils'
 
 import { fetchPostsStart, modifiedSuccess, deletePostSuccess } from '../../redux/crud/crud.actions'
-import { selectPostsWithFollowing, selectUID, selectIsPostsFetching } from '../../redux/crud/crud.selectors'
+import { selectPostsWithFollowing, selectUID } from '../../redux/crud/crud.selectors'
 
 import LoadingSpinner from '../loading-spinner/loading-spinner.component'
 import PostItem from '../../components/post-item/post-item.component'
@@ -35,7 +35,7 @@ const Posts = ({ fetchPostsStart, modifiedSuccess, deletePostSuccess, currentUID
 		postsLists()
 
 		return () => { unsubscribed = true }
-	}, [])
+	}, [fetchPostsStart, modifiedSuccess, deletePostSuccess])
 
 	console.log('Posts Component')
 	return(

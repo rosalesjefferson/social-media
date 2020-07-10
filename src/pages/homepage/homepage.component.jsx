@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 
 import { selectIsPostsFetching } from '../../redux/crud/crud.selectors'
 
-import LoadingSpinner from '../../components/loading-spinner/loading-spinner.component'
 import Posts from '../../components/posts/posts.component'
 import AddPost from '../../components/add-post/add-post.component'
 import Suggestions from '../../components/suggestions/suggestions.component'

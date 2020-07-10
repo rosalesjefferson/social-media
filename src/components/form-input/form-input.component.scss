@@ -25,9 +25,14 @@
 			opacity: 0;
 			visibility: hidden;
 		}
-		&.active{
-			border-color: $danger;
+		&.error{
+			border-color: rgba($danger, .8);
+			color: $danger;
 		}
+		&.error ~ .form-input__label{
+			color: $danger;
+		}
+	
 	}
 	&__label{
 		@include position(absolute, -.7rem, unset, unset, .5rem);
