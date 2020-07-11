@@ -6,7 +6,12 @@ import { editProfileStart } from '../../redux/user/user.actions'
 import './about.style.scss'
 
 const About = ({ editProfileStart, UID, timelineUser }) =>{
-	const { id, email, lastName, firstName, nickname, hobbies, address, contactNumber, birthday, gender, education, work, created_at, userDP, userCover } = timelineUser
+	
+	const { id, email, lastName, firstName, nickname, 
+			hobbies, address, contactNumber, birthday, 
+			gender, education, work, created_at, userDP, 
+			userCover } = timelineUser
+
 	const [userInfo, setUserInfo] = useState({
 		uFirstName: firstName,
 		uLastName: lastName,

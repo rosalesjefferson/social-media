@@ -2,11 +2,7 @@
 .photos{
 	&__image-container{
 		height: 100%;
-		border: 1px solid $light-5;
-		overflow: hidden;
-		&.has-image{
-			background: $dark;
-		}
+		background: $dark;
 	}
 
 	&__image{
@@ -15,10 +11,9 @@
 		object-fit: cover;
 		cursor: pointer;
 		transition: all .5s;
-  		transform: scale(1.01);
+		opacity: .7;
 		&:hover{
-			opacity: .6;
-			transform: scale(1.1);
+			opacity: 1;
 		}
 	}
 

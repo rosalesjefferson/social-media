@@ -16,6 +16,21 @@
 		backface-visibility: hidden;
 		overflow: auto;
 
+		&::-webkit-scrollbar{
+            width: 1rem;
+        }
+        &::-webkit-scrollbar-track{
+            background: $light-4;
+            border-radius: 1rem;
+        }
+        &::-webkit-scrollbar-thumb{
+            background: $gray-9;
+            border-radius: 1rem;
+        }
+        &::-webkit-scrollbar-thumb:hover{
+            background: $gray-6;
+        }
+
 
 		&.active{
 			padding: 1rem 0;

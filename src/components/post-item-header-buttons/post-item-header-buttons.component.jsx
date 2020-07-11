@@ -8,7 +8,6 @@ const PostItemHeaderButtons = ({ ...otherProps }) =>{
 	const [isHidden, setIsHidden] = useState(false)
 
 	useEffect(() =>{
-		
 		const clickOutside = e =>{
 			if(!e.target.closest('.post__item-header-button-container')) setIsHidden(false)
 		}
@@ -21,10 +20,7 @@ const PostItemHeaderButtons = ({ ...otherProps }) =>{
 	const handleClick = () =>{
 		setIsHidden(!isHidden)
 	}
-
-	// const setHiddenToFalse = () =>{
-	// 	setIsHidden(false)
-	// }	
+	console.log('post item header buttons 3 dots')
 	return(
 			<div className='post__item-header-button-container'>
 				<div className='post__item-header-button'>

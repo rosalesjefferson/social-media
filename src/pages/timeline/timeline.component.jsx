@@ -85,7 +85,7 @@ const Timeline = ({ timelineUser, currentUser, match, fetchUsersStart }) =>{
 										<img src={ userDP } alt='timeline' className='timeline__user-image'/>
 										<Link to={`/timeline/${id}`}className='header-3 timeline__name-container'>
 											<span className='timeline__name'>{ firstName } { lastName }</span>
-											<span className='timeline__nickname'>{`${nickname.length > 0 ? `( ${ nickname } )` : '' }`}</span>
+											<span className='timeline__nickname'>{`${nickname.length > 0 ? `(${ nickname })` : '' }`}</span>
 										</Link>
 									</figure>
 

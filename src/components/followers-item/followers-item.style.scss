@@ -4,10 +4,8 @@
 	}
 
 	&__link{
-		color: $dark;
 		display: flex;
 		align-items: center;
-
 	}
 	&__image-container{
 		width: 8rem;
@@ -24,7 +22,7 @@
 		display: grid;
 	}
 	&__name{
-		color: $gray;
+		color: $gray-3;
 		font-weight: 600;
 		font-size: 1.3rem;
 	}

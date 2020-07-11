@@ -22,7 +22,7 @@
 
 @mixin timelineContentLayout{
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
 	grid-gap: 1rem;
-	padding: 1rem;
+	padding: 2rem;
 }

@@ -1,33 +1,3 @@
-// import React from 'react'
-// import { connect } from 'react-redux'
-// import { Link, withRouter } from 'react-router-dom'
-
-// import { selectTimelinePosts } from '../../redux/crud/crud.selectors'
-// import { selectCurrentUser, selectTimelineUsers } from '../../redux/user/user.selectors'
-
-// import './timeline-header.style.scss'
-
-// const TimelineHeader = ({currentUser }) =>{
-// 	// console.log(timelineUser, 'timelineUser')
-// 	// const { email, firstName, lastName, userDP, id } = timelineUser[0]
-// 	return(
-// 		<div className='timeline-header-container'>
-// 			<h1>asdasd</h1>
-// 		</div>
-// 	)
-// }
-
-// const mapsStateToProps = (state, ownProps) =>{
-// 	console.log(ownProps)
-// 	return({
-// 		currentUser: selectCurrentUser(state)
-// 	})
-// }
-
-// export default withRouter(connect(mapsStateToProps)(TimelineHeader))
-
-
-
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'

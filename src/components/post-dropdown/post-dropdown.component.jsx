@@ -23,6 +23,10 @@ const PostDropdown = ({ passHandleClickHideDropdown, isHidden, deletePostStart, 
 		return () => { unsubscribed = true }
 	}, [isHidden])
 
+	useEffect(() =>{
+		setIsModalHidden(false)
+	}, [post])
+
 	const handleClickEdit = (uid, postuid) =>{
 		if(uid !== postuid) return
 		passHandleClickHideDropdown()
@@ -48,8 +52,7 @@ const PostDropdown = ({ passHandleClickHideDropdown, isHidden, deletePostStart, 
 	console.log('post dropdown')
 	return(
 		<div className='post__dropdown-container'>
-		{
-			isHidden ? 
+		    { isHidden ? 
 				<div className='post__dropdown-buttons-container'>
 					<span onClick={ () => handleClickEdit(currentUID, postUID) } className={ `post__dropdown-button edit ${currentUID !== postUID ? 'not': ''}` }>
 						<i className="far fa-edit icon-dropdown"></i> 
@@ -64,29 +67,30 @@ const PostDropdown = ({ passHandleClickHideDropdown, isHidden, deletePostStart, 
 					 		{ currentUID === postUID ? 'Delete Post' : 'Not Allowed' }
 						</span>
 					</span>
-				</div> : ''
-		}
+				</div> 
+			: '' }
 
-		{
-			isDeleteHidden ? 
+			{ isDeleteHidden ? 
 				<div className='post__dropdown-sure-container'>
 					<span className='post__dropdown-sure'>Are you sure you want to delete?</span>
-
 					<button onClick={ () => handleClickDelete(currentUID, postUID) } className={ `post__dropdown-sure-button ${isSpinnerHidden ? 'remove-background' : ''}` }>
-							{
-								isSpinnerHidden ? <div className='post__dropdown-spinner-container'>
-													<span className={ `post__dropdown-spinner ${isSpinnerHidden ? 'active' : ''}` }></span>
-												</div> : 'Yes'
-							} 
+						{
+							isSpinnerHidden ? 
+								<div className='post__dropdown-spinner-container'>
+									<span className={ `post__dropdown-spinner ${isSpinnerHidden ? 'active' : ''}` }></span>
+								</div> : 'Yes'
+						} 
 					</button> 
-				</div> : ''
-		}
-			<EditPostCaption 
-				postItemId={ postItemId }
-				post={ post }
-				isModalHidden={ isModalHidden }
-				passHandleClickEdit={ passHandleClickEdit }
-			/>
+				</div> 
+			: '' }
+
+			{ isModalHidden ? 
+				<EditPostCaption 
+					postItemId={ postItemId }
+					post={ post }
+					passHandleClickEdit={ passHandleClickEdit }
+				/> 
+			: '' }
 		</div>
 	)
 }
@@ -96,26 +100,3 @@ const mapsDispatchToProps = dispatch =>({
 })
 
 export default withRouter(connect(null, mapsDispatchToProps)(PostDropdown))
-					// {
-					// 	isSpinnerHidden ? 
-					// 		<div className='post__dropdown-spinner-container'>
-					// 			<span className='post__dropdown-spinner'></span>
-					// 		</div>
-					// 	: <button onClick={ () => handleClickDelete(currentUID, postUID) } className='post__dropdown-sure-button'>Yes</button>
-					// }
-
-
-	// const handleClickCopyToClipboard = (e) =>{
-	// 	const copyText = document.getElementById("myInput")
-	// 	copyText.select();
-	// 	document.execCommand("copy")
-	// 	console.log('copied to clip board')
-	// }
-
-// <span onClick={ currentUID === postUID ? handleClickCopyToClipboard : notAllowed  } className={ `post__dropdown-button copy ${currentUID !== postUID ? 'not': ''}` }>
-// 	<i onClick={ currentUID === postUID ? handleClickCopyToClipboard : notAllowed  } className="far fa-copy icon-dropdown">
-// 	</i> 
-// 	<input type="text" id="myInput" defaultValue={`${match.path}${postItemId}`} className='post__dropdown-copy-value'/>
-// 	<span className='post__dropdown-text'>{ currentUID === postUID ? 'Copy Link' : 'Not Allowed' }</span>
-// </span>
-// // <input type="text" id="myInput" defaultValue={`${match.path}${postItemId}`} className='post__dropdown-copy-value'/>

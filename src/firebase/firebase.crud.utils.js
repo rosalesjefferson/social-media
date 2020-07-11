@@ -91,12 +91,13 @@ export const getCurrentUserInfo = async (currentUser, userCollectionRef) =>{
 
 // COMMENTS
 export const addCommentToPost = async (payload) =>{
-	const created_at = new Date().toLocaleString("en-US", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
+	// const created_at = new Date().toLocaleString("en-US", {
+ //      weekday: "long",
+ //      day: "numeric",
+ //      month: "long",
+ //      year: "numeric",
+ //    });
+ 	const now = Date.now()
 	const { postItemId  } = payload
 
 	const commentsCollectionRef = firestore.doc(`posts/${postItemId}`)
@@ -109,7 +110,7 @@ export const addCommentToPost = async (payload) =>{
 		...snapShot.data(),
 		comments: [
 				...comments,
-				{...payload, created_at: created_at }
+				{...payload, timestamp: now }
 			]
 	})
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
 
 import { selectIsPostsFetching, selectTimelinePosts } from '../../redux/crud/crud.selectors'
 
@@ -10,11 +11,11 @@ import PhotosItem from '../photos-item/photos-item.component'
 import './photos.style.scss'
 
 const Photos = ({ isFetching, id, posts }) =>{
-	const [imageUrl, setImageUrl] = useState({ email: '', firstName: '', lastName: '', post: '', postImageUrl: '', userDP: '' })
+	const [imageUrl, setImageUrl] = useState({ firstName: '', lastName: '', post: '', postImageUrl: '', userDP: '', timestamp: '' })
 	const [isHidden, setHidden] = useState(false)
 	const [checkImageUrl, setCheck] = useState([])
 
-	const { email, firstName, lastName, post, postImageUrl, userDP } = imageUrl
+	const { firstName, lastName, post, postImageUrl, userDP, timestamp } = imageUrl
 
 	useEffect(() =>{
 		let unsubscribed = false
@@ -30,8 +31,18 @@ const Photos = ({ isFetching, id, posts }) =>{
 
 	}, [posts, isFetching])
 
-	const showModalImage = (email, firstName, lastName, post, postImageUrl, userDP) =>{
-		setImageUrl({ email: email, firstName: firstName, lastName: lastName, post: post, postImageUrl: postImageUrl, userDP: userDP })
+	useEffect(() =>{
+		const clickOverlay = e =>{
+			if(e.target.className === 'photos__modal-overlay') setHidden(false)
+		}
+
+		window.addEventListener('click', clickOverlay)
+
+		return () => { window.removeEventListener('click', clickOverlay) }
+	}, [isHidden])
+
+	const showModalImage = (firstName, lastName, post, postImageUrl, userDP, timestamp) =>{
+		setImageUrl({ firstName: firstName, lastName: lastName, post: post, postImageUrl: postImageUrl, userDP: userDP, timestamp: timestamp })
 		setHidden(!isHidden)
 	}
 
@@ -53,7 +64,7 @@ const Photos = ({ isFetching, id, posts }) =>{
 					<LoadingSpinner size='medium' substitutionSmall='true'/> 
 
 					: checkImageUrl !== null && checkImageUrl.length > 0 ?
-					<div className='photos__lists'>
+					<div className={ `photos__lists ${checkImageUrl.length === 1 ? 'single-box' : ''}` }>
 						{
 							posts.map(post => (
 								post.postImageUrl ? <PhotosItem key={ post.id } showModalImage={ showModalImage } { ...post } /> : ''
@@ -78,7 +89,7 @@ const Photos = ({ isFetching, id, posts }) =>{
 								</figure>
 								<div className={ `photos__name-container ${post.length < 1 ? 'reset-padding' : ''}` }>
 									<p className='photos__name'>{ firstName } { lastName }</p>
-									<p className='photos__email'><em>{ email }</em></p>
+									<p className='photos__time'>{ moment(timestamp).fromNow() }</p>
 								</div>
 							</div>
 							{ post.length > 0 ? <p className='photos__caption'>{ post }</p> : ''}

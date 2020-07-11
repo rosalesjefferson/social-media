@@ -9,7 +9,8 @@
 
 	&__link{
 		font-size: 1.3rem;
-		color: $dark;
+		color: $gray-3;
+		font-weight: 600;
 		display: flex;
 		align-items: center;
 	}
@@ -33,6 +34,7 @@
 		align-items: center;
 		cursor: unset;
 		margin-right: 8px;
+
 		&.active{
 			display: flex;
 		}

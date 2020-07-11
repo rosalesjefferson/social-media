@@ -60,12 +60,13 @@ export function* fetchPosts(){
 }
 
 export function* addPost({ payload: { post, imageObject } }){
-	const created_at = new Date().toLocaleString("en-US", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
+	// const created_at = new Date().toLocaleString("en-US", {
+ //      weekday: "long",
+ //      day: "numeric",
+ //      month: "long",
+ //      year: "numeric",
+ //    });
+ 	const now = Date.now()
 	try{
 		// get current user
 		const currentUser = yield getCurrentUser()
@@ -82,7 +83,7 @@ export function* addPost({ payload: { post, imageObject } }){
 		
 		// Add post to posts database
 		yield postsCollectionRef.add({
-			created_at,
+			timestamp: now,
 			postImageUrl,
 			userDP,
 			post,

@@ -13,11 +13,10 @@
 			grid-template-columns: repeat(2, max-content) 1fr;
 			align-items: center;
 			grid-gap: 1.5rem;
-		}
-
-		&__item-header-user-info{
-			padding: 1rem;
-			padding-bottom: .5rem;
+			padding: 1rem 1rem .7rem 1rem;
+			&.no-post{
+				padding-bottom: 0!important;
+			}
 		}
 
 		&__item-header-user-image-container{
@@ -35,21 +34,20 @@
 
 		&__item-header-user-name-container{
 			display: grid;
-			line-height: 1.3rem;
+			line-height: 1.5rem;
 		}
 
 		&__item-header-user-name{
 			font-size: 1.3rem;
-			color: $gray;
+			color: $gray-3;
 			letter-spacing: .1px;
 		}
 
-		&__item-header-user-email{
+		&__item-header-user-time{
 			font-size: 1rem;
 			letter-spacing: .5px;
 			font-weight: 400;
-			color: $gray;
-			transform: skewX(-15deg);
+			color: $gray-4;
 		}
 
 
@@ -57,9 +55,13 @@
 		// post image
 		&__item-image-container{
 			margin-top: 1rem;
+			border-top: 1px solid $light-4;
+			border-bottom: 1px solid $light-4;
 		}
 		&__item-image{
+			display: block;
 			width: 100%;
+			height: 100%;
 		}
 		//reaction buttons
 		&__item-reaction-buttons-container{
@@ -69,12 +71,15 @@
 		&__item-caption-container{
 			display: flex;
 			padding: 0 1rem 0 1rem;
+			&.no-image{
+				margin-top: 3px;
+				margin-bottom: -5px;
+			}
 		}
 
 		&__item-caption{
 			color: $gray;
 			font-size: 1.3rem;
-			font-weight: 500;
 			margin-left: .4rem
 		}
 		&__item-caption-user-name{

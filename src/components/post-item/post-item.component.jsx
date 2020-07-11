@@ -1,9 +1,8 @@
 import React  from 'react'
 import { Link } from 'react-router-dom'
-
+import moment from 'moment';
 
 import Comments from '../comments/comments.component'
-
 
 import PostItemHeaderButtons from '../post-item-header-buttons/post-item-header-buttons.component'
 import AddComment from '../add-comment/add-comment.component'
@@ -16,24 +15,25 @@ const PostItem = ({ posts, currentUID }) =>{
 			post, 
 			firstName, 
 			lastName, 
-			email, 
 			postImageUrl, 
 			userDP, 
 			comments, 
 			postUID,
-			likes 
+			likes,
+			timestamp 
 		} = posts
-		console.log('post-item')
+		
+	console.log('post item component')
 	return(
 		<div className='post-item__container mb-2'>
 			<div className='post__item'>
-				<header className='post__item-header-user-info'>
+				<header className={ `post__item-header-user-info ${post.length < 1 ? 'no-post' : ''}` }>
 					<figure className='post__item-header-user-image-container'>
 						<img src={ userDP } className='post__item-header-user-image' alt='post header' />
 					</figure>
 					<h5 className='post__item-header-user-name-container'>
 						<Link to={ `/timeline/${postUID}` } className='post__item-header-user-name'>{ `${firstName} ${lastName}` }</Link>
-						<Link to={ `/timeline/${postUID}` } className='post__item-header-user-email'>{`@${email}`}</Link>
+						<Link to={ `/timeline/${postUID}` } className='post__item-header-user-time'>{ moment(timestamp).fromNow() }</Link>
 					</h5>
 					<PostItemHeaderButtons 
 						post={ post }
@@ -43,7 +43,7 @@ const PostItem = ({ posts, currentUID }) =>{
 						postImageUrl={ postImageUrl }
 					/>
 				</header>
-				<div className='post__item-caption-container'>
+				<div className={ `post__item-caption-container ${postImageUrl === null && post.length > 0 ? 'no-image' : ''}` }>
 					<p className='post__item-caption'>{ post }</p>
 				</div>
 				{ 
@@ -62,6 +62,7 @@ const PostItem = ({ posts, currentUID }) =>{
 export default React.memo(PostItem)
 
 
+					// <p  className={ `post__item-header-user-time ${post.length < 1 ? 'no-caption' : ''}` } >{ moment(timestamp).fromNow() }</p>
 
 		
 

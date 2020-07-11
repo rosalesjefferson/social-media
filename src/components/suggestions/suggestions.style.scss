@@ -13,13 +13,15 @@
 	}
 
 	&__title{
-		font-size: 1.5rem;
+		font-size: 1.4rem;
+		font-weight: 500;
+		color: $gray-8;
 	}
 
 	&__see-all{
-		font-size: 1.2rem;
-		font-weight: 600;
-		color: $gray;
+		font-size: 1.3rem;
+		font-weight: 500;
+		color: $gray-8;
 		transition: all .5s;
 		&:hover{
 			color: $secondary;

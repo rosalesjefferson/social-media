@@ -1,21 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 import './photos-item.style.scss'
 
-const PhotosItem = ({ email, firstName, lastName, post, postImageUrl, userDP, showModalImage }) =>{
-	const [isDark, setDark] = useState(false)
-	useEffect(() =>{
-		let unsubscribed = false
-		if(!unsubscribed){
-			setTimeout(() =>{
-				setDark(true)
-			}, 500)
-		}
-		return () => { unsubscribed = true }
-	}, [isDark])
+const PhotosItem = ({ firstName, lastName, post, postImageUrl, userDP, timestamp, showModalImage }) =>{
 	return(
-		<figure onClick={ () => showModalImage(email, firstName, lastName, post, postImageUrl, userDP, showModalImage) } 
-			className={ `photos__image-container ${isDark ? 'has-image' : ''}` }
+		<figure onClick={ () => showModalImage( firstName, lastName, post, postImageUrl, userDP, timestamp, showModalImage) } 
+			className='photos__image-container'
 		>
 			<img src={ postImageUrl } className='photos__image' alt='timeline gallery'/>
 		</figure>

@@ -2,12 +2,9 @@
 .about{
 	@include background();
 	&__header-container{
-		display: flex;
-		align-items: center;
-		background: $light-2-medium;
 		padding: 1rem;
-		border-bottom: 1px solid $light-6;
-		border-radius: 5px;
+		@include timelineContentHeader()
+		
 		& >:last-child{
 			cursor: pointer;
 			&:hover{
@@ -25,21 +22,22 @@
 	}
 
 	&__title{
-		font-weight: 600!important;
 		margin-right: auto;
 	}
 
 	&__info-container{
 		padding: 1rem;
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
 		grid-gap: 1rem;
 	}
 
 	&__info{
-		font-size: 1.5rem;
+		font-size: 1.3rem;
+		color: $gray-8;
 		span{
-			font-weight: 500;
+			font-size: 1.4rem;
+			color: $gray-4;
 		}
 	}
 

@@ -16,33 +16,32 @@
 		font-weight: 600!important;
 	}
 
-	&__title{
-		font-weight: 600!important;
-	}
-
 	&__lists{
 		padding: 7px;
 		display: grid;
 		grid-auto-rows: 20rem;
 		grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 		grid-gap: 7px;
+		&.single-box{
+			grid-template-columns: 33.33%;
+		}
 	}
 
 
 	&__modal-overlay{
-		@include position(absolute, 0, 0, unset, unset);
+		@include position(fixed, 0, 0, unset, unset);
 		background: linear-gradient(rgba($dark, .7), rgba($dark, .7));
 		width: 100%;
-		height: 100%;
+		height: 100vh;
 	}
 
 	&__content{
-		@include position(fixed, 50%, unset, unset, 50%);
-		transform: translate(-50%, -50%);
-		width: 55rem;
+		margin: 17rem auto 0 auto;
+		max-width: 55rem;
 		background: $light;
 		border-radius: 5px;
 		overflow: hidden;
+		position: relative;
 	}
 
 	&__content-header{
@@ -50,7 +49,7 @@
 		align-items: center;
 		padding: 1rem 1rem 5px 1rem;
 		&.reset-padding{
-			padding: 1rem 1rem 1rem 1rem!important;
+			padding: 1rem!important;
 		}
 	}
 
@@ -73,16 +72,13 @@
 
 	&__name{
 		font-size: 1.3rem;
-		color: $gray;
+		color: $gray-3;
 		font-weight: 600;
 		letter-spacing: .1px;
 	}
 
-	&__email{
-		font-size: 1rem;
-		letter-spacing: .5px;
-		color: $gray-8;
-		font-weight: 500;
+	&__time{
+		line-height: 1.6rem;
 	}
 
 	&__caption{
@@ -95,13 +91,14 @@
 
 	&__modal-image-container{
 		width: 100%;
-		height: 50rem;
+		height: 40rem;
 	}
 
 	&__modal-image{
 		display: block;
 		width: 100%;
 		height: 100%;
+		object-fit: cover;
 	}
 
 	&__close-button{

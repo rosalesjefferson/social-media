@@ -5,21 +5,16 @@ import { editCaptionStart } from '../../redux/crud/crud.actions'
 
 import './edit-post-caption.style.scss'
 
-const EditPostCaption = ({postItemId, post, isModalHidden, passHandleClickEdit, editCaptionStart }) =>{
+const EditPostCaption = ({postItemId, post, passHandleClickEdit, editCaptionStart }) =>{
 	const [caption, setCaption] = useState(post)
 	const [isSpinnerHidden, setSpinner] = useState(false)
 
 	useEffect(() =>{
 		let unsubscribed = false
 		if(!unsubscribed){
-			if(caption === post){
-				setTimeout(() =>{
-					passHandleClickEdit()
-					setTimeout(() =>{
-						setSpinner(false)
-					}, 500)
-				}, 500)
-			}
+			setTimeout(() =>{
+				setSpinner(false)
+			}, 500)
 		}
 		return () => { unsubscribed = true }
 	}, [post])
@@ -38,10 +33,9 @@ const EditPostCaption = ({postItemId, post, isModalHidden, passHandleClickEdit, 
 	const hideModal = () =>{
 		passHandleClickEdit()
 	}
-
-
+	console.log('edit post caption component')
 	return(
-		<div className={ `edit-post-caption__outside-background ${isModalHidden ? 'active' : ''}`}>
+		<div className='edit-post-caption__outside-background'>
 			<div className='edit-post-caption__container'>
 				<div className='edit-post-caption__header-container'>
 					<h5 className='header-5 edit-post-caption__title'>Edit Caption</h5>

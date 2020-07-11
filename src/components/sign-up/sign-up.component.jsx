@@ -58,7 +58,6 @@ const SignUp = ({ signUpStart, selectIsAuthenticationSuccess, error }) =>{
 	}
 
 	useEffect(() =>{
-		const inputElement = document.getElementById('email')
 		if(error){
 			if(error.includes('already')) showError(document.getElementById('email'), error, 'error')
 		}

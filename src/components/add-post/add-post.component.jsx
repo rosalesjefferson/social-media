@@ -18,7 +18,6 @@ const AddPost = ({ addPostStart, currentUser }) =>{
 	const handleFileChange = (e) =>{
 		const imageFile = e.target.files[0]
 		setPost({ ...posts, imageObject: imageFile})
-		console.log(e.target)
 	}
 
 
