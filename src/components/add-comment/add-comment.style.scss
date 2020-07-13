@@ -1,7 +1,8 @@
 @import '../../scss/main.scss';
 .add-comment__form{
+	width: 100%;
 	display: grid;
-	grid-template-columns: 90% 1fr;
+	grid-template-columns: 1fr max-content;
 	.add-comment{
 		&__input,
 		&__button{
@@ -16,6 +17,9 @@
 
 		&__input{
 			padding-right: 0;
+			@media only screen and(max-width: 50em){
+				font-size: 1.2rem;
+			}
 		}
 
 		&__button{
@@ -24,9 +28,13 @@
 			background: transparent;
 			font-weight: 600;
 			transition: all .5s;
-			padding: 1.5rem 1rem;
+			padding: 1.5rem 1.5rem;
 			&.active{
 				color: $secondary;
+			}
+
+			@media only screen and(max-width: 37.5em){
+				font-size: 1.4rem;
 			}
 		}
 	}

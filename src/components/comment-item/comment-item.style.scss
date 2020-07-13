@@ -1,33 +1,39 @@
 @import '../../scss/main.scss';
 .comment__item{
-	display: flex;
 	width: 100%;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: 1fr max-content;
+	justify-items: start;
 	align-items: center;
-	grid-gap: .5rem;
-	height: 3.5rem;
+	&:nth-child(2n+1){
+		color: red;
+	} 
 	.comment{
-		&__item-description{
-			background: $light-2-medium;
-			display: flex;
-			align-items: center;
-			border-radius: 20rem;
-			height: 100%;
-			padding: 0 1.5rem;
-		}
 		&__item-name{
 			font-weight: 600;
+			border-radius: 20rem;
 			font-size: 1.3rem;
-			margin-right: 5px;
 			color: $gray-3;
+			margin: 0 5px;
+			line-height: 1.6rem;
+			background: linear-gradient(rgba($light-8, .2), rgba($light-8, .2));
+			border-radius: 1rem;
+			padding: 6px 1rem;
+			@media only screen and (max-width: 50em){
+				font-size: 1.1rem;
+			}
 		}
+
 		&__item-comment{
 			font-weight: 400;
 			font-size: 1.2rem;
+			margin-left: 5px;
 		}
+		
 		&__item-time{
 			font-size: 1.1rem;
-			margin-right: 1.5rem;
+			margin: 0 1rem;
+			color: $gray-9;
 		}
 	}
 }

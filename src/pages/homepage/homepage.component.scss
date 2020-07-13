@@ -1,15 +1,22 @@
 @import '../../scss/main.scss';
 .homepage{
-
+	padding: 0 3rem;
 	.container{
 		display: grid;
-		grid-template-columns: 1fr 35%;
+		grid-template-columns: 1fr max-content;
 		grid-gap: 3rem;
 		margin-top: 3.5rem;
+		align-items: start;
+		@media only screen and(max-width: 43.75em){
+			grid-template-columns: 1fr;
+			position: relative;
+			grid-gap: 2rem;
+		}
 	}
 
 	.suggestions-preview-profile-container{
-
+		@media only screen and(max-width: 43.75em){
+			display: none;
+		}
 	}
-
 }

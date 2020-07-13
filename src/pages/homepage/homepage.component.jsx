@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { selectIsPostsFetching } from '../../redux/crud/crud.selectors'
@@ -11,19 +11,36 @@ import PreviewProfile from '../../components/preview-profile/preview-profile.com
 import './homepage.component.scss'
 
 const Hompage = ({ isFetching }) =>{
+	const [windowWidth, setWidth] = useState(window.innerWidth)
+	useEffect(() =>{
+
+		const resize = () =>{
+			setWidth(window.innerWidth)		
+		}
+
+		window.addEventListener('resize', resize)
+
+		return () => { window.removeEventListener('resize', resize) }
+	}, [windowWidth])
+
 	const condition = false
 	const timelineUID = 'NO ID'
+
+	console.log('Homepage component')
 	return(
 	<div className='homepage'>
 		<div className='container'>
 			<div className='newsfeed-container'>
 				<AddPost />
 				<Posts isTimeline={ condition } timelineUID={ timelineUID } />				
-			</div>	
-		<div className='suggestions-preview-profile-container'>
-			<PreviewProfile />
-			<Suggestions />
-		</div>
+			</div>
+
+			{ windowWidth <= 700 ? <Suggestions numberOfUsers={ 10 }/> : '' }
+
+			<div className='suggestions-preview-profile-container'>
+				<PreviewProfile />
+				<Suggestions numberOfUsers={ 5 }/>
+		  	</div> 
 		</div>
 	</div>
 )}

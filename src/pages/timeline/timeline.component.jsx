@@ -66,51 +66,53 @@ const Timeline = ({ timelineUser, currentUser, match, fetchUsersStart }) =>{
 	}
 
 	return(
- 			<div className='timeline__container'>
- 				{
-	 				timelineUser.length < 1 ? 
-	 				 <LoadingSpinner substitution='true' />
-	 				: <div>
-							<div className='timeline-header-container'>
-								<figure className='timeline__cover-image-container'>
-									{ userCover.length > 0 ? <img src={ userCover } className='timeline__cover-image' alt='cover'/>
-									: '' }
-									{ UID !== id ?
-										<TimelineButton currentUser={ currentUser } timelineUserInfo={ timelineUser }/>
-										: ''
-									}
-								</figure>
-								<ul className='timeline__lists-container'>
-									<figure className='timeline__user-image-container'>
-										<img src={ userDP } alt='timeline' className='timeline__user-image'/>
-										<Link to={`/timeline/${id}`}className='header-3 timeline__name-container'>
-											<span className='timeline__name'>{ firstName } { lastName }</span>
-											<span className='timeline__nickname'>{`${nickname.length > 0 ? `(${ nickname })` : '' }`}</span>
-										</Link>
+ 			<div className='timeline__padding'>
+ 				<div className='timeline__container'>
+	 				{
+		 				timelineUser.length < 1 ? 
+		 				 <LoadingSpinner substitution='true' />
+		 				: <div>
+								<div className='timeline-header-container'>
+									<figure className='timeline__cover-image-container'>
+										{ userCover.length > 0 ? <img src={ userCover } className='timeline__cover-image' alt='cover'/>
+										: '' }
+										{ UID !== id ?
+											<TimelineButton currentUser={ currentUser } timelineUserInfo={ timelineUser }/>
+											: ''
+										}
 									</figure>
+									<ul className='timeline__lists-container'>
+										<figure className='timeline__user-image-container'>
+											<img src={ userDP } alt='timeline' className='timeline__user-image'/>
+											<Link to={`/timeline/${id}`}className='header-3 timeline__name-container'>
+												<span className='timeline__name'>{ firstName } { lastName }</span>
+												<span className='timeline__nickname'>{`${nickname.length > 0 ? `(${ nickname })` : '' }`}</span>
+											</Link>
+										</figure>
 
-									<li id='timeline' className='timeline__item'><span onClick={ onClickHidden } className='timeline__link'>Timeline</span></li>
-									<li id='about' className='timeline__item'><span onClick={ onClickHidden } className='timeline__link'>About</span></li>
-									<li id='following' className='timeline__item'><span onClick={ onClickHidden } className='timeline__link'>Following</span></li>
-									<li id='followers' className='timeline__item'><span onClick={ onClickHidden } className='timeline__link'>Followers</span></li>
-									<li id='photos' className='timeline__item'><span onClick={ onClickHidden } className='timeline__link'>Photos</span></li>
-								</ul>
-							</div>
-							{ timeline ? 
-								<div className='timeline-feed-container'>
-									<TimelineUserInfo featuredPhoto={ featuredPhoto } bio={ bio } timelineUID={ id } UID={ UID } joined={ created_at }/> 
-									<div className='timeline-posts-container'>
-										{ id === UID ? <AddPost /> : '' }
-										<Posts isTimeline={ isTimeline } timelineUID={ id } />
-									</div>
+										<li id='timeline' className='timeline__item'><span onClick={ onClickHidden } className='timeline__link'>Timeline</span></li>
+										<li id='about' className='timeline__item'><span onClick={ onClickHidden } className='timeline__link'>About</span></li>
+										<li id='following' className='timeline__item'><span onClick={ onClickHidden } className='timeline__link'>Following</span></li>
+										<li id='followers' className='timeline__item'><span onClick={ onClickHidden } className='timeline__link'>Followers</span></li>
+										<li id='photos' className='timeline__item'><span onClick={ onClickHidden } className='timeline__link'>Photos</span></li>
+									</ul>
 								</div>
-							: ''}
-							{ about ? <About timelineUser={ timelineUser } UID={ UID }/> : ''}
-							{ following ? <Following timelineUID={ id } reset={ resetToTimelineComponent } /> : ''}
-							{ followers ? <Followers timelineUID={ id } reset={ resetToTimelineComponent } /> : ''}
-							{ photos ? <Photos timelineUID={ id }/> : ''}
-						</div>	
- 				}
+								{ timeline ? 
+									<div className='timeline-feed-container'>
+										<TimelineUserInfo featuredPhoto={ featuredPhoto } bio={ bio } timelineUID={ id } UID={ UID } joined={ created_at }/> 
+										<div className='timeline-posts-container'>
+											{ id === UID ? <AddPost /> : '' }
+											<Posts isTimeline={ isTimeline } timelineUID={ id } />
+										</div>
+									</div>
+								: ''}
+								{ about ? <About timelineUser={ timelineUser } UID={ UID }/> : ''}
+								{ following ? <Following timelineUID={ id } reset={ resetToTimelineComponent } /> : ''}
+								{ followers ? <Followers timelineUID={ id } reset={ resetToTimelineComponent } /> : ''}
+								{ photos ? <Photos timelineUID={ id }/> : ''}
+							</div>	
+	 				}
+	 			</div>
 			</div> 
 	)
 }

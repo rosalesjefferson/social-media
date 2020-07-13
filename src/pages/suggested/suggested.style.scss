@@ -1,6 +1,7 @@
 @import '../../scss/main.scss';
 .suggested{
 	&-container{
+		padding: 0 3rem;
 		.container{
 			@include background();
 			margin-top: 4rem;
@@ -11,7 +12,7 @@
 
 	&__users-container{
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(3, 1fr);
 		grid-column-gap: 2rem;
 		button{
 			background: $secondary;
@@ -20,11 +21,20 @@
 			padding: 7px 10px;
 			border-radius: 5px;
 		}
+
+		@media only screen and(max-width: 50em){
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		@media only screen and(max-width: 37.5em){
+			grid-template-columns: 1fr;
+		}
+
 	}
 
 	&__title{
 		font-weight: 500;
-		margin-bottom: 5px;
+		margin-bottom: 1rem;
 	}
 
 	&__nothing-placeholder-container{

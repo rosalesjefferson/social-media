@@ -10,7 +10,7 @@ import UserItem from '../user-item/user-item.component'
 
 import './suggestions.style.scss'
 
-const Suggestions = ({ fetchUsersStart, users }) =>{
+const Suggestions = ({ fetchUsersStart, users, numberOfUsers }) =>{
 	useEffect(() =>{
 		let unsubscribed = false
 		if(!unsubscribed){
@@ -35,7 +35,7 @@ const Suggestions = ({ fetchUsersStart, users }) =>{
 					? <ul className='suggestions__lists-container'>
 						{	
 							users
-							.filter((user, index) => index < 5)
+							.filter((user, index) => index < numberOfUsers)
 							.map(user =>(
 								<UserItem key={ user.id } buttonText='Follow' { ...user } />
 							))

@@ -41,6 +41,9 @@
 			font-size: 1.3rem;
 			color: $gray-3;
 			letter-spacing: .1px;
+			@media only screen and (max-width: 50em){
+				font-size: 1.2rem;
+			}
 		}
 
 		&__item-header-user-time{

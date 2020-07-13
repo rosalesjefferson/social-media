@@ -36,19 +36,33 @@ const Header = ({ currentUser, signOutStart }) => {
 					{  currentUser ? 
 					<ul className='header__nav-lists'>
 						<li className='header__nav-item'><Link to='/' className='header__nav-link'><i className="fas fa-home"></i></Link></li>
-						<li className='header__nav-item'><Link to={ `/timeline/${currentUser.UID}` } className='header__nav-link timeline'>
-							<figure className='header__nav-link-image-container'>
-								<img className='header__nav-link-image' src={ currentUser.userDP } alt='header' />
-							</figure>
-							<span className='header__nav-link-image-name'>{currentUser.firstName}</span>
-						</Link></li>
+						<li className='header__nav-item'>
+							<Link to={ `/timeline/${currentUser.UID}` } className='header__nav-link timeline'>
+								<figure className='header__nav-link-image-container'>
+									<img className='header__nav-link-image' src={ currentUser.userDP } alt='header' />
+								</figure>
+							    <span className='header__nav-link-image-name'>{currentUser.firstName}</span>
+							</Link>
+						</li>
 						<div className={ `${ hidden ? 'active' : '' } header__nav-button-container` }>
 							<span onClick={ handleClick } className='header__nav-button'>
-								<i className={ `${ hidden ? 'active' : '' } fas fa-caret-down` }></i>
+								<i className={ `${ hidden ? 'active' : '' } fas fa-caret-down header__nav-button-icon` }></i>
 							</span>
 							<div className={ `header__dropdown ${ hidden ? 'active' : '' }` }>
-								<Link to='/suggested' className='header__dropdown-link'>Suggested</Link>
-								<div onClick={ signOutStart } className='header__dropdown-link'>Sign Out</div>
+								<Link to={ `/timeline/${currentUser.UID}` } className='header__dropdown-link image'>
+									<figure className='header__dropdown-link-image-container'>
+										<img className='header__dropdown-link-image' src={ currentUser.userDP } alt='header' />
+									</figure>
+								    <span className='header__dropdown-text'>{currentUser.firstName}</span>
+								</Link>
+								<Link to='/suggested' className='header__dropdown-link'>
+									<i className="fas fa-user-friends header__dropdown-icon"></i>
+									<span className='header__dropdown-text'>Suggested</span>
+								</Link>
+								<div onClick={ signOutStart } className='header__dropdown-link'>
+									<i className="fas fa-sign-out-alt header__dropdown-icon"></i>
+									<span className='header__dropdown-text'>Sign Out</span>
+								</div>
 							</div>
 						</div>
 					</ul>

@@ -9,14 +9,14 @@
 		z-index: 100;
 	}
 	&__container{
-		@include position(absolute, 2rem, 1.9rem, unset, unset);
-		width: 93%;
+		width: 90%;
+		margin: 3rem auto 0 auto;
 		background: $light;
 	}
 
 	&__form-group{
 		display: grid;
-		grid-template-columns: 1fr 10%;
+		grid-template-columns: 1fr max-content;
 	}
 	&__header-container{
 		display: grid;
@@ -36,6 +36,7 @@
 		display: none;
 		justify-content: center;
 		align-items: center;
+		padding: 0 1rem;
 		&.active{
 			display: flex;
 		}
@@ -79,6 +80,7 @@
 		width: 100%;
 		padding: 1rem;
 		height: 4rem;
+		color: $gray;
 
 		&::-webkit-scrollbar{
             width: 1rem;
@@ -98,6 +100,15 @@
 		&:focus{
 			outline: none;
 		}
+
+		@media only screen and(max-width: 56.25em){
+			height: 4.5rem;
+		}
+
+
+		@media only screen and(max-width: 37.5em){
+			font-size: 1.4rem;
+		}
 	}
 
 	&__button{
@@ -110,6 +121,7 @@
 		font-weight: 600;
 		transition: color .5s, transform .2s;
 		background: transparent;
+		padding: 0 1rem;
 
 		&.active{
 			color: $secondary;
@@ -123,6 +135,10 @@
 
 		&.hidden{
 			display: none;
+		}
+
+		@media only screen and(max-width: 37.5em){
+			font-size: 1.4rem;
 		}
 	}
 }

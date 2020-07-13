@@ -5,9 +5,13 @@
 	align-items: center;
 	grid-column-gap: 2rem;
 	margin-bottom: 2rem;
-
 	padding: 1rem;
 	@include background;
+
+	@media only screen and(max-width: 43.75em){
+		display: none;
+	}
+
 	.preview-profile{
 		&__image-container{
 			width: 6rem;
@@ -26,13 +30,25 @@
 		}
 
 		&__name{
-			font-size: 1.2rem;
+			font-size: 1.1rem;
+			@media only screen and(max-width: 50em){
+				font-size: 1rem;
+			}
+
 		}
 
 		&__email{
 			font-weight: 600;
 			color: $gray-4;
-			font-size: 1.3rem;
+			font-size: 1.2rem;
+			@media only screen and(max-width: 50em){
+				font-size: 1.1rem;
+			}
+
+		}
+		
+		.user__link{
+			font-size: 1rem;
 		}
 	}
 }

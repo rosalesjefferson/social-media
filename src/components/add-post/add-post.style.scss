@@ -26,6 +26,9 @@
 			&:focus{
 				outline: none;
 			}
+			@media only screen and(max-width: 50em){
+				font-size: 1.3rem;
+			}
 		}
 		&__button-container{
 			display: flex ;
@@ -45,6 +48,14 @@
 			font-size: 1.1rem;
 			&:hover{
 				background: $light-5;
+			}
+
+			@media only screen and(max-width: 50em){
+				padding: 8px 1.5rem;
+			}
+
+			@media only screen and(max-width: 21.875em){
+				padding: 5px 1.3rem;
 			}
 		}
 
@@ -107,6 +118,16 @@
 			}
 			&:focus{
 			 outline: none;
+			}
+
+			@media only screen and(max-width: 50em){
+				padding: .7rem 1rem;
+				font-size: 1.4rem;
+			}
+
+			@media only screen and(max-width: 21.875em){
+				padding: 4px 8px;
+				font-size: 1.3rem;
 			}
 		}
 	}
