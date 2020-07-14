@@ -5,7 +5,7 @@ import { followUserStart } from '../../redux/user/user.actions'
 
 import './timeline-button.style.scss'
 
-const TimelineButton = ({ currentUser, followUserStart, timelineUserInfo: { id, firstName, lastName, email, userDP } }) =>{
+const TimelineButton = ({ currentUser, followUserStart, timelineUserInfo: { id, firstName, lastName, email, userDP }, windowWidth }) =>{
 	const [isHidden, setHidden] = useState(false)
 	const [isFollowing, setFollowing] = useState(false)
 	const [isSpinnerHidden, setSpinner] = useState(false)
@@ -28,14 +28,19 @@ const TimelineButton = ({ currentUser, followUserStart, timelineUserInfo: { id, 
 		followUserStart({ firstName, lastName, id, email, userDP })
 		setSpinner(true)
 	}
-
 	return(
 		<div className='timeline__button-container'>
 			{
 				isFollowing ? <button className='timeline__button-following'>
-								<i className="fas fa-check timeline__button-icon check"></i>
-								<span className='timeline__button-text'>Following</span>
-								<i onClick={ handleClickHide } className="fas fa-caret-down timeline__button-icon down"></i>
+								{ windowWidth > 600 ? <i className="fas fa-check timeline__button-icon check"></i> : '' }
+								{ windowWidth > 600 ? <span className='timeline__button-text'>Following</span> : '' }
+								{ windowWidth > 600 ? <i onClick={ handleClickHide } className="fas fa-caret-down timeline__button-icon down"></i> : '' }
+								
+								{
+									windowWidth <= 600 ?
+									<i onClick={ handleClickHide } className="fas fa-user-check timeline__button-icon"></i>
+									: ''
+								}
 
 								<div className={ `timeline__dropdown ${isHidden ? 'active' : ''}` }>
 									<span onClick={ toFollowOrUnfollow } className='timeline__dropdown-button'>Unfollow</span>
@@ -49,7 +54,9 @@ const TimelineButton = ({ currentUser, followUserStart, timelineUserInfo: { id, 
 							</button>
 
 				: <button className= {`timeline__button-following ${!isFollowing ? 'follow' : ''  }` }>
-					<span onClick={ toFollowOrUnfollow } className='timeline__button-text'>Follow</span>
+				{ windowWidth > 600 ? <span onClick={ toFollowOrUnfollow } className='timeline__button-text'>Follow</span> : '' }
+				{ windowWidth <= 600 ? <i onClick={ toFollowOrUnfollow } className="fas fa-user-plus timeline__button-icon"></i> : '' }
+					
 					{ isSpinnerHidden ?
 							<div className='timeline__spinner-container'>
 								<span className='timeline__spinner'></span>
@@ -67,23 +74,3 @@ const mapDispatchToProps = dispatch =>({
 })
 
 export default connect(null, mapDispatchToProps)(TimelineButton)
-
-		// <div className='timeline__button-container'>
-		// 	<div className='timeline__button-group'>
-		// 		<button className='timeline__button'>
-		// 			{ isFollowing ? <i onClick={ handleClickHide }className="fas fa-check timeline__button-icon"></i> : '' }
-		// 			{ isFollowing ?
-		// 				<span onClick={ handleClickHide } className='timeline__button-text'>Following</span> 
-		// 				: <span onClick={ toFollowOrUnfollow } className='timeline__button-text'>Follow</span> 
-		// 			}
-		// 			{ isFollowing ? <i onClick={ handleClickHide }className="fas fa-caret-down timeline__button-icon"></i> : '' }
-		// 		</button>
-
-		// 		{
-		// 			isHidden && isFollowing ? 
-		// 				<div onClick={ toFollowOrUnfollow } className='timeline__dropdown'>
-		// 					<button className='timeline__dropdown-button'>Unfollow</button>
-		// 				</div> : ''
-		// 		}
-		// 	</div>
-		// </div>

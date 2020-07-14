@@ -56,6 +56,11 @@
 				min-width: unset;
 				flex: 0 1 100%;
 			}
+
+			@media only screen and(max-width: 21.875em){
+				min-width: unset;
+				flex: 0 1 100%;
+			}
 		}
 		&__feedback{
 			margin: 5px 0 0 1rem;

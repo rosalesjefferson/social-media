@@ -24,7 +24,7 @@ const PostItemHeaderButtons = ({ ...otherProps }) =>{
 	return(
 			<div className='post__item-header-button-container'>
 				<div className='post__item-header-button'>
-					<span onClick={ handleClick } className='post__item-header-icon-ontainer'><i className="fas fa-ellipsis-h"></i></span>
+					<span onClick={ handleClick } className='post__item-header-icon-container'><i className="fas fa-ellipsis-h"></i></span>
 						<PostDropdown 
 							{...otherProps}
 							isHidden={ isHidden }

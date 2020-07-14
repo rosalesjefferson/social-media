@@ -4,6 +4,10 @@
 		@include position(absolute, unset, 1.5rem, 1.5rem, unset);
 		display: flex;
 		flex-direction: column;
+		@media only screen and(max-width: 37.5em){
+			@include position(absolute, unset, 5.2rem, 5px, unset);
+			z-index: 2000;
+		}
 	}
 
 	&__button-following{
@@ -18,6 +22,9 @@
 		&:focus{
 			outline: none;
 		}
+		@media only screen and(max-width: 37.5em){
+			grid-template-columns: repeat(1, max-content);
+		}
 
 		&.follow{
 			display: flex;
@@ -29,6 +36,11 @@
 				&:active{
 					transform: scale(.9);
 				}
+			}
+
+			@media only screen and(max-width: 37.5em){
+				padding: 5px 1rem;
+				color: $gray!important;
 			}
 		}
 	}
@@ -45,10 +57,15 @@
 				color: $secondary;
 			}
 		}
+		@media only screen and(max-width: 37.5em){
+			&:hover{
+				color: $gray;
+			}
+		}
 	}
 
 	&__dropdown{
-		@include position(absolute, unset, 0, -2.8rem, unset);
+		@include position(absolute, unset, 0, -2.75rem, unset);
 		display: flex;
 		background: $light;
 		width: 100%;
@@ -80,6 +97,18 @@
 				text-shadow: 0 0 10px rgba($secondary, .2);
 			}
 		}
+
+		@media only screen and(max-width: 56.25em){
+			bottom: -3.1rem;
+		}
+
+		@media only screen and(max-width: 37.5em){
+			@include position(absolute, unset, 0, -2.9rem, unset);
+			width: auto;
+			box-shadow: 0 0 5px rgba($dark, .8);
+			font-size: 1.2rem;
+			z-index: 2000;
+		}
 	}
 
 
@@ -88,6 +117,10 @@
 		justify-content: center;
 		align-items: center;
 		margin-left: 8px;
+		@media only screen and(max-width: 37.5em){
+			margin-right: 0!important;
+			margin-left: .6rem!important;
+		}
 	}
 
 	&__spinner{
@@ -98,6 +131,11 @@
 		border-radius: 50%;
 		border-top-color: $secondary;
 		animation: spin 1s ease-in-out infinite;
+
+		@media only screen and(max-width: 37.5em){
+			border: 3px solid rgba($dark, .5);
+			border-top-color: $secondary;
+		}
 
 	}
 }
