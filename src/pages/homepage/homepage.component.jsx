@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { selectIsPostsFetching } from '../../redux/crud/crud.selectors'
-
 import Posts from '../../components/posts/posts.component'
 import AddPost from '../../components/add-post/add-post.component'
 import Suggestions from '../../components/suggestions/suggestions.component'
@@ -10,7 +8,7 @@ import PreviewProfile from '../../components/preview-profile/preview-profile.com
 
 import './homepage.component.scss'
 
-const Hompage = ({ isFetching }) =>{
+const Hompage = () =>{
 	const [windowWidth, setWidth] = useState(window.innerWidth)
 	useEffect(() =>{
 
@@ -45,11 +43,7 @@ const Hompage = ({ isFetching }) =>{
 	</div>
 )}
 
-const mapStateToProps = state =>({
-	isFetching: selectIsPostsFetching(state)
-})
-
-export default connect(mapStateToProps)(Hompage)
+export default Hompage
 
 
 // rules_version = '2';

@@ -59,10 +59,10 @@ const Header = ({ currentUser, signOutStart }) => {
 									<i className="fas fa-user-friends header__dropdown-icon"></i>
 									<span className='header__dropdown-text'>Suggested</span>
 								</Link>
-								<div onClick={ signOutStart } className='header__dropdown-link'>
+								<Link to='/' onClick={ signOutStart } className='header__dropdown-link'>
 									<i className="fas fa-sign-out-alt header__dropdown-icon"></i>
 									<span className='header__dropdown-text'>Sign Out</span>
-								</div>
+								</Link>
 							</div>
 						</div>
 					</ul>

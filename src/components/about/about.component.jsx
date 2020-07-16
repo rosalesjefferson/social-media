@@ -102,7 +102,8 @@ const About = ({ editProfileStart, UID, timelineUser }) =>{
 				<p className='about__info'><span>Work: </span>{ `${ work.length > 0 ? work : 'None'}` }</p>
 				<p className='about__info'><span>Joined: </span>{ created_at }</p>
 			</div>
-			<div className={ `about__form-overlay ${isModalHidden ? 'active' : ''}` }>
+			{ isModalHidden ?
+			<div className='about__form-overlay'>
 				<form onSubmit={ handleSubmit } className='about__form'>
 					<span className='about__form-icon-container'>
 						<i onClick={ onClickHideModal } className="fas fa-times"></i>
@@ -276,7 +277,7 @@ const About = ({ editProfileStart, UID, timelineUser }) =>{
 						}
 					</div>
 				</form>
-			</div>
+			</div> : '' }
 		</div>
 	)
 }

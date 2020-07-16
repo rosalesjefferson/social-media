@@ -42,15 +42,19 @@ const TimelineButton = ({ currentUser, followUserStart, timelineUserInfo: { id, 
 									: ''
 								}
 
-								<div className={ `timeline__dropdown ${isHidden ? 'active' : ''}` }>
-									<span onClick={ toFollowOrUnfollow } className='timeline__dropdown-button'>Unfollow</span>
-									{ isSpinnerHidden ?
-										<div className='timeline__spinner-container'>
-											<span className='timeline__spinner'></span>
-										</div>
-										: ''
-									}
-								</div> 
+								{
+									isHidden ?
+									<div className='timeline__dropdown'>
+										<span onClick={ toFollowOrUnfollow } className='timeline__dropdown-button'>Unfollow</span>
+										{ isSpinnerHidden ?
+											<div className='timeline__spinner-container'>
+												<span className='timeline__spinner'></span>
+											</div>
+											: ''
+										}
+									</div> : ''
+								}
+
 							</button>
 
 				: <button className= {`timeline__button-following ${!isFollowing ? 'follow' : ''  }` }>

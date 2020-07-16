@@ -1,13 +1,12 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
-import LoadingSpinner from '../loading-spinner/loading-spinner.component'
+import LoadingSpiner from '../loading-spinner/loading-spinner.component'
 
-const WithSpinner = WrappedComponent => ({ isFetching, ...otherProps }) => {
-		return !isFetching ? (
-			<LoadingSpinner />
-		) : (
+const WithSpinner = WrappedComponent => ({ currentUser, ...otherProps }) => {
+		return currentUser ? (
 			<WrappedComponent { ...otherProps } />
+		) : (
+			<LoadingSpiner substitution='true' />
 		)
 }
 

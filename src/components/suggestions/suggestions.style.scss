@@ -53,12 +53,20 @@
 	&__nothing-placeholder-container{
 		padding: 1.5rem 1rem;
 		background: $light-3;
+
+		@media only screen and(max-width: 43.75em){
+			margin-top: 3rem;
+		}
 	}
 
 	&__nothing-placeholder{
 		font-size: 1.3rem;
 		text-align: center;
 		display: block;
+
+		@media only screen and(max-width: 50em){
+			font-size: 1.1rem;
+		}
 	}
 
 }

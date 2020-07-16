@@ -26,12 +26,13 @@ const Posts = ({ fetchPostsStart, modifiedSuccess, deletePostSuccess, currentUID
 							if(realtimeData.type === 'modified') modifiedSuccess()
 						})
 					})
+			  		window.scrollTo(0, 0)
 			  	} catch(err){
 			  		console.log(err.message)
 			  	} 	
 		    }
 		}
-
+// listening to this while the Coronavirus pandemic is ongoing. This song is very fitting...
 		postsLists()
 
 		return () => { unsubscribed = true }

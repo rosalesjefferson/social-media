@@ -19,17 +19,14 @@ const Timeline = lazy(() => import('././pages/timeline/timeline.component'))
 const SignInAndUp = lazy(() => import('./pages/auth/sign-in-and-up.component'))
 const SignUp = lazy(() => import('./components/sign-up/sign-up.component'))
 
-// import Homepage from './pages/homepage/homepage.component'
-// import Suggested from './pages/suggested/suggested.component'
-// import Timeline from './pages/timeline/timeline.component'
-// import SignInAndUp from './pages/auth/sign-in-and-up.component'
-// import SignUp from './components/sign-up/sign-up.component'
-
-
 function App({ checkUserSessionStart, currentUser }) {
+
   useEffect(() =>{
+
     checkUserSessionStart()
+    
   }, [checkUserSessionStart])
+
   return (
     <div className="App">
     	<Header />

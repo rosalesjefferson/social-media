@@ -1,3 +1,4 @@
+import userTypes from '../user/user.types'
 import crudTypes from './crud.types'
 import { deletePosts } from './crud.utils'
 
@@ -36,6 +37,17 @@ const crudReducer = (state=INITIAL_STATE, action) =>{
 		return{
 			...state,
 			posts: [ ...deletePosts(state.posts, action.payload) ]
+		}
+
+		case userTypes.SIGN_OUT_SUCCESS:
+		return{
+			...state,
+				UID: '',
+				posts: [],
+				following: [],
+				isFetching: false,
+				error: null,
+
 		}
 
 		case crudTypes.FETCH_POSTS_FAILURE:

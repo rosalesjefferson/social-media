@@ -3,7 +3,10 @@
 .header{
 	background: $light;
 	box-shadow: 0 2px 0 rgba($secondary, .5);
-	position: relative;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
 	z-index: 9999;
 	padding: 0 3rem;
 

@@ -78,7 +78,7 @@ const TimelineUserInfo = ({ featuredPhoto, bio, timelineUID, UID, joined, editBi
 						></textarea>
 						<div className={ `timeline-user-info__form-group ${featuredPhotoEdit ? 'active' : ''}` }>
 							<label htmlFor='imgFileObject' className='timeline-user-info__label'>
-								<span className='timeline-user-info__icon-container'><i className="far fa-image"></i></span>
+								<span className='timeline-user-info__icon-container'><i className="far fa-image timeline-user-info__icon-featured-edit"></i></span>
 								<span className='timeline-user-info__text'>Featured photo</span>
 							</label>
 

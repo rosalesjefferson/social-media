@@ -6,6 +6,16 @@
 	&__link{
 		display: flex;
 		align-items: center;
+		@media only screen and(max-width: 45.625em){
+			flex-direction: column;
+			text-align: center;
+		}
+
+		@media only screen and(max-width: 22.5625em){
+			flex-direction: unset;
+			text-align: unset;
+		}
+
 	}
 	&__image-container{
 		width: 8rem;
@@ -13,6 +23,13 @@
 		border-radius: 50%;
 		overflow: hidden;
 		margin-right: 5px;
+		@media only screen and(max-width: 45.625em){
+			margin-right: 0;
+		}
+
+		@media only screen and(max-width: 22.5em){
+			margin-right: 2rem;
+		}
 	}
 	&__image{
 		width: 100%;
@@ -25,6 +42,9 @@
 		color: $gray-3;
 		font-weight: 600;
 		font-size: 1.3rem;
+		@media only screen and(max-width: 50em){
+			font-size: 1.2rem;
+		}
 	}
 	&__email{
 		font-size: 1.1rem;

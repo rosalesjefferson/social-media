@@ -136,11 +136,11 @@ const Timeline = ({ timelineUser, currentUser, match, fetchUsersStart }) =>{
 											</Link>
 										</figure>
 
-										<li id='timeline' className='timeline__item'><span onClick={ onClickHidden } className='timeline__link'>Timeline</span></li>
-										<li id='about' className='timeline__item'><span onClick={ onClickHidden } className='timeline__link'>About</span></li>
-										<li id='following' className='timeline__item'><span onClick={ onClickHidden } className='timeline__link'>Following</span></li>
-										<li id='followers' className='timeline__item'><span onClick={ onClickHidden } className='timeline__link'>Followers</span></li>
-										<li id='photos' className='timeline__item'><span onClick={ onClickHidden } className='timeline__link'>Photos</span></li>
+										<li id='timeline' className='timeline__item'><span onClick={ onClickHidden } className={ `timeline__link ${timeline ? 'active' : ''}`}>Timeline</span></li>
+										<li id='about' className='timeline__item'><span onClick={ onClickHidden } className={ `timeline__link ${about ? 'active' : ''}`}>About</span></li>
+										<li id='following' className='timeline__item'><span onClick={ onClickHidden } className={ `timeline__link ${following ? 'active' : ''}`}>Following</span></li>
+										<li id='followers' className='timeline__item'><span onClick={ onClickHidden } className={ `timeline__link ${followers ? 'active' : ''}`}>Followers</span></li>
+										<li id='photos' className='timeline__item'><span onClick={ onClickHidden } className={ `timeline__link ${photos ? 'active' : ''}`}>Photos</span></li>
 									</ul>
 
 									{

@@ -5,14 +5,13 @@
 		height: 100vh;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
 		align-items: center;
 	}
 
 	&__boundary-image-container{
-		margin-top: -15rem;
-		width: 40rem;
-		height: 40rem;
+		margin-top: 15rem;
+		width: 25rem;
+		height: 25rem;
 	}
 
 	&__boundary-image{
@@ -25,5 +24,9 @@
 		margin-top: 1rem;
 		font-size: 2.5rem;
 		font-weight: 500;
+
+		@media only screen and(max-width: 37.5em){
+			font-size: 2rem;
+		}
 	}
 }

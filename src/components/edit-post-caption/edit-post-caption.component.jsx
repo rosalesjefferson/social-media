@@ -10,13 +10,11 @@ const EditPostCaption = ({postItemId, post, passHandleClickEdit, editCaptionStar
 	const [isSpinnerHidden, setSpinner] = useState(false)
 
 	useEffect(() =>{
-		let unsubscribed = false
-		if(!unsubscribed){
-			setTimeout(() =>{
-				setSpinner(false)
-			}, 500)
-		}
-		return () => { unsubscribed = true }
+		var timeOut
+		timeOut = setTimeout(() =>{
+			setSpinner(false)
+		}, 500)
+		return () => { clearTimeout(timeOut) }
 	}, [post])
 
 	const handleChange = (e) =>{

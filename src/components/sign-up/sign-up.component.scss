@@ -1,6 +1,10 @@
 @import '../../scss/main.scss';
 .signup-form{
-	padding: 8rem 3rem 0 3rem;
+	padding: 17rem 3rem 0 3rem;
+	@media only screen and(max-width: 31.25em){
+		padding: 15rem 3rem 0 3rem;
+	}
+
 	.container{
 		max-width: 50rem;
 		display: flex;
