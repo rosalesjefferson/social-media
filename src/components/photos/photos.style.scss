@@ -19,11 +19,25 @@
 	&__lists{
 		padding: 7px;
 		display: grid;
-		grid-auto-rows: 20rem;
-		grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+		grid-auto-rows: 23rem;
+		grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
 		grid-gap: 7px;
 		&.single-box{
-			grid-template-columns: 33.33%;
+			grid-template-columns: 26.1rem;
+
+			@media only screen and(max-width: 31.25em){
+				grid-auto-rows: 25rem;
+				grid-template-columns: 1fr;
+			}
+		}
+
+
+		@media only screen and(max-width: 31.25em){
+			grid-auto-rows: 20rem;
+		}
+
+		@media only screen and(max-width: 28.375em){
+			grid-auto-rows: 25rem;
 		}
 	}
 

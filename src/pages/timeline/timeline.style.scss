@@ -2,6 +2,10 @@
 .timeline{
 	&__padding{
 		padding: 6.2rem 3rem 3rem 3rem;
+
+		@media only screen and(max-width: 37.5em){
+			padding: 5.5rem 3rem 3rem 3rem;
+		}
 	}
 	&__container{
 		max-width: 80rem;

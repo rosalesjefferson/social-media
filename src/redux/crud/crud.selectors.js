@@ -29,13 +29,13 @@ export const selectPostsWithFollowing = (isTimeline, timelineUID) => createSelec
 			return accumulator
 		}, [])
 
-		const homePosts = allPosts.filter(post => followingUID.includes(post.postUID) || UID === post.postUID)
+		const homePosts = allPosts.filter(post => followingUID.includes(post.postUID) || UID === post.postUID).sort((a, b) => b.timestamp - a.timestamp)
 
 		return homePosts
 	}
 
 	if(isTimeline){
-		const timelinePosts = allPosts.filter(post => post.postUID === timelineUID)
+		const timelinePosts = allPosts.filter(post => post.postUID === timelineUID).sort((a, b) => b.timestamp - a.timestamp)
 		return timelinePosts
 	}
 

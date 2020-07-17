@@ -41,7 +41,7 @@ export function* fetchPostsOnly (){
 }
 
 export function* getLatestPosts(){
-	const postsCollectionRef = firestore.collection('posts')
+	const postsCollectionRef = firestore.collection('posts').orderBy('timestamp')
 	try{
 		const snapShot = yield postsCollectionRef.get()
 		const { UID, posts, following } = yield call(getPosts, snapShot)

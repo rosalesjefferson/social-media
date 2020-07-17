@@ -16,6 +16,7 @@ const PostItem = ({ posts, currentUID }) =>{
 			firstName, 
 			lastName, 
 			postImageUrl, 
+			imageName,
 			userDP, 
 			comments, 
 			postUID,
@@ -40,7 +41,7 @@ const PostItem = ({ posts, currentUID }) =>{
 						postItemId={ id }
 						postUID={ postUID }
 						currentUID={ currentUID }
-						postImageUrl={ postImageUrl }
+						imageName={ imageName }
 					/>
 				</header>
 				<div className={ `post__item-caption-container ${postImageUrl === null && post.length > 0 ? 'no-image' : ''}` }>

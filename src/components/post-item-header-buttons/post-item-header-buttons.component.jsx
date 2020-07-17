@@ -20,7 +20,6 @@ const PostItemHeaderButtons = ({ ...otherProps }) =>{
 	const handleClick = () =>{
 		setIsHidden(!isHidden)
 	}
-	console.log('post item header buttons 3 dots')
 	return(
 			<div className='post__item-header-button-container'>
 				<div className='post__item-header-button'>

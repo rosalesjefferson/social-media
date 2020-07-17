@@ -964,3 +964,4 @@
 [0717/015751.278:ERROR:process_memory_win.cc(73)] ReadMemory at 0x7ff9e171f978 of 48 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
 [0717/015751.278:ERROR:process_memory_win.cc(73)] ReadMemory at 0x7ff9e17253c0 of 64 bytes failed: Only part of a ReadProcessMemory or WriteProcessMemory request was completed. (0x12B)
 [0717/015751.362:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: An attempt was made to access an exiting process. (0xc000010a)
+[0718/022020.478:ERROR:process_info.cc(359)] UncheckedAllocate
